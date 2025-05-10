@@ -1,3 +1,4 @@
+import bcrypt
 from flask import Flask, jsonify, render_template, request, redirect, url_for, session, flash, g
 import random
 import sqlite3
@@ -39,13 +40,22 @@ def query_db(query, args=(), one=False):
     return (rv[0] if rv else None) if one else rv
 
 def save_user(username, password):
+    # Hacher le mot de passe
+    hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
     db = get_db()
-    db.execute('INSERT INTO users (username, password) VALUES (?, ?)', (username, password))
+    db.execute('INSERT INTO users (username, password) VALUES (?, ?)', (username, hashed_password))
     db.commit()
 
 def check_user(username, password):
     user = query_db('SELECT * FROM users WHERE username = ?', [username], one=True)
-    return user and user['password'] == password
+    if user:
+        hashed_password = user['password']
+        # Vérifiez si le mot de passe est déjà en bytes
+        if isinstance(hashed_password, str):
+            hashed_password = hashed_password.encode('utf-8')
+        # Vérifier le mot de passe haché
+        return bcrypt.checkpw(password.encode('utf-8'), hashed_password)
+    return False
 
 def get_user_id_by_username(username):
     user = query_db('SELECT id FROM users WHERE username = ?', [username], one=True)
@@ -462,11 +472,14 @@ def settings():
         if len(new_password) < 6:
             flash("Le mot de passe doit contenir au moins 6 caractères.")
             return render_template('settings.html')
+        # Hacher le nouveau mot de passe
+        hashed_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt())
         db = get_db()
-        db.execute('UPDATE users SET password = ? WHERE username = ?', (new_password, session['username']))
+        db.execute('UPDATE users SET password = ? WHERE username = ?', (hashed_password, session['username']))
         db.commit()
         flash("Mot de passe mis à jour avec succès.")
     return render_template('settings.html')
+
 
 @app.route('/delete_account', methods=['POST'])
 def delete_account():

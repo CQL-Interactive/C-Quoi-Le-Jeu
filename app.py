@@ -5,7 +5,7 @@ import os
 import logging
 
 app = Flask(__name__)
-app.secret_key = 'os]a?o.UPhobRc)2*SlaocSGQ9RL/:EJ'
+app.secret_key = 'SECRET_KEY'
 
 DATABASE = 'users.db'
 

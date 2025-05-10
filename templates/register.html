@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - C Quoi Le Jeu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/icône.png') }}" type="image/png">
+</head>
+<body>
+    <div class="header">
+        <!-- En-tête avec logo -->
+        <div class="logo-container" onclick="location.href='/'">
+            <img src="{{ url_for('static', filename='images/icône.png') }}" alt="Logo" class="logo">
+            <span class="site-name">C Quoi Le Jeu</span>
+        </div>
+    </div>
+    <div class="game-container">
+        <!-- Formulaire d'inscription -->
+        <h1>Inscription</h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <p style="color: red;">{{ messages[0] }}</p>
+            {% endif %}
+        {% endwith %}
+        <form method="POST" action="{{ url_for('register') }}">
+            <div class="input-bar">
+                <input type="text" name="username" placeholder="Nom d'utilisateur" maxlength="20" required>
+                <input type="password" name="password" placeholder="Mot de passe" maxlength="20" required>
+                <button type="submit">S'inscrire</button>
+            </div>
+        </form>
+        <p>Déjà un compte ? <a href="{{ url_for('login') }}">Se connecter</a></p>
+    </div>
+    <footer>
+        <p>© 2025 C Quoi Le Jeu. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>

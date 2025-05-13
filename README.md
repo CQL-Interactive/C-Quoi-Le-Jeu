@@ -20,3 +20,4 @@ Lien vers C Quoi Le Jeu (Beta) : https://cqlj.pythonanywhere.com/
 Lien vers notre Bento : https://bento.me/cquoilejeu
 Lien vers le GitHub : https://github.com/CQuoiLeJeu-Dev/C-Quoi-Le-Jeu
 Lien vers le serveur Discord officiel : https://discord.gg/Evu8WXm27z
+Lien vers le Tipeee : https://fr.tipeee.com/c-quoi-le-jeu/

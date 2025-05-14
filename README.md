@@ -30,3 +30,4 @@ Lien vers le Tipeee : https://fr.tipeee.com/c-quoi-le-jeu/
 
 Lien vers Instagram : https://www.instagram.com/cquoi_lejeu?igsh=bDl6OGFtdnA2OGdo
 
+Email Contact : contact.cquoilejeu@gmail.com

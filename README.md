@@ -18,7 +18,7 @@ Date de sortie prévue : 25 mai 2025
 
 Nos liens🔗:
 
-Lien vers C Quoi Le Jeu (Beta) : https://cquoilejeu.fr
+Lien vers C Quoi Le Jeu (Beta) : https://www.cquoilejeu.fr
 
 Lien vers notre Bento : https://bento.me/cquoilejeu
 

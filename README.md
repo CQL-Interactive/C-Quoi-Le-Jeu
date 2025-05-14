@@ -10,8 +10,8 @@ Nous sommes trois collégiens à avoir créer ce projet : paraχrωme, Théo GR
 
 Un peu d'histoire📜...
 
-Date de création : 8 avril 2025 :  Le projet commence lors d’une discussion entre amis au collège, et abouti à une version très minimaliste.
-Date de sortie de la version Beta : 4 mai 2025 : Au bout de trois semaines, le site sort en version Beta afin que les gens puissent tester.
+Date de création : 8 avril 2025 :  Le projet commence lors d’une discussion entre amis au collège, et abouti à une version minimaliste.
+Sortie de la version Beta : 4 mai 2025 : Au bout de trois semaines, le site sort en version Beta afin que les gens puissent tester.
 Date de sortie prévue : 25 mai 2025
 
 Nos liens🔗:

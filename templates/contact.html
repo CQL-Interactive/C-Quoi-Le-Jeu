@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - C Quoi Le Jeu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/icône.png') }}" type="image/png">
+</head>
+<body>
+    <video autoplay muted loop id="background-video">
+        <source src="{{ url_for('static', filename='background.mp4') }}" type="video/mp4">
+    </video>
+    <div class="header">
+        <div class="logo-container" onclick="location.href='/'">
+            <img src="{{ url_for('static', filename='images/icône.png') }}" alt="Logo" class="logo">
+            <span class="site-name">C Quoi Le Jeu</span>
+        </div>
+    </div>
+    <div class="game-container">
+        <h1>Contactez-nous !</h1>
+        <div class="contact-buttons">
+            <a href="https://discord.gg/Evu8WXm27z" target="_blank" class="contact-button discord-button">
+                <img src="{{ url_for('static', filename='images/discord-logo.png') }}" alt="Discord" class="contact-logo">
+                Rejoindre notre Discord
+            </a>
+            <a href="mailto:contact.cquoilejeu@gmail.com" class="contact-button mail-button">
+                <img src="{{ url_for('static', filename='images/mail-logo.png') }}" alt="Email" class="contact-logo">
+                Envoyer un Email
+            </a>
+        </div>
+    </div>
+    <footer>
+        <p>Copyright © 2025 C Quoi Le Jeu. Tous droits réservés. Version 1.2.1</p>
+    </footer>
+</body>
+</html>

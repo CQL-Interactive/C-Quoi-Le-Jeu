@@ -3,82 +3,84 @@ body, html {
     padding: 0;
     height: 100%;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    overflow: hidden; /* Empêche le défilement */
+    overflow: hidden;
 }
 
-/* Style pour l'en-tête de la page */
+#background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 1; /* Opacité du fond */
+}
+
 .header {
-    position: absolute; /* Positionne l'en-tête de manière absolue */
+    position: absolute;
     top: 20px;
     left: 20px;
-    right: 20px; /* Étend l'en-tête sur toute la largeur */
+    right: 20px;
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Aligne les éléments à gauche et à droite */
-    z-index: 1000; /* S'assure que l'en-tête est au-dessus des autres éléments */
+    justify-content: space-between;
+    z-index: 1000;
 }
 
-/* Conteneur pour le logo dans l'en-tête */
 .logo-container {
     display: flex;
     align-items: center;
-    cursor: pointer; /* Change le curseur en main lors du survol */
+    cursor: pointer;
 }
 
-/* Style pour le logo */
 .logo {
     height: 40px;
     width: 40px;
     margin-right: 10px;
 }
 
-/* Style pour le nom du site */
 .site-name {
     font-size: 1.5em;
     font-weight: bold;
     color: #ffcc00;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Ajoute une ombre au texte */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* Conteneur pour le menu utilisateur */
 .user-menu {
     position: relative;
     display: inline-block;
 }
 
-/* Style pour le bouton utilisateur */
 .user-button {
-    background: linear-gradient(90deg, #00c6ff, #0072ff); /* Dégradé de couleur */
+    background: linear-gradient(90deg, #00c6ff, #0072ff);
     color: white;
     padding: 10px 20px;
     border: none;
-    border-radius: 25px; /* Coins arrondis */
+    border-radius: 25px;
     font-size: 1.2em;
     cursor: pointer;
-    transition: background 0.3s, transform 0.2s; /* Effet de transition */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombre autour du bouton */
-    margin-left: 10px; /* Ajoute une marge à gauche */
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    margin-left: 10px;
 }
 
-/* Effet de survol pour le bouton utilisateur */
 .user-button:hover {
-    background: linear-gradient(90deg, #0072ff, #00c6ff); /* Changement de couleur au survol */
-    transform: scale(1.05); /* Agrandit légèrement le bouton */
+    background: linear-gradient(90deg, #0072ff, #00c6ff);
+    transform: scale(1.05);
 }
 
-/* Style pour le contenu du menu déroulant */
 .dropdown-content {
-    display: none; /* Masque le menu déroulant par défaut */
+    display: none;
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* Ombre pour le menu déroulant */
-    z-index: 1001; /* S'assure que le menu déroulant est au-dessus des autres éléments */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1001;
     right: 0;
     top: 100%;
 }
 
-/* Style pour les liens dans le menu déroulant */
 .dropdown-content a {
     color: black;
     padding: 12px 16px;
@@ -86,23 +88,20 @@ body, html {
     display: block;
 }
 
-/* Effet de survol pour les liens du menu déroulant */
 .dropdown-content a:hover {
-    background-color: #f1f1f1; /* Changement de couleur de fond au survol */
+    background-color: #f1f1f1;
 }
 
-/* Style pour le sous-menu */
 .dropdown-submenu {
-    display: none; /* Masque le sous-menu par défaut */
+    display: none;
     position: absolute;
     left: 100%;
     top: 0;
     background-color: #f9f9f9;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* Ombre pour le sous-menu */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
 
-/* Style pour les liens dans le sous-menu */
 .dropdown-submenu a {
     color: black;
     padding: 12px 16px;
@@ -110,27 +109,23 @@ body, html {
     display: block;
 }
 
-/* Effet de survol pour les liens du sous-menu */
 .dropdown-submenu a:hover {
-    background-color: #f1f1f1; /* Changement de couleur de fond au survol */
+    background-color: #f1f1f1;
 }
 
-/* Style pour le lien de suppression de compte */
 .delete-account {
-    color: red !important; /* Couleur rouge pour indiquer une action de suppression */
+    color: red !important;
 }
 
-/* Affiche le menu déroulant et le sous-menu au survol */
 .user-menu:hover .dropdown-content,
 .dropdown-content:hover .dropdown-submenu {
     display: block;
 }
 
-/* Conteneur principal pour le contenu du jeu */
 .game-container {
     position: relative;
-    width: 100%; /* Largeur totale */
-    height: 100%; /* Hauteur totale */
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -141,49 +136,44 @@ body, html {
     padding: 20px;
     box-sizing: border-box;
     border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Ombre autour du conteneur */
-    z-index: 999; /* S'assure que le contenu est devant l'arrière-plan */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    z-index: 999;
 }
 
-/* Style pour le titre de la page d'accueil */
 #home-page h1 {
-    font-size: 3em; /* Taille standard du titre */
+    font-size: 3em;
     margin-bottom: 20px;
-    animation: fadeInDown 1s ease-in-out; /* Animation d'apparition */
+    animation: fadeInDown 1s ease-in-out;
     color: #ffcc00;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Ombre pour le texte */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* Style pour les paragraphes de la page d'accueil */
 #home-page p {
-    font-size: 1.3em; /* Taille standard du texte */
+    font-size: 1.3em;
     max-width: 600px;
     margin-bottom: 30px;
-    animation: fadeInDown 1s ease-in-out; /* Animation d'apparition */
+    animation: fadeInDown 1s ease-in-out;
     color: #000000;
 }
 
-/* Style pour le bouton de démarrage du jeu */
 #start-button {
     background: linear-gradient(90deg, #00c6ff, #0072ff);
     color: white;
-    padding: 15px 30px; /* Padding standard */
-    font-size: 1.3em; /* Taille standard de la police */
+    padding: 15px 30px;
+    font-size: 1.3em;
     border: none;
     border-radius: 25px;
     cursor: pointer;
-    transition: transform 0.2s, background 0.3s; /* Effet de transition */
-    animation: fadeInUp 1s ease-in-out; /* Animation d'apparition */
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Ombre autour du bouton */
+    transition: transform 0.2s, background 0.3s;
+    animation: fadeInUp 1s ease-in-out;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Effet de survol pour le bouton de démarrage */
 #start-button:hover {
-    background: linear-gradient(90deg, #0072ff, #00c6ff); /* Changement de couleur au survol */
-    transform: scale(1.05); /* Agrandit légèrement le bouton */
+    background: linear-gradient(90deg, #0072ff, #00c6ff);
+    transform: scale(1.05);
 }
 
-/* Conteneur pour l'image du jeu */
 #game-image-container {
     width: 100%;
     height: 60%;
@@ -194,237 +184,215 @@ body, html {
     margin-bottom: 20px;
 }
 
-/* Style pour l'image du jeu */
 #game-image {
     max-width: 100%;
     max-height: 100%;
-    object-fit: contain; /* Ajuste l'image pour qu'elle s'adapte à son conteneur */
+    object-fit: contain;
     border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Ombre autour de l'image */
-    transition: transform 0.3s; /* Effet de transition pour la transformation */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s;
 }
 
-/* Effet de survol pour l'image du jeu */
 #game-image:hover {
-    transform: scale(1.05); /* Agrandit légèrement l'image */
+    transform: scale(1.05);
 }
 
-/* Style pour le bouton de retour à l'accueil */
 #return-home-button {
     margin-top: 20px;
-    padding: 15px 30px; /* Padding standard */
-    font-size: 1.3em; /* Taille standard de la police */
+    padding: 15px 30px;
+    font-size: 1.3em;
     background: linear-gradient(90deg, #28a745, #218838);
     color: white;
     border: none;
     border-radius: 25px;
     cursor: pointer;
-    transition: transform 0.2s, background 0.3s; /* Effet de transition */
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Ombre autour du bouton */
+    transition: transform 0.2s, background 0.3s;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Effet de survol pour le bouton de retour à l'accueil */
 #return-home-button:hover {
-    background: linear-gradient(90deg, #218838, #28a745); /* Changement de couleur au survol */
-    transform: scale(1.05); /* Agrandit légèrement le bouton */
+    background: linear-gradient(90deg, #218838, #28a745);
+    transform: scale(1.05);
 }
 
-/* Style pour la barre d'entrée de texte */
 .input-bar {
     width: 70%;
     background: rgba(255, 255, 255, 0.95);
-    padding: 20px; /* Padding standard */
-    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1); /* Ombre autour de la barre d'entrée */
+    padding: 20px;
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
     border-radius: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     bottom: 0;
-    animation: fadeInUp 1s ease-in-out; /* Animation d'apparition */
+    animation: fadeInUp 1s ease-in-out;
 }
 
-/* Style pour les champs de saisie de texte */
 input {
-    padding: 15px; /* Padding standard */
+    padding: 15px;
     margin: 5px;
     border-radius: 25px;
-    border: 2px solid #007BFF; /* Bordure bleue */
-    font-size: 1.3em; /* Taille standard de la police */
+    border: 2px solid #007BFF;
+    font-size: 1.3em;
     flex-grow: 1;
-    transition: border-color 0.3s, box-shadow 0.3s; /* Effet de transition */
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1); /* Ombre interne */
+    transition: border-color 0.3s, box-shadow 0.3s;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Effet de mise au point pour les champs de saisie */
 input:focus {
-    border-color: #0056b3; /* Changement de couleur de bordure */
-    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Ombre externe */
-    outline: none; /* Supprime le contour par défaut */
+    border-color: #0056b3;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+    outline: none;
 }
 
-/* Style pour le menu déroulant du nombre de jeux */
 #game-count {
-    width: 100px; /* Largeur standard */
-    height: 30px; /* Hauteur standard */
-    padding: 5px; /* Padding standard */
-    margin: 10px 0; /* Marges standard */
-    border-radius: 5px; /* Coins arrondis */
-    border: 1px solid #ccc; /* Bordure grise légère */
-    font-size: 1em; /* Taille standard de la police */
-    text-align: center; /* Centre le texte */
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1); /* Ombre interne légère */
-    transition: border-color 0.3s, box-shadow 0.3s; /* Effet de transition */
-    display: block; /* Affichage en bloc pour centrer correctement */
-    margin-left: auto; /* Centre horizontalement */
-    margin-right: auto; /* Centre horizontalement */
+    width: 100px;
+    height: 30px;
+    padding: 5px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    text-align: center;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* Effet de mise au point pour le menu déroulant */
 #game-count:focus {
-    border-color: #0056b3; /* Changement de couleur de bordure */
-    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Ombre externe */
-    outline: none; /* Supprime le contour par défaut */
+    border-color: #0056b3;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+    outline: none;
 }
 
-/* Style pour les boutons */
 button {
     background: linear-gradient(90deg, #00c6ff, #0072ff);
     color: white;
-    padding: 15px 30px; /* Padding standard */
+    padding: 15px 30px;
     border: none;
     border-radius: 25px;
-    font-size: 1.3em; /* Taille standard de la police */
+    font-size: 1.3em;
     cursor: pointer;
-    transition: background 0.3s, transform 0.2s; /* Effet de transition */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombre autour du bouton */
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Effet de survol pour les boutons */
 button:hover {
-    background: linear-gradient(90deg, #0072ff, #00c6ff); /* Changement de couleur au survol */
-    transform: scale(1.05); /* Agrandit légèrement le bouton */
+    background: linear-gradient(90deg, #0072ff, #00c6ff);
+    transform: scale(1.05);
 }
 
-/* Style pour le message de retour utilisateur */
 #feedback {
     position: absolute;
     top: 10px;
     background: rgba(0, 0, 0, 0.8);
     color: white;
-    padding: 15px 25px; /* Padding standard */
+    padding: 15px 25px;
     border-radius: 25px;
     width: auto;
     text-align: center;
-    animation: fadeInDown 1s ease-in-out; /* Animation d'apparition */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Ombre autour du feedback */
+    animation: fadeInDown 1s ease-in-out;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Style pour le conteneur de score */
 #score-container {
     background: rgba(0, 0, 0, 0.8);
     color: white;
-    padding: 2px 25px; /* Padding standard */
+    padding: 2px 25px;
     border-radius: 25px;
     width: auto;
     text-align: center;
     margin-top: 10px;
-    animation: fadeInUp 1s ease-in-out; /* Animation d'apparition */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Ombre autour du conteneur */
+    animation: fadeInUp 1s ease-in-out;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Animation pour l'apparition des éléments vers le bas */
 @keyframes fadeInDown {
     from {
         opacity: 0;
-        transform: translateY(-20px); /* Déplace vers le bas */
+        transform: translateY(-20px);
     }
     to {
         opacity: 1;
-        transform: translateY(0); /* Position finale */
+        transform: translateY(0);
     }
 }
 
-/* Animation pour l'apparition des éléments vers le haut */
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(20px); /* Déplace vers le haut */
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
-        transform: translateY(0); /* Position finale */
+        transform: translateY(0);
     }
 }
 
-/* Animation pour une réponse correcte */
 .correct-answer {
     animation: correctAnimation 1s ease-in-out;
 }
 
-/* Définition de l'animation pour une réponse correcte */
 @keyframes correctAnimation {
     0% {
-        filter: grayscale(100%) brightness(100%); /* Image en noir et blanc */
+        filter: grayscale(100%) brightness(100%);
     }
     50% {
-        filter: grayscale(0%) brightness(150%) sepia(1); /* Image colorée avec effet sépia */
+        filter: grayscale(0%) brightness(150%) sepia(1);
     }
     100% {
-        filter: grayscale(100%) brightness(100%); /* Retour à l'image en noir et blanc */
+        filter: grayscale(100%) brightness(100%);
     }
 }
 
-/* Animation pour une réponse incorrecte */
 .wrong-answer {
     animation: wrongAnimation 1s ease-in-out;
 }
 
-/* Définition de l'animation pour une réponse incorrecte */
 @keyframes wrongAnimation {
     0% {
-        filter: grayscale(100%) brightness(100%); /* Image en noir et blanc */
+        filter: grayscale(100%) brightness(100%);
     }
     50% {
-        filter: grayscale(0%) brightness(150%) hue-rotate(180deg); /* Image colorée avec rotation de teinte */
+        filter: grayscale(0%) brightness(150%) hue-rotate(180deg);
     }
     100% {
-        filter: grayscale(100%) brightness(100%); /* Retour à l'image en noir et blanc */
+        filter: grayscale(100%) brightness(100%);
     }
 }
 
-/* Style pour les champs de saisie de texte dans les formulaires */
 input[type="text"], input[type="password"] {
     width: 100%;
-    padding: 15px; /* Padding standard */
-    margin: 7.5px; /* Marges standard */
+    padding: 15px;
+    margin: 7.5px;
     border-radius: 25px;
-    border: 2px solid #007BFF; /* Bordure bleue */
-    font-size: 1.3em; /* Taille standard de la police */
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1); /* Ombre interne */
-    transition: border-color 0.3s, box-shadow 0.3s; /* Effet de transition */
+    border: 2px solid #007BFF;
+    font-size: 1.3em;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-/* Style pour les boutons dans les formulaires */
 button[type="submit"] {
     width: 100%;
-    padding: 15px; /* Padding standard */
+    padding: 15px;
     margin: 7.5px;
-    font-size: 1.3em; /* Taille standard de la police */
+    font-size: 1.3em;
     background: linear-gradient(90deg, #00c6ff, #0072ff);
     color: white;
     border: none;
     border-radius: 25px;
     cursor: pointer;
-    transition: background 0.3s, transform 0.2s; /* Effet de transition */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombre autour du bouton */
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Style pour le conteneur des formulaires */
 .input-bar {
     width: 100%;
-    max-width: 500px; /* Limite la largeur maximale pour un meilleur affichage */
-    margin: 0 auto; /* Centre le conteneur */
+    max-width: 500px;
+    margin: 0 auto;
 }
 
 footer {
@@ -432,8 +400,151 @@ footer {
     left: 0;
     bottom: -9px;
     width: 100%;
-    color: #6c757d;
+    color: #000000;
     text-align: center;
     padding: 0px 0;
     font-size: 0.8em;
+}
+
+#suggestions-container {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    display: none;
+    max-height: 125px;
+    overflow-y: auto;
+    margin-top: 5px;
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.suggestion-item:hover {
+    background-color: #f1f1f1;
+}
+
+.input-bar {
+    position: relative;
+    width: 70%;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    bottom: 0;
+    animation: fadeInUp 1s ease-in-out;
+}
+
+#games-history {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+/* Bouton "Contactez-nous !" */
+.contact-us-button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: linear-gradient(90deg, #00c6ff, #0072ff);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.contact-us-button:hover {
+    background: linear-gradient(90deg, #0072ff, #00c6ff);
+    transform: scale(1.05);
+}
+
+/* Conteneur pour les boutons de contact */
+.contact-buttons {
+    position: relative;
+    height: 100vh; /* Prend toute la hauteur de la fenêtre */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Style de base pour les boutons de contact */
+.contact-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(90deg, #00c6ff, #0072ff);
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.3em;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    position: absolute; /* Position absolue pour un positionnement individuel */
+}
+
+/* Effet de survol pour les boutons de contact */
+.contact-button:hover {
+    background: linear-gradient(90deg, #0072ff, #00c6ff);
+    transform: scale(1.05);
+}
+
+/* Positionnement individuel pour le bouton Discord */
+.discord-button {
+    background: linear-gradient(90deg, #7289da, #5a69c6);
+    top: 30%; /* Position verticale */
+    left: 40%; /* Position horizontale */
+}
+
+/* Positionnement individuel pour le bouton Email */
+.mail-button {
+    background: linear-gradient(90deg, #ff6b6b, #ff5252);
+    top: 50%; /* Position verticale */
+    left: 60%; /* Position horizontale */
+}
+
+/* Style pour les logos dans les boutons */
+.contact-logo {
+    width: 24px;
+    height: 24px;
+}
+
+@media (max-width: 768px) {
+    .input-bar {
+        width: 90%;
+        padding: 10px;
+    }
+
+    input[type="text"], input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        font-size: 1em;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
 }

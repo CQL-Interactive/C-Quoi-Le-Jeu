@@ -1,12 +1,12 @@
-import bcrypt
 from flask import Flask, jsonify, render_template, request, redirect, url_for, session, flash, g
 import random
 import sqlite3
 import os
 import logging
+import bcrypt
 
 app = Flask(__name__)
-app.secret_key = 'SECRET_KEY'
+app.secret_key = 'YOUR_SECRET_KEY'
 
 DATABASE = 'users.db'
 
@@ -110,7 +110,11 @@ full_games_list = [
             "mario kart 8 deluxe",
             "mk 8 deluxe",
             "mario kart",
-            "mk"
+            "mk",
+            "mk8d",
+            "mk 8 d",
+            "mk8",
+            "mk 8"
         ]
     },
     {
@@ -118,6 +122,7 @@ full_games_list = [
         "image": "images/IMG_005.webp",
         "answers": [
             "pokemon rouge et bleu",
+            "pokémon rouge et bleu",
             "pokemon rouge",
             "pokemon bleu",
             "pokemon",
@@ -210,7 +215,8 @@ full_games_list = [
         "name": "Rocket League",
         "image": "images/IMG_015.webp",
         "answers": [
-            "rocket league"
+            "rocket league",
+            "rl"
         ]
     },
     {
@@ -279,8 +285,8 @@ full_games_list = [
         "name": "Mini Motorways",
         "image": "images/IMG_023.webp",
         "answers": [
-            "mini motorsways",
-            "minimotorsways",
+            "mini motorways",
+            "minimotorways",
             "mmtw",
             "mmw"
         ]
@@ -305,7 +311,8 @@ full_games_list = [
             "super smash bros ultimate",
             "smash bros ultimate",
             "super smash bros",
-            "ssbu"
+            "ssbu",
+            "ssb"
         ]
     },
     {
@@ -442,7 +449,6 @@ def check_answer():
         score += 100  # Augmente le score si la réponse est correcte
     return jsonify({"is_correct": is_correct})
 
-
 @app.route('/set-game-count', methods=['POST'])
 def set_game_count():
     global games
@@ -480,7 +486,6 @@ def settings():
         flash("Mot de passe mis à jour avec succès.")
     return render_template('settings.html')
 
-
 @app.route('/delete_account', methods=['POST'])
 def delete_account():
     if 'username' not in session:
@@ -509,6 +514,14 @@ def my_games():
     user_id = get_user_id_by_username(session['username'])
     games = get_user_games(user_id)
     return render_template('my_games.html', games=games)
+
+@app.route('/get-games-list', methods=['GET'])
+def get_games_list():
+    return jsonify(full_games_list)
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
 
 def open_browser():
     if not os.path.exists(lock_file):

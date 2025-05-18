@@ -8,6 +8,9 @@
     <link rel="icon" href="{{ url_for('static', filename='images/icône.png') }}" type="image/png">
 </head>
 <body>
+    <video autoplay muted loop id="background-video">
+        <source src="{{ url_for('static', filename='background.mp4') }}" type="video/mp4">
+    </video>
     <div class="header">
         <div class="logo-container" onclick="location.href='/'">
             <img src="{{ url_for('static', filename='images/icône.png') }}" alt="Logo" class="logo">
@@ -15,16 +18,18 @@
         </div>
     </div>
     <div class="game-container">
-        <h1>Mes parties (BETA)</h1>
+        <h1>Mes parties</h1>
         <p>Historique des parties jouées :</p>
-        <ul>
-            {% for game in games %}
-                <li>{{ game.game_name }} - Score : {{ game.score }}</li>
-            {% endfor %}
-        </ul>
+        <div id="games-history">
+            <ul>
+                {% for game in games %}
+                    <li>{{ game.game_name }} - Score : {{ game.score }}</li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
     <footer>
-        <p>Copyright © 2025 C Quoi Le Jeu. Tous droits réservés.</p>
+        <p>Copyright © 2025 C Quoi Le Jeu. Tous droits réservés. Version 1.2.1</p>
     </footer>
 </body>
 </html>

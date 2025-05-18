@@ -14,6 +14,8 @@ Date de création : 8 avril 2025 :  Le projet commence lors d’une discussion e
 
 Sortie de la version Beta : 4 mai 2025 : Au bout de trois semaines, le site sort en version Beta afin que les gens puissent tester.
 
+Mise à jour 1.2.1 : 18 mai 2025 : Grosse maj avec intégration de suggestions de jeux et fond d’écran animé
+
 Date de sortie prévue : 8 juin 2025
 
 Nos liens🔗:

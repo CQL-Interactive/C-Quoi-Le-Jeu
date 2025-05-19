@@ -1,6 +1,6 @@
 Mais qu’est-ce que C Quoi Le Jeu🤔?
 
-C Quoi Le Jeu est un site web créé par 3 élèves de 3ème, dont le principe est de deviner le nom d'un jeu vidéo à partir d'une image. 
+C Quoi Le Jeu est un site web créé par 2 élèves de 3ème, dont le principe est de deviner le nom d'un jeu vidéo à partir d'une image. 
 CQLJ est déjà disponible (uniquement sur ordinateur et tablette, la taille des téléphones n’est pas adaptée) en version Beta et sortira officiellement le 8 juin.
 
 Les co-créateurs🤝:

@@ -5,7 +5,7 @@ CQLJ est déjà disponible (uniquement sur ordinateur et tablette, la taille des
 
 Les co-créateurs🤝:
 
-Nous sommes trois collégiens à avoir créer ce projet : paraχrωme, Théo GRAZIANO et Elie SAIDANE LEMERCIER. 
+Nous sommes deux collégiens à avoir créer ce projet : Théo GRAZIANO et Elie SAIDANE LEMERCIER. 
 "Nous voulons créer un jeu gratuit, sans publicités, accessible à tous et respectueux des données."
 
 Un peu d'histoire📜...

@@ -6,7 +6,7 @@ import logging
 import bcrypt
 
 app = Flask(__name__)
-app.secret_key = 'YOUR_SECRET_KEY'
+app.secret_key = 'os]a?o.UPhobRc)2*SlaocSGQ9RL/:EJ'
 
 DATABASE = 'users.db'
 

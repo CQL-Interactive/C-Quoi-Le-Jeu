@@ -1,0 +1,550 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    overflow: hidden;
+}
+
+#background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 1; /* Opacité du fond */
+}
+
+.header {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.logo {
+    height: 40px;
+    width: 40px;
+    margin-right: 10px;
+}
+
+.site-name {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #ffcc00;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.user-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.user-button {
+    background: linear-gradient(90deg, #00c6ff, #0072ff);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    margin-left: 10px;
+}
+
+.user-button:hover {
+    background: linear-gradient(90deg, #0072ff, #00c6ff);
+    transform: scale(1.05);
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1001;
+    right: 0;
+    top: 100%;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown-submenu {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-submenu a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-submenu a:hover {
+    background-color: #f1f1f1;
+}
+
+.delete-account {
+    color: red !important;
+}
+
+.user-menu:hover .dropdown-content,
+.dropdown-content:hover .dropdown-submenu {
+    display: block;
+}
+
+.game-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: black;
+    background: none;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    z-index: 999;
+}
+
+#home-page h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    animation: fadeInDown 1s ease-in-out;
+    color: #ffcc00;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#home-page p {
+    font-size: 1.3em;
+    max-width: 600px;
+    margin-bottom: 30px;
+    animation: fadeInDown 1s ease-in-out;
+    color: #000000;
+}
+
+#start-button {
+    background: linear-gradient(90deg, #00c6ff, #0072ff);
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.3em;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+    animation: fadeInUp 1s ease-in-out;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+#start-button:hover {
+    background: linear-gradient(90deg, #0072ff, #00c6ff);
+    transform: scale(1.05);
+}
+
+#game-image-container {
+    width: 100%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#game-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s;
+}
+
+#game-image:hover {
+    transform: scale(1.05);
+}
+
+#return-home-button {
+    margin-top: 20px;
+    padding: 15px 30px;
+    font-size: 1.3em;
+    background: linear-gradient(90deg, #28a745, #218838);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+#return-home-button:hover {
+    background: linear-gradient(90deg, #218838, #28a745);
+    transform: scale(1.05);
+}
+
+.input-bar {
+    width: 70%;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    bottom: 0;
+    animation: fadeInUp 1s ease-in-out;
+}
+
+input {
+    padding: 15px;
+    margin: 5px;
+    border-radius: 25px;
+    border: 2px solid #007BFF;
+    font-size: 1.3em;
+    flex-grow: 1;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+input:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+#game-count {
+    width: 100px;
+    height: 30px;
+    padding: 5px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    text-align: center;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#game-count:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+button {
+    background: linear-gradient(90deg, #00c6ff, #0072ff);
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.3em;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+    background: linear-gradient(90deg, #0072ff, #00c6ff);
+    transform: scale(1.05);
+}
+
+#feedback {
+    position: absolute;
+    top: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 25px;
+    width: auto;
+    text-align: center;
+    animation: fadeInDown 1s ease-in-out;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+#score-container {
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 2px 25px;
+    border-radius: 25px;
+    width: auto;
+    text-align: center;
+    margin-top: 10px;
+    animation: fadeInUp 1s ease-in-out;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.correct-answer {
+    animation: correctAnimation 1s ease-in-out;
+}
+
+@keyframes correctAnimation {
+    0% {
+        filter: grayscale(100%) brightness(100%);
+    }
+    50% {
+        filter: grayscale(0%) brightness(150%) sepia(1);
+    }
+    100% {
+        filter: grayscale(100%) brightness(100%);
+    }
+}
+
+.wrong-answer {
+    animation: wrongAnimation 1s ease-in-out;
+}
+
+@keyframes wrongAnimation {
+    0% {
+        filter: grayscale(100%) brightness(100%);
+    }
+    50% {
+        filter: grayscale(0%) brightness(150%) hue-rotate(180deg);
+    }
+    100% {
+        filter: grayscale(100%) brightness(100%);
+    }
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 15px;
+    margin: 7.5px;
+    border-radius: 25px;
+    border: 2px solid #007BFF;
+    font-size: 1.3em;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    margin: 7.5px;
+    font-size: 1.3em;
+    background: linear-gradient(90deg, #00c6ff, #0072ff);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.input-bar {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: -9px;
+    width: 100%;
+    color: #000000;
+    text-align: center;
+    padding: 0px 0;
+    font-size: 0.8em;
+}
+
+#suggestions-container {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    display: none;
+    max-height: 125px;
+    overflow-y: auto;
+    margin-top: 5px;
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.suggestion-item:hover {
+    background-color: #f1f1f1;
+}
+
+.input-bar {
+    position: relative;
+    width: 70%;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    bottom: 0;
+    animation: fadeInUp 1s ease-in-out;
+}
+
+#games-history {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+/* Bouton "Contactez-nous !" */
+.contact-us-button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: linear-gradient(90deg, #00c6ff, #0072ff);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.contact-us-button:hover {
+    background: linear-gradient(90deg, #0072ff, #00c6ff);
+    transform: scale(1.05);
+}
+
+/* Conteneur pour les boutons de contact */
+.contact-buttons {
+    position: relative;
+    height: 100vh; /* Prend toute la hauteur de la fenêtre */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Style de base pour les boutons de contact */
+.contact-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(90deg, #00c6ff, #0072ff);
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.3em;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    position: absolute; /* Position absolue pour un positionnement individuel */
+}
+
+/* Effet de survol pour les boutons de contact */
+.contact-button:hover {
+    background: linear-gradient(90deg, #0072ff, #00c6ff);
+    transform: scale(1.05);
+}
+
+/* Positionnement individuel pour le bouton Discord */
+.discord-button {
+    background: linear-gradient(90deg, #7289da, #5a69c6);
+    top: 30%; /* Position verticale */
+    left: 40%; /* Position horizontale */
+}
+
+/* Positionnement individuel pour le bouton Email */
+.mail-button {
+    background: linear-gradient(90deg, #ff6b6b, #ff5252);
+    top: 50%; /* Position verticale */
+    left: 60%; /* Position horizontale */
+}
+
+/* Style pour les logos dans les boutons */
+.contact-logo {
+    width: 24px;
+    height: 24px;
+}
+
+@media (max-width: 768px) {
+    .input-bar {
+        width: 90%;
+        padding: 10px;
+    }
+
+    input[type="text"], input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        font-size: 1em;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+}

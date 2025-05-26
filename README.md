@@ -32,4 +32,6 @@ Lien vers Instagram : https://www.instagram.com/cquoi_lejeu?igsh=bDl6OGFtdnA2OGd
 
 Lien vers le TikTok : https://www.tiktok.com/@c_quoi_le_jeu?_t=ZN-8wN2w0gTh4w&_r=1
 
+Lien vers la chaîne YouTube : https://www.youtube.com/@cquoilejeu
+
 Email Contact : contact.cquoilejeu@gmail.com

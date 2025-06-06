@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>C Quoi Le Jeu</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <link rel="icon" href="{{ url_for('static', filename='images/icône.png') }}" type="image/png">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.svg') }}" type="image/png">
 </head>
 <body>
     <video autoplay muted loop id="background-video">
@@ -14,7 +14,7 @@
     <div class="header">
         <!-- En-tête avec logo et menu utilisateur -->
         <div class="logo-container" onclick="location.href='/'">
-            <img src="{{ url_for('static', filename='images/icône.png') }}" alt="Logo" class="logo">
+            <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="Logo" class="logo">
             <span class="site-name">C Quoi Le Jeu</span>
         </div>
         {% if username %}
@@ -31,7 +31,7 @@
     <div id="home-page" class="game-container">
         <!-- Page d'accueil avec instructions et bouton pour démarrer le jeu -->
         <h1>Bienvenue sur C Quoi Le Jeu !</h1>
-        <p>Le but du jeu est de deviner le nom d'un jeu vidéo à partir d'une image. Entrez votre réponse dans la barre de texte et appuyez sur Entrée ou cliquez sur Soumettre.</p>
+        <p><h2>Devine le jeu à partir d'une image !</h2><br><h4>Un concept simple, fun et addictif : regarde une image, tape le nom du jeu,<br>gagne des points. Sauras-tu faire un sans faute ?</h4></p>
         <label for="game-count">Nombre de jeux à deviner :</label>
         <select id="game-count">
             <option value="5">5</option>
@@ -39,7 +39,7 @@
             <option value="15" selected>15</option>
             <option value="20">20</option>
             <option value="25">25</option>
-            <option value="27">27 (max)</option>
+            <option value="28">28 (max)</option>
             <!-- Changer le nombre au fur et à mesure des ajouts de jeu -->
         </select>
         <button id="start-button">Jouer !</button>
@@ -65,7 +65,7 @@
     <a href="{{ url_for('contact') }}" class="contact-us-button">✉️Contactez-nous !</a>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     <footer>
-        <p>Copyright © 2025 C Quoi Le Jeu. Tous droits réservés. Version 1.2.1</p>
+        <p>&copy; 2025 C Quoi Le Jeu. Tous droits réservés. Version 2.1.1</p>
     </footer>
 </body>
 </html>

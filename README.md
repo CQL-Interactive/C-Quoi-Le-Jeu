@@ -1,6 +1,6 @@
 # 🎮 Fork du projet [C'est Quoi Le Jeu](https://github.com/CQuoiLeJeu-Dev/)
 
-Bienvenue sur le fork de *C'est Quoi Le Jeu*, un projet initialement lancé par deux passionnés.  
+Fork de *C'est Quoi Le Jeu*, un projet initialement lancé par deux passionnés.  
 Ce fork vise à réécrire l’architecture back-end initialement en Python en Node.js, pour des raisons de performance et de flexibilité.
 
 ---

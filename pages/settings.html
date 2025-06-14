@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Se connecter - C Quoi Le Jeu</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Paramètres - C Quoi Le Jeu</title>
+    <link rel="stylesheet" href="/css/styles.css">
     <link rel="icon" href="{{ url_for('static', filename='images/logo.svg') }}" type="image/png">
 </head>
 <body>
@@ -19,21 +19,21 @@
         </div>
     </div>
     <div class="game-container">
-        <!-- Formulaire de connexion -->
-        <h1>Connexion</h1>
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <p style="color: red;">{{ messages[0] }}</p>
-            {% endif %}
-        {% endwith %}
-        <form method="POST" action="{{ url_for('login') }}">
+        <!-- Formulaire de modification du mot de passe -->
+        <h1>Paramètres</h1>
+        <form method="POST" action="{{ url_for('settings') }}">
             <div class="input-bar">
-                <input type="text" name="username" placeholder="Nom d'utilisateur" required>
-                <input type="password" name="password" placeholder="Mot de passe" required>
-                <button type="submit">Se connecter</button>
+                <input type="text" name="new_password" placeholder="Nouveau mot de passe" required>
+                <button type="submit">Mettre à jour</button>
             </div>
         </form>
-        <p>Pas encore de compte ? <a href="{{ url_for('register') }}">S'inscrire</a></p>
+        <!-- Formulaire de suppression de compte -->
+        <form method="POST" action="{{ url_for('delete_account') }}" style="margin-top: 50px;">
+            <div class="input-bar">
+                <input type="password" name="password" placeholder="Mot de passe actuel" required>
+                <button type="submit" class="delete-account">Supprimer mon compte</button>
+            </div>
+        </form>
     </div>
     <footer>
         <p>&copy; 2025 C Quoi Le Jeu. Tous droits réservés. Version 2.1.1</p>

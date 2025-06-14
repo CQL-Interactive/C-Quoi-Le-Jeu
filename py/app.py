@@ -5,7 +5,7 @@ import os
 import logging
 import bcrypt
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='pages')
 app.secret_key = 'SECRET_KEY'
 
 DATABASE = 'users.db'

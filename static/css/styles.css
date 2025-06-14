@@ -1,3 +1,7 @@
+@import url("input.css");
+@import url("basic.css");
+@import url("compo.css");
+
 body, html {
     margin: 0;
     padding: 0;
@@ -13,8 +17,21 @@ body, html {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: -1;
+    z-index: -2;
     opacity: 1; /* Opacité du fond */
+}
+
+#filter-back {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 80%;
+    background: #301f06;
+    background: linear-gradient(90deg, rgba(48, 31, 6, 1) 0%, rgba(20, 15, 2, 1) 100%);
 }
 
 .header {
@@ -127,33 +144,13 @@ body, html {
     width: 100%;
     height: 100%;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    color: black;
-    background: none;
     padding: 20px;
     box-sizing: border-box;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     z-index: 999;
-}
-
-#home-page h1 {
-    font-size: 3em;
-    margin-bottom: 20px;
-    animation: fadeInDown 1s ease-in-out;
-    color: #ffcc00;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-#home-page p {
-    font-size: 1.3em;
-    max-width: 600px;
-    margin-bottom: 30px;
-    animation: fadeInDown 1s ease-in-out;
-    color: #000000;
 }
 
 #start-button {
@@ -227,23 +224,6 @@ body, html {
     position: relative;
     bottom: 0;
     animation: fadeInUp 1s ease-in-out;
-}
-
-input {
-    padding: 15px;
-    margin: 5px;
-    border-radius: 25px;
-    border: 2px solid #007BFF;
-    font-size: 1.3em;
-    flex-grow: 1;
-    transition: border-color 0.3s, box-shadow 0.3s;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-input:focus {
-    border-color: #0056b3;
-    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
-    outline: none;
 }
 
 #game-count {
@@ -365,24 +345,13 @@ button:hover {
     }
 }
 
-input[type="text"], input[type="password"] {
-    width: 100%;
-    padding: 15px;
-    margin: 7.5px;
-    border-radius: 25px;
-    border: 2px solid #007BFF;
-    font-size: 1.3em;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
 button[type="submit"] {
     width: 100%;
     padding: 15px;
     margin: 7.5px;
     font-size: 1.3em;
-    background: linear-gradient(90deg, #00c6ff, #0072ff);
-    color: white;
+    background: linear-gradient(90deg, #ffee01, #ffa600);
+    color: rgb(37, 37, 37);
     border: none;
     border-radius: 25px;
     cursor: pointer;

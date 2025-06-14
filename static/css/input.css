@@ -1,0 +1,21 @@
+input {
+    padding: 15px;
+    border-radius: 25px;
+    border: 2px solid #ffc400;
+    font-size: 1.3em;
+    transition: 0.2s;
+    background: transparent;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+    color: white;
+}
+
+input:focus {
+    border-color: #ffee00;
+    box-shadow: 0 0 10px rgba(255, 251, 0, 0.5);
+    outline: none;
+    transition: 0.2s;
+}
+
+input::placeholder {
+    color: rgba(255, 248, 209, 0.753);
+}

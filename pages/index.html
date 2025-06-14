@@ -4,10 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>C Quoi Le Jeu</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="/css/styles.css">
     <link rel="icon" href="{{ url_for('static', filename='images/logo.svg') }}" type="image/png">
 </head>
 <body>
+    <!-- Fen alert -->
+    <div style="display: none;" id="fen-alert">
+        <label for="game-count">Nombre de jeux à deviner :</label>
+        <select id="game-count">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15" selected>15</option>
+            <option value="20">20</option>
+            <option value="25">25</option>
+            <option value="28">28 (max)</option>
+        </select>
+    </div>
+
+
+
+    <img id="filter-back" >
     <video autoplay muted loop id="background-video">
         <source src="{{ url_for('static', filename='background.webm') }}" type="video/webm">
     </video>
@@ -29,23 +45,24 @@
         {% endif %}
     </div>
     <div id="home-page" class="game-container">
-        <!-- Page d'accueil avec instructions et bouton pour démarrer le jeu -->
-        <h1>Bienvenue sur C Quoi Le Jeu !</h1>
-        <p><h2>Devine le jeu à partir d'une image !</h2><br><h4>Un concept simple, fun et addictif : regarde une image, tape le nom du jeu,<br>gagne des points. Sauras-tu faire un sans faute ?</h4></p>
-        <label for="game-count">Nombre de jeux à deviner :</label>
-        <select id="game-count">
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="15" selected>15</option>
-            <option value="20">20</option>
-            <option value="25">25</option>
-            <option value="28">28 (max)</option>
-            <!-- Changer le nombre au fur et à mesure des ajouts de jeu -->
-        </select>
-        <button id="start-button">Jouer !</button>
+        <section class="row" >
+            <div class="col">
+                <div class="row">
+                    <hr class="o" >
+                    <div class="col padding-y">
+                        <h1>C QUOI LE JEU ?</h1>
+                        <h4>Devine le jeu à partir d'une image</h4>
+                    </div>
+                </div>
+                <p>Un concept simple, fun et addictif : regarde une image, tape le nom du jeu,<br>gagne des points. Sauras-tu faire un sans faute ?</p>
+                <div class="row"><button id="start-button margin-top">Jouer !</button></div>
+            </div>
+            <div id="anim-galerie">
+                
+            </div>
+        </section>
     </div>
     <div id="game-page" class="game-container" style="display: none;">
-        <!-- Page de jeu avec image, entrée de réponse et feedback -->
         <div id="game-image-container">
             <img id="game-image" src="" alt="Game Image">
             <button id="return-home-button" style="display: none;">Retourner à l'accueil</button>
@@ -54,7 +71,7 @@
             <input type="text" id="game-name-input" placeholder="Nom du jeu">
             <button id="submit-button">Soumettre</button>
             <button id="skip-button">Passer</button>
-            <div id="suggestions-container"></div> <!-- Conteneur pour les suggestions -->
+            <div id="suggestions-container"></div>
         </div>
         <div id="feedback"></div>
         <div id="score-container">

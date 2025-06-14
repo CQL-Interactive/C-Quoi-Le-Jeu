@@ -1,0 +1,55 @@
+section {
+    padding: 50px;
+    background-color: rgba(255, 255, 255, 0.075) ;
+    color: white;
+    backdrop-filter: blur(10px);
+    border: solid 1px white;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.445) 0 0 20px 5px;
+}
+
+hr {
+    margin: 10px;
+    border: none;
+}
+
+hr.o {
+    width: 6px;
+    background-color: white;
+    border-radius: 3px;
+}
+
+h1,h2, h3, h4 {
+    margin: 0;
+}
+
+h1 {
+    color: rgb(43, 27, 8);
+    font-weight: bold;
+    font-size: 40px;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+a {
+    color: rgb(255, 245, 189);
+    transition: 0.5s;
+}
+
+a:hover {
+    color: rgb(255, 227, 70);
+    filter: drop-shadow(0 0 10px rgba(255, 227, 70, 0.445)) ;
+    transition: 0.2s;
+}
+
+section h1 {
+    color: #facb00
+}
+
+p {
+    color: white;
+}

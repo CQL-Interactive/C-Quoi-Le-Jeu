@@ -17,7 +17,7 @@ Ce fork vise à réécrire l’architecture back-end initialement en Python en N
 
 | 🌐 Ressource | 🔗 Lien |
 |-------------|--------|
-| 💻 Site Web (Bêta) | [cquoilejeu.fr](https://www.cquoilejeu.fr) |
+| 💻 Site Web | [cquoilejeu.fr](https://www.cquoilejeu.fr) |
 | 📦 Dépôt GitHub (original) | [github.com/CQuoiLeJeu-Dev/C-Quoi-Le-Jeu](https://github.com/CQuoiLeJeu-Dev/C-Quoi-Le-Jeu) |
 | 🧰 Profil Bento | [bento.me/cquoilejeu](https://bento.me/cquoilejeu) |
 | 💬 Serveur Discord | [discord.gg/Evu8WXm27z](https://discord.gg/Evu8WXm27z) |

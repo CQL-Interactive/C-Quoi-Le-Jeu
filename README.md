@@ -1,6 +1,6 @@
-# 🍵 Fork du projet [C'est Quoi Le Jeu](https://github.com/CQuoiLeJeu-Dev/)
+# 🍵 Fork du projet [C Quoi Le Jeu](https://github.com/CQuoiLeJeu-Dev/)
 
-Fork de *C'est Quoi Le Jeu*, un projet initialement lancé par deux passionnés.  
+Fork de *C Quoi Le Jeu*, un projet initialement lancé par deux passionnés.  
 Ce fork vise à réécrire l’architecture back-end initialement en Python en Node.js, pour des raisons de performance et de flexibilité.
 
 ---
@@ -8,8 +8,9 @@ Ce fork vise à réécrire l’architecture back-end initialement en Python en N
 ## 🤝 Crédits
 
 - **Théo Graziano** – Fondateur du projet  
-- **Elie Saidane Lemercier** – Fondateur du projet  
-- **Timéo Menvielle Larrouy** – Créateur de ce fork (TML)
+- **Elie Saidane Lemercier** – Fondateur du projet
+- **Lugame Cooper** – Développeur
+- **Timéo Menvielle Larrouy** – Créateur de ce fork & dévelooppeur (TML)
 
 ---
 

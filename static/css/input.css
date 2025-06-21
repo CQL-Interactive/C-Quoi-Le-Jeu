@@ -19,3 +19,25 @@ input:focus {
 input::placeholder {
     color: rgba(255, 248, 209, 0.753);
 }
+
+button {
+    padding: 15px;
+    margin: 7.5px;
+    font-size: 1.3em;
+    background: linear-gradient(90deg, #ffee01, #ffa600);
+    color: rgb(37, 37, 37);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+    background: linear-gradient(90deg, #ffa600, #ffee01);
+    transform: scale(1.05);
+}
+
+button.small {
+    padding: 10px 20px;
+}

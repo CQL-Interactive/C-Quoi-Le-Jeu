@@ -166,7 +166,7 @@ body, html {
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
 
-#start-button:hover {
+#start-:hover {
     background: linear-gradient(90deg, #0072ff, #00c6ff);
     transform: scale(1.05);
 }
@@ -248,24 +248,6 @@ body, html {
     outline: none;
 }
 
-button {
-    background: linear-gradient(90deg, #00c6ff, #0072ff);
-    color: white;
-    padding: 15px 30px;
-    border: none;
-    border-radius: 25px;
-    font-size: 1.3em;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.2s;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    margin-right: 1.3mm;
-}
-
-button:hover {
-    background: linear-gradient(90deg, #0072ff, #00c6ff);
-    transform: scale(1.05);
-}
-
 #feedback {
     position: absolute;
     top: 10px;
@@ -343,20 +325,6 @@ button:hover {
     100% {
         filter: grayscale(100%) brightness(100%);
     }
-}
-
-button[type="submit"] {
-    width: 100%;
-    padding: 15px;
-    margin: 7.5px;
-    font-size: 1.3em;
-    background: linear-gradient(90deg, #ffee01, #ffa600);
-    color: rgb(37, 37, 37);
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.2s;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .input-bar {

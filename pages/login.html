@@ -22,11 +22,12 @@
         <section class="col">
             <div class="center"><h1>Connexion</h1></div>
             <form method="POST" class="col" action="/login">
-                    <input type="text" name="username" placeholder="Nom d'utilisateur" required>
-                    <input type="password" name="password" placeholder="Mot de passe" required>
-                    <button type="submit">Se connecter</button>
+                    <input type="text" placeholder="Nom d'utilisateur" required>
+                    <input type="password" placeholder="Mot de passe" required>
+                    <button id="button-login" type="submit">Se connecter</button>
             </form>
-            <div class="center"><p>Pas encore de compte ? <a>S'inscrire</a></p></div>
+            <div class="center"><p>Pas encore de compte ? <a href="/register" >S'inscrire</a></p></div>
+            <div style="text-align: center;" class="center"><p>J'ai oublié mon mot de passe. <br> <a href="/register" >Le réinitialiser</a></p></div>
         </div>
     </section>
     <footer>

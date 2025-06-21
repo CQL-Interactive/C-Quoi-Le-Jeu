@@ -14,9 +14,9 @@ const sqlite3 = require('sqlite3').verbose()
 
 
 const app = express()
+dotenv.config()
 const PORT = process.env.PORT
 const HOST = process.env.HOST
-dotenv.config()
 const db = new sqlite3.Database('users.db')
 
 
@@ -40,27 +40,48 @@ function requireAuth(req, res, next) {
     }
 }
 
+app.use(express.json())
 app.use('/css/', express.static(path.join(__dirname, 'static', 'css')))                 // Css
 app.use('/img/', requireAuth , express.static(path.join(__dirname, 'static', 'images')))   // Img
 app.use('/js/', express.static(path.join(__dirname, 'static', 'js')))                   // Js
 app.use('/videos/', express.static(path.join(__dirname, 'static', 'videos')))           // Videos
 
-
 app.get('/', (req, res) => {
-    if (req.session.userId) {
-        res.sendFile(path.join(__dirname, 'pages', 'index.html'))
-    } else {
-        res.sendFile(path.join(__dirname, 'pages', 'login.html'))
-    }
+    res.sendFile(path.join(__dirname, 'pages', 'index.html'))
 })
 
-app.get('/api/register', (req, res) => {
+app.get('/register', (req, res) => {
+    res.sendFile(path.join(__dirname, 'pages', 'register.html'))
+})
+
+app.post('/api/register', async (req, res) => {
     const { username, password } = req.body
 
-    
+    db.all(`SELECT * FROM users WHERE username = ?`, [username], (err, rows) => {
+        if (err) throw err
+        if (rows.length > 0) {
+            return res.json({
+                ok : false,
+                message : "Ce nom d'utilisateur est déjà utilisé"
+
+            })
+        }
+    })
+
+    db.run(
+        `INSERT INTO users (username, password, registration_date) VALUES (?, ?, CURRENT_TIMESTAMP)`,
+        [username, bcrypt.hashSync(password, bcrypt.genSaltSync())]
+    );
+
+    res.json({
+        ok : true
+    })
 })
 
-// Serveur
+app.get('/test', (req, res) => {
+    res.sendFile(path.join(__dirname, 'pages', 'index.html'))
+})
+
 app.listen(PORT, () => {
     console.log(`✅ Serveur en ligne sur : ${HOST}:${PORT}`)
 })

@@ -26,7 +26,8 @@ h1,h2, h3, h4 {
 h1 {
     color: rgb(43, 27, 8);
     font-weight: bold;
-    font-size: 40px;
+    font-size: 30px;
+    margin-bottom: 20px;
 }
 
 form {
@@ -52,4 +53,16 @@ section h1 {
 
 p {
     color: white;
+}
+
+.notify {
+    position: absolute;
+    
+}
+
+.bottom-left {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    z-index: 10000;
 }

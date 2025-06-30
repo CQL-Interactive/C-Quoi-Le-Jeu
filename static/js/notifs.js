@@ -26,4 +26,3 @@ class notify {
 
     // warn - info à faire
 }
-

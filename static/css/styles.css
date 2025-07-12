@@ -22,11 +22,12 @@ body, html {
 }
 
 #filter-back {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 101%;
+    height: 101%;
+    margin: -2px;
     object-fit: cover;
     z-index: -1;
     opacity: 80%;
@@ -40,7 +41,7 @@ body, html {
     left: 20px;
     right: 20px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     z-index: 1000;
 }
@@ -49,6 +50,9 @@ body, html {
     display: flex;
     align-items: center;
     cursor: pointer;
+    position: relative;
+    top: 0;
+    left: 0;
 }
 
 .logo {
@@ -66,7 +70,13 @@ body, html {
 
 .user-menu {
     position: relative;
-    display: inline-block;
+    display: flex;
+    min-width: 200px;
+    flex-direction: column;
+    align-content: center;
+}
+.user-menu button{
+    min-width: 200px;
 }
 
 .user-button {
@@ -89,24 +99,22 @@ body, html {
 
 .dropdown-content {
     display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
+    background-color: #f9f9f900;
+    flex-direction: column;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1001;
-    right: 0;
-    top: 100%;
+    width: 80%;
+    text-align: center;
+    align-self: center;
 }
-
 .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color: #ffffffbb;
     text-decoration: none;
     display: block;
-}
-
-.dropdown-content a:hover {
-    background-color: #f1f1f1;
+}.dropdown-content a:hover {
+    background-color: #ffffff77;
 }
 
 .dropdown-submenu {
@@ -136,7 +144,7 @@ body, html {
 
 .user-menu:hover .dropdown-content,
 .dropdown-content:hover .dropdown-submenu {
-    display: block;
+    display: flex;
 }
 
 .game-container {
@@ -146,11 +154,17 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: row;
+    gap: 10px;
     padding: 20px;
     box-sizing: border-box;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     z-index: 999;
+}.game-container h1{
+    margin-right: 10px;
+}.game-container p{
+    color: #ffc400;
 }
 
 #start-button {
@@ -210,20 +224,6 @@ body, html {
 #return-home-button:hover {
     background: linear-gradient(90deg, #218838, #28a745);
     transform: scale(1.05);
-}
-
-.input-bar {
-    width: 70%;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 20px;
-    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
-    border-radius: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    bottom: 0;
-    animation: fadeInUp 1s ease-in-out;
 }
 
 #game-count {
@@ -372,9 +372,7 @@ footer {
 .input-bar {
     position: relative;
     width: 70%;
-    background: rgba(255, 255, 255, 0.95);
     padding: 20px;
-    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
     border-radius: 15px;
     display: flex;
     justify-content: center;
@@ -385,11 +383,18 @@ footer {
 }
 
 #games-history {
-    max-height: 300px;
-    overflow-y: auto;
-    border: 1px solid #ccc;
     padding: 10px;
     margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: none;
+    border-left: 2px #ffc400 solid;
+}#games-history p {
+    color: #2b1b08;
+    font-weight: 600;
+    margin: 0;
+    margin-bottom: 10px;
 }
 
 /* Bouton "Contactez-nous !" */
@@ -415,13 +420,15 @@ footer {
 }
 
 /* Conteneur pour les boutons de contact */
-.contact-buttons {
+.group-contact-buttons{
+    margin-left: 30px;
     position: relative;
     height: 100vh; /* Prend toute la hauteur de la fenêtre */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 5mm;
 }
 
 /* Style de base pour les boutons de contact */
@@ -429,17 +436,17 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
     color: white;
-    padding: 15px 30px;
-    border: none;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
     border-radius: 25px;
     font-size: 1.3em;
     cursor: pointer;
     transition: background 0.3s, transform 0.2s;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     text-decoration: none;
-    margin-bottom: 5mm;
 }
 
 /* Style spécifique pour le bouton Discord */
@@ -462,6 +469,11 @@ footer {
 .contact-logo {
     width: 24px;
     height: 24px;
+}
+
+.form-settings{
+    display: flex;
+    flex-direction: row;
 }
 
 @media (max-width: 768px) {

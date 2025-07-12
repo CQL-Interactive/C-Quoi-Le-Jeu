@@ -5,35 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paramètres - C Quoi Le Jeu</title>
     <link rel="stylesheet" href="/css/styles.css">
-    <link rel="icon" href="{{ url_for('static', filename='images/logo.svg') }}" type="image/png">
+    <link rel="icon" href="/img/logo.svg" >
 </head>
 <body>
+    <img id="filter-back" >
     <video autoplay muted loop id="background-video">
-        <source src="{{ url_for('static', filename='background.webm') }}" type="video/webm">
+        <source src="/videos/background.webm" type="video/webm">
     </video>
     <div class="header">
         <!-- En-tête avec logo -->
         <div class="logo-container" onclick="location.href='/'">
-            <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="Logo" class="logo">
+            <img src="img/logo.svg" alt="Logo" class="logo">
             <span class="site-name">C Quoi Le Jeu</span>
         </div>
     </div>
     <div class="game-container">
         <!-- Formulaire de modification du mot de passe -->
         <h1>Paramètres</h1>
-        <form method="POST" action="{{ url_for('settings') }}">
-            <div class="input-bar">
-                <input type="text" name="new_password" placeholder="Nouveau mot de passe" required>
-                <button type="submit">Mettre à jour</button>
-            </div>
-        </form>
-        <!-- Formulaire de suppression de compte -->
-        <form method="POST" action="{{ url_for('delete_account') }}" style="margin-top: 50px;">
-            <div class="input-bar">
-                <input type="password" name="password" placeholder="Mot de passe actuel" required>
-                <button type="submit" class="delete-account">Supprimer mon compte</button>
-            </div>
-        </form>
+        <div class="form-settings">
+            <form method="POST" action="{{ url_for('settings') }}">
+                <div class="input-bar">
+                    <input type="text" name="new_password" placeholder="Nouveau mot de passe" required>
+                    <button type="submit">Mettre à jour</button>
+                </div>
+            </form>
+            <!-- Formulaire de suppression de compte -->
+            <form method="POST" action="{{ url_for('delete_account') }}">
+                <div class="input-bar">
+                    <input type="password" name="password" placeholder="Mot de passe actuel" required>
+                    <button type="submit" class="delete-account">Supprimer mon compte</button>
+                </div>
+            </form>
+        </div>
     </div>
     <footer>
         <p>&copy; 2025 C Quoi Le Jeu. Tous droits réservés. Version 2.1.1</p>

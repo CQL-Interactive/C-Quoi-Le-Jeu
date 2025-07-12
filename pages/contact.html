@@ -5,28 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact - C Quoi Le Jeu</title>
     <link rel="stylesheet" href="/css/styles.css">
-    <link rel="icon" href="{{ url_for('static', filename='images/logo.svg') }}" type="image/png">
+    <link rel="icon" href="/img/logo.svg" type="image/png">
 </head>
 <body>
+    <img id="filter-back" >
     <video autoplay muted loop id="background-video">
-        <source src="{{ url_for('static', filename='background.webm') }}" type="video/webm">
+        <source src="/videos/background.webm" type="video/webm">
     </video>
     <div class="header">
         <div class="logo-container" onclick="location.href='/'">
-            <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="Logo" class="logo">
+            <img src="/img/logo.svg" alt="Logo" class="logo">
             <span class="site-name">C Quoi Le Jeu</span>
         </div>
     </div>
     <div class="game-container">
         <h1>Contactez-nous !</h1>
-        <div class="contact-buttons">
+        <div class="group-contact-buttons">
             <a href="https://discord.gg/Evu8WXm27z" target="_blank" class="contact-button discord-button">
-                <img src="{{ url_for('static', filename='images/discord-logo.png') }}" alt="Discord" class="contact-logo">
-                Rejoindre notre Discord
+                <img src="img/discord-logo.png" alt="Discord" class="contact-logo">
+                <p>Rejoindre notre Discord</p>
             </a>
             <a href="mailto:contact.cquoilejeu@gmail.com" class="contact-button mail-button">
-                <img src="{{ url_for('static', filename='images/mail-logo.png') }}" alt="Email" class="contact-logo">
-                Envoyer un Email
+                <img src="img/mail-logo.png" alt="Email" class="contact-logo">
+                <p>Envoyer un Email</p>
             </a>
         </div>
     </div>

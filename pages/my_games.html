@@ -5,15 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mes parties - C Quoi Le Jeu</title>
     <link rel="stylesheet" href="/css/styles.css">
-    <link rel="icon" href="{{ url_for('static', filename='images/logo.svg') }}" type="image/png">
+    <link rel="icon" href="/img/logo.svg" >
 </head>
 <body>
+    <img id="filter-back" >
     <video autoplay muted loop id="background-video">
-        <source src="{{ url_for('static', filename='background.webm') }}" type="video/webm">
+        <source src="/videos/background.webm" type="video/webm">
     </video>
     <div class="header">
         <div class="logo-container" onclick="location.href='/'">
-            <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="Logo" class="logo">
+            <img src="img/logo.svg" alt="Logo" class="logo">
             <span class="site-name">C Quoi Le Jeu</span>
         </div>
     </div>
@@ -21,11 +22,8 @@
         <h1>Mes parties</h1>
         <p>Historique des parties jouées :</p>
         <div id="games-history">
-            <ul>
-                {% for game in games %}
-                    <li>{{ game.game_name }} - Score : {{ game.score }}</li>
-                {% endfor %}
-            </ul>
+            <p>test_1 - Score : 120</p>
+            <p>test_2 - Score : 210</p>
         </div>
     </div>
     <footer>

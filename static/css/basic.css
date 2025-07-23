@@ -31,3 +31,11 @@
 .margin-top {
     margin-top: 10px;
 }
+
+.left {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    text-align: left;
+}

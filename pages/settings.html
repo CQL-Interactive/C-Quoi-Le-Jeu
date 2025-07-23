@@ -20,23 +20,18 @@
         </div>
     </div>
     <div class="game-container">
-        <!-- Formulaire de modification du mot de passe -->
-        <h1>Paramètres</h1>
-        <div class="form-settings">
-            <form method="POST" action="{{ url_for('settings') }}">
-                <div class="input-bar">
+        <section class="left" >
+            <h1>Paramètres</h1>
+                <form method="POST" action="{{ url_for('settings') }}">
                     <input type="text" name="new_password" placeholder="Nouveau mot de passe" required>
                     <button type="submit">Mettre à jour</button>
-                </div>
-            </form>
-            <!-- Formulaire de suppression de compte -->
-            <form method="POST" action="{{ url_for('delete_account') }}">
-                <div class="input-bar">
+                </form>
+                <!-- Formulaire de suppression de compte -->
+                <form method="POST" action="{{ url_for('delete_account') }}">
                     <input type="password" name="password" placeholder="Mot de passe actuel" required>
                     <button type="submit" class="delete-account">Supprimer mon compte</button>
-                </div>
-            </form>
-        </div>
+                </form>
+        </section>
     </div>
     <footer>
         <p>&copy; 2025 C Quoi Le Jeu. Tous droits réservés. Version 2.1.1</p>

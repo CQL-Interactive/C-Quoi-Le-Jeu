@@ -78,10 +78,6 @@ app.post('/api/register', async (req, res) => {
     })
 })
 
-app.get('/test', (req, res) => {
-    res.sendFile(path.join(__dirname, 'pages', 'contact.html'))
-})
-
 //app.get pour tester toute les pages plus facilement
 app.get('/contact', (req, res) => {
     res.sendFile(path.join(__dirname, 'pages', 'contact.html'))
@@ -89,7 +85,7 @@ app.get('/contact', (req, res) => {
 app.get('/histo', (req, res) => {
     res.sendFile(path.join(__dirname, 'pages', 'my_games.html'))
 })
-app.get('/setting', (req, res) => {
+app.get('/settings', (req, res) => {
     res.sendFile(path.join(__dirname, 'pages', 'settings.html'))
 })
 app.get('/login', (req, res) => {
@@ -99,6 +95,6 @@ app.get('/login', (req, res) => {
 
 
 app.listen(PORT, () => {
-    console.log(`✅ Serveur en ligne sur : ${HOST}:${PORT}`)
+    console.log(`✅ Serveur en ligne sur : http://${HOST}:${PORT}`)
 })
 

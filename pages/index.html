@@ -35,9 +35,9 @@
         <div class="user-menu">
             <button class="small">te</button>
             <div class="dropdown-content">
-                <a href="{{ url_for('my_games') }}">Mes parties</a>
-                <a href="{{ url_for('settings') }}">Paramètres</a>
-                <a href="{{ url_for('logout') }}">Déconnexion</a>
+                <a href="/histo">Mes parties</a>
+                <a href="/settings">Paramètres</a>
+                <a href="/login">Déconnexion</a>
             </div>
         </div>
     </div>
@@ -76,10 +76,10 @@
             <p>Essais restants : <span id="remaining-attempts">3</span></p>
         </div>
     </div>
-    <button onclick="window.location.href = `...`" class="small bottom-left">✉️Contactez-nous !</button>
+    <button onclick="window.location.href = '/contact'" class="small bottom-left">✉️Contactez-nous !</button>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     <footer>
-        <p>&copy; 2025 C Quoi Le Jeu. Tous droits réservés. Version 2.1.1</p>
+        <p>&copy; 2025 C Quoi Le Jeu. Tous droits réservés. Version 2.1.1 - </p>
     </footer>
 </body>
 </html>

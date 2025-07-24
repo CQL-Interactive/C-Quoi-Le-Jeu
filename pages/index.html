@@ -19,35 +19,18 @@
             <option value="28">28 (max)</option>
         </select>
     </div>
-
-
-
     <img id="filter-back" >
     <video autoplay muted loop id="background-video">
         <source src="/videos/background.webm" type="video/webm">
     </video>
-    <div class="header">
-        <!-- En-tête avec logo et menu utilisateur -->
-        <div class="logo-container" onclick="location.href='/'">
-            <img src="/img/logo.svg" alt="Logo" class="logo">
-            <span class="site-name">C Quoi Le Jeu</span>
-        </div>
-        <div class="user-menu">
-            <button class="small">te</button>
-            <div class="dropdown-content">
-                <a href="/histo">Mes parties</a>
-                <a href="/settings">Paramètres</a>
-                <a href="/login">Déconnexion</a>
-            </div>
-        </div>
-    </div>
+    <div class="header drop"></div>
     <div id="home-page" class="game-container">
         <section class="row" >
             <div class="col">
                 <div class="row">
                     <hr class="o" >
                     <div class="col padding-y">
-                        <h1>C QUOI LE JEU ?</h1>
+                        <h1 class="no-margin" >C QUOI LE JEU ?</h1>
                         <h4>Devine le jeu à partir d'une image</h4>
                     </div>
                 </div>
@@ -76,10 +59,27 @@
             <p>Essais restants : <span id="remaining-attempts">3</span></p>
         </div>
     </div>
-    <button onclick="window.location.href = '/contact'" class="small bottom-left">✉️Contactez-nous !</button>
+    <footer>Chargement...</footer>
+    <div class="fen-new-game">
+        <button class="new-game" id="new-game-button">Ajouter un jeux</button>
+        <div class="new-game-infos" >
+        <h2>Ajouter un jeu</h2>
+        <p>Vous souhaitez proposer un jeu pour "C'est quoi le jeu ?" ?</p>
+        <p>Merci de respecter les conditions suivantes :</p>
+        <ul>
+            <li><p>Le jeu ne doit pas déjà apparaître dans la <a href="/">liste des jeux</a>.</p></li>
+            <li><p>L’image doit être libre de droits, de bonne qualité, au format 1920x1080 en JPG ou PNG.</p></li>
+            <li><p>Le jeu doit pouvoir être reconnu rapidement.</p></li>
+            <li><p>Le jeu doit être au minimum modérément populaire (au moins 50 000 téléchargements).</p></li>
+        </ul>
+        <p>Si ces conditions ne sont pas respectées, le jeu ne sera pas ajouté.</p>
+        <p>Toutes les propositions sont vérifiées manuellement : vous pouvez soumettre jusqu’à 5 jeux par jour.</p>
+        <p>La validation peut prendre jusqu’à 48 heures.</p>
+        <button>Ajouter mon jeu</button>
+    </div>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-    <footer>
-        <p>&copy; 2025 C Quoi Le Jeu. Tous droits réservés. Version 2.1.1 - </p>
-    </footer>
+
+    <script src="/js/main.js" ></script>
+    <script src="/js/overed.js" ></script>
 </body>
 </html>

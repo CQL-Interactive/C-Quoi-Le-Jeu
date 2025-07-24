@@ -39,3 +39,10 @@
     align-items: start;
     text-align: left;
 }
+
+.bottom-left {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    z-index: 10000;
+}

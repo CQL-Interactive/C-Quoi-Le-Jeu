@@ -21,6 +21,7 @@ input::placeholder {
 }
 
 button {
+    z-index: 2;
     padding: 15px;
     margin: 7.5px;
     font-size: 1.3em;

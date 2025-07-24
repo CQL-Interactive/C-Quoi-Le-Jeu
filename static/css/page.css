@@ -1,0 +1,38 @@
+body {
+    background-color: rgb(19, 19, 19);
+    overflow-y: auto;
+}
+
+main {
+    padding: 0px 25vw;
+}
+
+h1, h2, h3 {
+    color: rgb(224, 224, 224);
+}
+
+h2 {
+    margin: 10px 0;
+    margin-top: 40px;
+}
+
+h1 {
+    color: #dddddd;
+    background-color: #facc001c;
+    padding: 10px;
+    box-shadow: 0 0 8px 5px #facc001c;
+    margin-bottom: 100px;
+}
+
+p {
+    transition: 0.5s;
+    border-radius: 10px;
+}
+
+p:hover {
+    background-color: #facc001c;
+    transition: 0.5s;
+    transform: scale(102%);
+    padding: 10px;
+    cursor: text;
+}

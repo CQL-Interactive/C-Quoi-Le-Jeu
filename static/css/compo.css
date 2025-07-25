@@ -96,3 +96,50 @@ p {
     border: solid 1px rgba(255, 255, 255, 0.048);
     box-shadow: rgba(0, 0, 0, 0.445) 0 0 20px 5px;
 }
+
+@keyframes dropNotif {
+    0% {
+        opacity: 0;
+        top : -30px
+    } 100% {
+        opacity: 1;
+        top: 20px;
+    }
+}
+
+@keyframes dropNotifFin {
+    0% {
+        opacity: 1;
+        top : 20px
+    } 100% {
+        opacity: 0;
+        top: -30px;
+    }
+}
+
+.notif {
+    background-color: #2e2e2e4f ;
+    color: white;
+    backdrop-filter: blur(10px);
+    border: solid 1px rgba(255, 255, 255, 0.048);
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.445) 0 0 20px 5px;
+    position: absolute;
+    padding: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 20px;
+    animation: dropNotif 0.5s;
+}
+
+.notif.error {
+    background-color: #4e1a1a4f ;
+}
+
+.notif.warn {
+    background-color: #4e4b1a4f ;
+}
+
+.notif.anim {
+    animation: dropNotifFin 1s;
+}

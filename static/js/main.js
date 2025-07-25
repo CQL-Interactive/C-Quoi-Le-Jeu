@@ -8,7 +8,7 @@ window.config = window.config || {
 }
 
 const components = {
-    ".header": (el, subConfig = {}) => {
+    ".header": async (el, subConfig = {}) => {
         let html = ""
 
         if (subConfig["logo-container"]) {
@@ -21,13 +21,14 @@ const components = {
         }
 
         if (subConfig["menu"]) {
+            const user = await fetch('/api/user').then(res => res.json())
             html += `
                 <div class="user-menu">
-                    <button class="small">te</button>
+                    <button class="small">${user.username}</button>
                     <div class="dropdown-content">
                         <a href="/histo">Mes parties</a>
                         <a href="/settings">Paramètres</a>
-                        <a href="/login">Déconnexion</a>
+                        <a href="/api/auth/logout">Déconnexion</a>
                     </div>
                 </div>
             `

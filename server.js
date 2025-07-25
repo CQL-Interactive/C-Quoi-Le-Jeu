@@ -17,7 +17,6 @@ const app = express()
 dotenv.config()
 const PORT = process.env.PORT
 const HOST = process.env.HOST
-const db = new sqlite3.Database('users.db')
 
 
 app.use(session({
@@ -26,11 +25,16 @@ app.use(session({
     saveUninitialized: true,
     cookie: {
         maxAge: 1000 * 60 * 60, // 1h
-        secure: Boolean(process.env.SECURE), // HTTPS ?
+        secure: false, // HTTPS ?
         httpOnly: true,
     }
 }))
 
+app.use(express.json())
+app.use('/css/', express.static(path.join(__dirname, 'static', 'css')))                 // Css
+app.use('/img/', express.static(path.join(__dirname, 'static', 'images')))   // Img
+app.use('/js/', express.static(path.join(__dirname, 'static', 'js')))                   // Js
+app.use('/videos/', express.static(path.join(__dirname, 'static', 'videos')))           // Videos
 
 function requireAuth(req, res, next) {
     if (req.session.user) {
@@ -40,12 +44,6 @@ function requireAuth(req, res, next) {
         res.redirect(`/login?redir=${encodeURIComponent(redirectPath)}`)
     }
 }
-
-app.use(express.json())
-app.use('/css/', express.static(path.join(__dirname, 'static', 'css')))                 // Css
-app.use('/img/', express.static(path.join(__dirname, 'static', 'images')))   // Img
-app.use('/js/', express.static(path.join(__dirname, 'static', 'js')))                   // Js
-app.use('/videos/', express.static(path.join(__dirname, 'static', 'videos')))           // Videos
 
 app.use((req, res, next) => {
     const userAgent = req.headers['user-agent'] || ''
@@ -59,6 +57,9 @@ app.use((req, res, next) => {
     next()
 })
 
+app.use('/', require(path.join(__dirname, 'routes', 'pages'))(requireAuth))
+app.use('/api/', require(path.join(__dirname, 'routes', 'index')))
+
 app.get('/', (req, res) => {
     if (req.session.user) {
         res.sendFile(path.join(__dirname, 'pages', 'index.html'))
@@ -66,62 +67,6 @@ app.get('/', (req, res) => {
         const redirectPath = req.originalUrl
         res.redirect(`/login?redir=${encodeURIComponent(redirectPath)}`)
     }
-})
-
-app.get('/register', (req, res) => {
-    res.sendFile(path.join(__dirname, 'pages', 'register.html'))
-})
-
-app.post('/api/register', async (req, res) => {
-    const { username, password } = req.body
-
-    db.all(`SELECT * FROM users WHERE username = ?`, [username], (err, rows) => {
-        if (err) throw err
-        if (rows.length > 0) {
-            return res.json({
-                ok : false,
-                message : "Ce nom d'utilisateur est déjà utilisé"
-
-            })
-        }
-    })
-
-    db.run(
-        `INSERT INTO users (username, password, registration_date) VALUES (?, ?, CURRENT_TIMESTAMP)`,
-        [username, bcrypt.hashSync(password, bcrypt.genSaltSync())]
-    );
-
-    res.json({
-        ok : true
-    })
-})
-
-//app.get pour tester toute les pages plus facilement
-app.get('/contact', (req, res) => {
-    res.sendFile(path.join(__dirname, 'pages', 'contact.html'))
-})
-app.get('/histo', (req, res) => {
-    res.sendFile(path.join(__dirname, 'pages', 'my_games.html'))
-})
-app.get('/settings', requireAuth, (req, res) => {
-    res.sendFile(path.join(__dirname, 'pages', 'settings.html'))
-})
-app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'pages', 'login.html'))
-})
-
-app.get('/privacy-notice-FR', (req, res) => {
-    res.sendFile(path.join(__dirname, 'pages', 'politique.html'))
-})
-
-app.get('/game-list', (req, res) => {
-    res.sendFile(path.join(__dirname, 'pages', 'politique.html'))
-})
-
-app.get('/version', (req, res) => {
-    const version = JSON.parse(fs.readFileSync(path.join(__dirname, 'config.json'))).version
-
-    res.json(version)
 })
 
 app.listen(PORT, () => {

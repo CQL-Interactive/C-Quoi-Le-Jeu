@@ -17,22 +17,25 @@
     <div class="game-container">
         <section class="col">
             <div class="center"><h1>Connexion</h1></div>
-            <form method="POST" class="col" action="/login">
-                    <input type="text" placeholder="Nom d'utilisateur" required>
-                    <input type="password" placeholder="Mot de passe" required>
+            <form id="form-login" class="col">
+                    <input type="text" autocomplete="username" id="username" placeholder="Nom d'utilisateur" required>
+                    <input autocomplete="current-password" type="password" id="password" placeholder="Mot de passe" required>
                     <button id="button-login" type="submit">Se connecter</button>
+                    <div class="center"><p>Pas encore de compte ? <a href="/register" >S'inscrire</a></p></div>
             </form>
-            <div class="center"><p>Pas encore de compte ? <a href="/register" >S'inscrire</a></p></div>
             <div style="text-align: center;" class="center"><p>J'ai oublié mon mot de passe. <br> <a href="/register" >Le réinitialiser</a></p></div>
         </div>
     </section>
     <footer></footer>
+    <script src="/js/login.js" ></script>
+    <script src="/js/notify.js" ></script>
     <script src="/js/main.js" ></script>
     <script>
         config = {
             contact: false,
             ".header": {
-                "logo-container" : true
+                "logo-container" : true,
+                "menu" : false
             },
             "footer": true
         }

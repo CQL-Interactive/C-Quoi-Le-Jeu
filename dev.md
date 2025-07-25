@@ -4,8 +4,17 @@ Le journal de dev permet de s'orguaniser en notant ce que l'on fait, les choses 
 Merci de lire ce fichier à chaque fois que vouns commencer à dev sur le projet.
 Vous pouvez trouver le hash du commit avec `git rev-parse HEAD`
 
-## Logs des modifications
-**bcf29a206ea210417e4915255866c83f3bc00bb8 :**
+## 🗞️ Patch nootes
+**5d4ba73df1c494db016509ab612bc8a6f510d043 - v3.1.8 :**
+- Systeme de connexion
+- Séparation fichier back
+- Systeme séssion
+- Logout
+- Routes
+- RequireAuth
+- Systeme notifications
+
+**bcf29a206ea210417e4915255866c83f3bc00bb8 - v3.1.1 :**
 - Systeme dynamique
 - Ajout de la page d'ajout de jeux
 - Ajout d'une page pour mobile
@@ -24,7 +33,7 @@ Vous pouvez trouver le hash du commit avec `git rev-parse HEAD`
 
 | 🚥 Etat | ✏️ Modification |
 |-------------|--------|
-| 🔴 | Systeme de création de nouvau joueur |
+| 🟢 | Systeme de création de nouvau joueur |
 | 🟢 | Ajout de la politique de confidentialité |
 | 🟠 | Systeme dynamique pour chargé les éléments réptitifs (header, fotther...) |
 

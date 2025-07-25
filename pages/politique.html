@@ -8,21 +8,8 @@
     <link rel="stylesheet" href="/css/page.css">
 </head>
 <body>
-    <header>
-        <!-- En-tête avec logo et menu utilisateur -->
-        <div class="logo-container" onclick="location.href='/'">
-            <img src="/img/logo.svg" alt="Logo" class="logo">
-            <span class="site-name">C Quoi Le Jeu</span>
-        </div>
-        <div class="user-menu">
-            <button class="small">te</button>
-            <div class="dropdown-content">
-                <a href="/histo">Mes parties</a>
-                <a href="/settings">Paramètres</a>
-                <a href="/login">Déconnexion</a>
-            </div>
-        </div>
-    </header>
+    <div class="header"></div>
+    <header></header>
     <main>
         <div class="center"><h1>Politique de confidentialité</h1></div>
         <p><strong>C Quoi Le Jeu</strong><br>
@@ -115,5 +102,15 @@
             En cas de litige, une tentative de règlement amiable sera privilégiée. À défaut, seuls les tribunaux français seront compétents.
         </p>
     </main>
+    <script src="/js/main.js" ></script>
+    <script>
+        config = {
+            contact: false,
+            ".header": {
+                "logo-container" : true
+            },
+            "footer": true
+        }
+    </script>
 </body>
 </html>

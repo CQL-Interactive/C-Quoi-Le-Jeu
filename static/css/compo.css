@@ -84,7 +84,7 @@ p {
     bottom: 0;
     right: 0;
     z-index: 10000;
-    bottom: -440px;
+    bottom: -442px;
     transition: 0.5s;
 }
 .new-game-infos {

@@ -34,5 +34,5 @@ p:hover {
     transition: 0.5s;
     transform: scale(102%);
     padding: 10px;
-    cursor: text;
+    cursor: pointer;
 }

@@ -1,45 +1,63 @@
 # 📰 Journal de dev
-
-Le journal de dev permet de s'orguaniser en notant ce que l'on fait, les choses à faire ou d'autres infos que vous avez à faire passer.
-Merci de lire ce fichier à chaque fois que vouns commencer à dev sur le projet.
-Vous pouvez trouver le hash du commit avec `git rev-parse HEAD`
-
-## 🗞️ Patch nootes
-**5d4ba73df1c494db016509ab612bc8a6f510d043 - v3.1.8 :**
-- Systeme de connexion
-- Séparation fichier back
-- Systeme séssion
-- Logout
-- Routes
-- RequireAuth
-- Systeme notifications
-
-**bcf29a206ea210417e4915255866c83f3bc00bb8 - v3.1.1 :**
-- Systeme dynamique
-- Ajout de la page d'ajout de jeux
-- Ajout d'une page pour mobile
-- Système de version
-- Login/Register
-
-**a86451eefbc8923661c02bfb9a62b9f929d6aaa4 :**
-- Modification route /setting → /settings
-- Les liens sur les pages sont maintenat fonctionnels
-- Html de certaines pages revue
-
-
-
-
 ## A faire
 
 | 🚥 Etat | ✏️ Modification |
 |-------------|--------|
-| 🟢 | Systeme de création de nouvau joueur |
-| 🟢 | Ajout de la politique de confidentialité |
+| ❌ | Systeme chargement images en jeux |
+| ❌ | Modification compte (nom d'utilisateur, mdp, suppréssion) |
+| ❌ | Oublis mdp |
+| ❌ | Système ajout de jeu |
+| ❌ | Cassements des meilleurs joueurs |
 | 🟠 | Systeme dynamique pour chargé les éléments réptitifs (header, fotther...) |
-
-
+| 🟢 | Systeme de création de nouvau joueur |
 Etats possibles :
 - Non fait : ❌
 - En cours, ne pas toucher : 🔴
 - Commencé, vous pouvez toucher : 🟠
 - Fini : 🟢
+
+
+## 🗞️ Patch notes
+<details>
+    <summary><strong>v3.1.9</strong></summary>
+    <ul>
+        <li>Réunion générale</li>
+        <li>Correction orthographe</li>
+        <li>Ajout game-list</li>
+        <li>Redirection après connexion</li>
+        <li>Back-end panel admin</li>
+        <li>Systeme link games</li>
+    </ul>
+</details>
+<details>
+    <summary><strong>5d4ba73df1c494db016509ab612bc8a6f510d043 - v3.1.8</strong></summary>
+    <ul>
+        <li>Systeme de connexion</li>
+        <li>Séparation fichier back</li>
+        <li>Systeme séssion</li>
+        <li>Logout</li>
+        <li>Routes</li>
+        <li>RequireAuth</li>
+        <li>Systeme notifications</li>
+        <li>Le front est maintenant conformes aux normes</li> 
+        <li>Refoonte de ce journal 😉</li>
+    </ul>
+</details>
+
+<details>
+<summary><strong>bcf29a206ea210417e4915255866c83f3bc00bb8 - v3.1.1</strong></summary>
+- Systeme dynamique
+- Ajout de la page d'ajout de jeux
+- Ajout d'une page pour mobile
+- Système de version
+- Login/Register
+</details>
+
+<details>
+<summary><strong>a86451eefbc8923661c02bfb9a62b9f929d6aaa4</strong></summary>
+- Modification route /setting → /settings
+- Les liens sur les pages sont maintenat fonctionnels
+- Html de certaines pages revue
+</details>
+<hr>
+Le journal de dev permet de s'orguaniser en notant ce que l'on fait, les choses à faire ou d'autres infos que vous avez à faire passer.

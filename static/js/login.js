@@ -19,7 +19,10 @@ function login() {
             if (!res.ok) {
                 notify.error(res.message)
             } else {
-                window.location.href = '/?notif=Connexion réusie !%info'
+                const url = new URL(window.location.href);
+                const Param = url.searchParams.get("redir");
+                const redir = Param ? Param : ""
+                window.location.href = `${redir}/?notif=Connexion réussie !%info`
                 notify.info(res.message)
             }
             button.innerHTML = "Se connecter"

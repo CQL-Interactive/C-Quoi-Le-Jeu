@@ -28,6 +28,7 @@ const components = {
                     <div class="dropdown-content">
                         <a href="/histo">Mes parties</a>
                         <a href="/settings">Paramètres</a>
+                        ${user.admin ? '<a href="/admin">Panel administrateur</a>' : ''}
                         <a href="/api/auth/logout">Déconnexion</a>
                     </div>
                 </div>

@@ -2,7 +2,7 @@ let nb = 0;
 
 class notify {
     static #addNotification(type, html, time = 5000) {
-        if (nb >= 5) return;
+        if (nb >= 1) return;
 
         const id = Date.now().toString();
         nb++;

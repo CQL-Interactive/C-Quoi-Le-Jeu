@@ -23,7 +23,7 @@ module.exports = (requireAuth) => {
 
     router.get('/register', (req, res) => {
         if (req.session.user) {
-            res.redirect('/?notif=Vous ête déjà connecté !%warn');
+            res.redirect('/?notif=Vous êtes déjà connecté !%warn');
             return;
         }
         res.sendFile(path.join(__dirname, '..', 'pages', 'register.html'))
@@ -33,8 +33,8 @@ module.exports = (requireAuth) => {
         res.sendFile(path.join(__dirname, '..', 'pages', 'politique.html'))
     })
 
-    router.get('/game-list', requireAuth, (req, res) => {
-        res.sendFile(path.join(__dirname, '..', 'pages', 'politique.html'))
+    router.get('/games-list', requireAuth, (req, res) => {
+        res.sendFile(path.join(__dirname, '..', 'pages', 'list.html'))
     })
 
     router.get('/version', (req, res) => {

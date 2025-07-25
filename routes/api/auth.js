@@ -78,7 +78,7 @@ router.post('/register', (req, res) => {
 router.get('/logout', (req, res) => {
     req.session.destroy()
 
-    res.redirect('/login?notif=Déconnexection réussie%info')
+    res.redirect('/login?notif=Déconnexion réussie%info')
 })
 
 router.post('/login', async (req, res) => {
@@ -104,7 +104,7 @@ router.post('/login', async (req, res) => {
 
         req.session.user = {
             id : user.id,
-            username : user.username
+            username : user.username,
         }
 
         res.status(200).json({ ok: true, message: "Connexion réussie." });

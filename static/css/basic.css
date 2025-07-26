@@ -46,3 +46,9 @@
     left: 10px;
     z-index: 10000;
 }
+
+.space {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}

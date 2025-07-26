@@ -42,5 +42,17 @@ module.exports = (requireAuth) => {
         res.json(version)
     })
 
+    router.get('/admin', requireAuth, (req, res) => {
+        if(req.session.user.isAdmin) {
+            res.sendFile(path.join(__dirname, '..', 'pages', 'admin', 'panel.html'))
+        } else {
+            res.send("Vous n'avez pas accès à cette page.")
+        }
+    })
+
+    router.get('/solo/game', requireAuth, (req, res) => {
+        res.sendFile(path.join(__dirname, '..', 'pages', 'game.html'))
+    })
+
     return router
 }

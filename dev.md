@@ -19,6 +19,14 @@ Etats possibles :
 
 ## 🗞️ Patch notes
 <details>
+    <summary><strong>v3.2.9.1</strong></summary>
+    <ul>
+        <li>Patch bug redirection</li>
+        <li>Ajout sécurité</li>
+        <li>Paramètres partie front</li>
+    </ul>
+</details>
+<details>
     <summary><strong>v3.1.9</strong></summary>
     <ul>
         <li>Réunion générale</li>

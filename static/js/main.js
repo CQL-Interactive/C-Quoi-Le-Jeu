@@ -7,6 +7,11 @@ window.config = window.config || {
     "footer": true
 }
 
+function logout() {
+    fetch('/api/auth/logout')
+    window.location.href = `/login?redir=${window.location.pathname}&notif=Déconnexion réussie%info`
+}
+
 const components = {
     ".header": async (el, subConfig = {}) => {
         let html = ""
@@ -22,14 +27,15 @@ const components = {
 
         if (subConfig["menu"]) {
             const user = await fetch('/api/user').then(res => res.json())
+            console.log(user)
             html += `
                 <div class="user-menu">
                     <button class="small">${user.username}</button>
                     <div class="dropdown-content">
                         <a href="/histo">Mes parties</a>
                         <a href="/settings">Paramètres</a>
-                        ${user.admin ? '<a href="/admin">Panel administrateur</a>' : ''}
-                        <a href="/api/auth/logout">Déconnexion</a>
+                        ${user.isAdmin ? '<a href="/admin">Panel administrateur</a>' : ''}
+                        <a onclick="logout()">Déconnexion</a>
                     </div>
                 </div>
             `

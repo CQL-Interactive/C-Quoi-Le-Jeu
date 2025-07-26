@@ -16,15 +16,14 @@
     <div class="game-container">
         <section class="left" >
             <h1>Paramètres</h1>
-                <form method="POST" action="{{ url_for('settings') }}">
-                    <input type="text" placeholder="Nouveau nom d'utilisateur" required>
+                <form id="username-form" >
+                    <input type="text" id="username-input" placeholder="Nouveau nom d'utilisateur" required>
                     <button type="submit">Mettre à jour</button>
                 </form>
                 <form method="POST" action="{{ url_for('settings') }}">
                     <input type="text" name="new_password" placeholder="Nouveau mot de passe" required>
                     <button type="submit">Mettre à jour</button>
                 </form>
-                <!-- Formulaire de suppression de compte -->
                 <form method="POST" action="{{ url_for('delete_account') }}">
                     <input type="password" name="password" placeholder="Mot de passe actuel" required>
                     <button type="submit" class="delete-account">Supprimer mon compte</button>
@@ -32,7 +31,8 @@
         </section>
     </div>
     <footer></footer>
-<script src="/js/main.js" ></script>
+    <script src="/js/main.js" ></script>
+    <script src="/js/settings.js" ></script>
     <script src="/js/notify.js" ></script>
 </body>
 </html>

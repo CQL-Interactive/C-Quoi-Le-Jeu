@@ -3,8 +3,10 @@
 
 | 🚥 Etat | ✏️ Modification |
 |-------------|--------|
+| ❌ | Plusieurs notifications doivent pouvoir aparaitre |
+| ❌ | Orthographe notification |
 | ❌ | Systeme chargement images en jeux |
-| ❌ | Modification compte (nom d'utilisateur, mdp, suppréssion) |
+| 🟠 | Modification compte (nom d'utilisateur, mdp, suppréssion) |
 | ❌ | Oublis mdp |
 | ❌ | Système ajout de jeu |
 | ❌ | Cassements des meilleurs joueurs |
@@ -18,6 +20,13 @@ Etats possibles :
 
 
 ## 🗞️ Patch notes
+<details>
+    <summary><strong>v3.2.9.2</strong></summary>
+    <ul>
+        <li>Modification username</li>
+        <li>Catégorie jeux mobile</li>
+    </ul>
+</details>
 <details>
     <summary><strong>v3.2.9.1</strong></summary>
     <ul>

@@ -46,20 +46,64 @@ router.patch('/change/username',async (req, res) => {
         return res.status(400).json({ message: erreurs.join('<br>') });
     }
 
-    await db.run("UPDATE users SET username = ? WHERE id = ?",[trimmedUsername, req.session.user.id], (err) => {
-        if (err) {
-            console.log(err)
-            res.status(500).json({
-                message : "Erreur interne"
-            })
+    db.get(`SELECT * FROM users WHERE username = ?`, [trimmedUsername], (err, existingUser) => {
+        if (err) return res.status(500).json({ ok: false, message: "Erreur interne" });
+        if (existingUser) {
+            return res.status(409).json({
+                ok: false,
+                message: "Ce nom d'utilisateur est déjà utilisé"
+            });
         }
-    })
-    req.session.user.username = trimmedUsername
+        db.run("UPDATE users SET username = ? WHERE id = ?",[trimmedUsername, req.session.user.id], (err) => {
+            if (err) {
+                console.log(err)
+                res.status(500).json({
+                    message : "Erreur interne"
+                })
+                return;
+            }
 
-    res.status(200).json({
-        ok : true,
-        before: nameBefore
+            req.session.user.username = trimmedUsername
+
+            res.status(200).json({
+                ok : true,
+                before: nameBefore
+            })
+        })
     })
+})
+
+router.patch('/change/password', (req,res) => {
+    const { password } = req.body;
+
+    const erreurs = [];
+
+    if (password.length < 8) erreurs.push("Le mot de passe doit contenir au moins 8 caractères.");
+    if (!/[A-Z]/.test(password)) erreurs.push("Il faut au moins une majuscule.");
+    if (!/[a-z]/.test(password)) erreurs.push("Il faut au moins une minuscule.");
+    if (!/[0-9]/.test(password)) erreurs.push("Il faut au moins un chiffre.");
+    if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) erreurs.push("Il faut au moins un caractère spécial.");
+    if (/\s/.test(password)) erreurs.push("Les espaces ne sont pas autorisés.");
+
+    if (erreurs.length > 0) {
+        return res.status(400).json({ message: erreurs.join('<br>') });
+    }
+
+    const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync());
+    db.run("UPDATE users SET password = ? WHERE id = ?",[hashedPassword, req.session.user.id], (err) => {
+            if (err) {
+                console.log(err)
+                res.status(500).json({
+                    message : "Erreur interne"
+                })
+                return;
+            }
+
+            res.status(200).json({
+                ok : true
+            })
+        })
+
 })
 
 module.exports = router

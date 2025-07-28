@@ -3,14 +3,15 @@
 
 | 🚥 Etat | ✏️ Modification |
 |-------------|--------|
-| ❌ | Plusieurs notifications doivent pouvoir aparaitre |
+| ❌ | Systeme vérification jeux et propositions |
 | ❌ | Orthographe notification |
-| ❌ | Systeme chargement images en jeux |
-| 🟠 | Modification compte (nom d'utilisateur, mdp, suppréssion) |
 | ❌ | Oublis mdp |
 | ❌ | Système ajout de jeu |
 | ❌ | Cassements des meilleurs joueurs |
+| 🟠 | Modification compte (nom d'utilisateur, mdp, suppréssion) |
 | 🟠 | Systeme dynamique pour chargé les éléments réptitifs (header, fotther...) |
+| 🟢 | Systeme chargement images en jeux |
+| 🟢 | Plusieurs notifications doivent pouvoir aparaitre |
 | 🟢 | Systeme de création de nouvau joueur |
 Etats possibles :
 - Non fait : ❌
@@ -20,6 +21,14 @@ Etats possibles :
 
 
 ## 🗞️ Patch notes
+<details>
+    <summary><strong>v3.2.9.5</strong></summary>
+    <ul>
+        <li>Il est maintenant possible de modifier son mot de passe</li>
+        <li>Définition des paramètres</li>
+        <li>Systeme chargement images en jeux</li>
+    </ul>
+</details>
 <details>
     <summary><strong>v3.2.9.2</strong></summary>
     <ul>

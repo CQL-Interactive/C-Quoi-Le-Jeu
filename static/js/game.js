@@ -1,3 +1,58 @@
+const inputs = {
+    nbGames : document.getElementById('seettings_nbGames'),
+    lives : document.getElementById('settings_lives')
+}
+
+let games = []
+
+function randomNb(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    fetch('/api/game/settings')
+    .then(res => res.json())
+    .then(res => {
+        if (res.ok) {
+            inputs.nbGames.value = res.data.nbGames
+            inputs.lives.value = res.data.lives
+        }
+    })
+    fetch('/api/games')
+    .then(res => res.json())
+    .then(res => {
+        games = res
+        inputs.nbGames.placeholder = `Nombre de jeux (Max ${res.length})`
+    })
+})
+
+async function changeSettings() {
+    inputs.nbGames.value = randomNb(5, games.length)
+    inputs.lives.value = randomNb(1, 10)
+}
+
+function play() {
+    fetch('/api/game/settings', {
+        method : "POST",
+        headers : {
+            'Content-Type' : 'application/json'
+        },
+        body : JSON.stringify({
+            nbGames : Number(document.getElementById('seettings_nbGames').value),
+            lives : Number(document.getElementById('settings_lives').value)
+        })
+    })
+    .then(res => res.json())
+    .then(res => {
+        if(res.ok) {
+            window.location.href = '/solo/game?notif=Paramètres enregistrés%info'
+        } else {
+            notify.error(res.message)
+        }
+    })
+}
+
 document.querySelector('.new-game').addEventListener('mouseenter', () => {
     document.querySelector('.fen-new-game').classList.add('overed');
     document.querySelector('.new-game').classList.add('overed');

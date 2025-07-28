@@ -8,17 +8,6 @@
     <link rel="icon" href="/img/logo.svg" >
 </head>
 <body>
-    <div style="display: none;" id="fen-alert" >
-        <label for="game-count">Nombre de jeux à deviner :</label>
-        <select id="game-count">
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="15" selected>15</option>
-            <option value="20">20</option>
-            <option value="25">25</option>
-            <option value="28">28 (max)</option>
-        </select>
-    </div>
     <img id="filter-back" >
     <video autoplay muted loop id="background-video">
         <source src="/videos/background.webm" type="video/webm">
@@ -47,11 +36,11 @@
         <div class="col center">
             <h2>Difficulté</h2>
             <div class="col">
-                <div class="row"><input type="number" placeholder="Nombre de jeux (max 28)"><input type="text" placeholder="Vie(s) (max 10)"></div>
-                <div class="row center"><div class="row center"><input onclick="displayInputTemps()" type="checkbox"><p>Activer le temps</p></div><input id="temps-input" type="number" style="display: none;" placeholder="Temps (en secondes)"></div>
+                <div class="row"><input type="number" id="seettings_nbGames"><input type="number" id="settings_lives" placeholder="Vie(s) (max 10)"></div>
+                <!--<div class="row center"><div class="row center"><input onclick="displayInputTemps()" type="checkbox"><p>Activer le temps</p></div><input id="temps-input" type="number" style="display: none;" placeholder="Temps (en secondes)"></div>-->
             </div>
             <hr>
-            <h2>Catégories</h2>
+            <!--<h2>Catégories</h2>
             <div class="row">
                 <select>
                     <option>Tous les type de jeux</option>
@@ -69,7 +58,7 @@
                     <option value="">> 1M téléchargements</option>
                 </select>
             </div>
-            <hr>
+            <hr>-->
             <h2>Multi joueurs</h2>
             <div class="relative-soon">
                 <div class="soon-overlay"><h3>Bientôt</h3></div>
@@ -81,7 +70,7 @@
                 </div>
             </div>
             <hr>
-            <div class="space"><button>Paramètres aléatoires</button><button onclick="window.location.href = '/solo/game?notif=Paramètres enregistrés%info'" >Jouer</button></div>
+            <div class="space"><button onclick="changeSettings()" >Paramètres aléatoires</button><button onclick="play()" >Jouer</button></div>
         </div>
     </div>
     <div id="game-page" class="game-container" style="display: none;">

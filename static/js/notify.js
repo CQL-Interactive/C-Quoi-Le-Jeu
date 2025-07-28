@@ -1,13 +1,25 @@
 let nb = 0;
+const lsitAttente = []
 
 class notify {
     static #addNotification(type, html, time = 5000) {
-        if (nb >= 1) return;
-
+        if (nb >= 3) {
+            lsitAttente.push({
+                type, 
+                html,
+                time
+            })
+            return;
+        }
         const id = Date.now().toString();
+        if (nb === 0) {
+            document.body.insertAdjacentHTML('afterbegin', `
+                <div id='notif-contaner'></div>
+            `)
+        }
         nb++;
 
-        document.body.insertAdjacentHTML('afterbegin', `<div id="${id}" class="notif ${type}">${html}</div>`);
+        document.getElementById('notif-contaner').insertAdjacentHTML('afterbegin', `<div id="${id}" class="notif ${type}">${html}</div>`);
 
         if (time !== false) {
             setTimeout(() => notify.remove(id), time);
@@ -39,6 +51,13 @@ class notify {
         setTimeout(() => {
             el.remove();
             nb--;
+            if (lsitAttente.length > 0) {
+                notify[lsitAttente[0].type](lsitAttente[0].html, lsitAttente[0].time)
+                lsitAttente.shift()
+            }
+            if (nb === 0) {
+                document.getElementById('notif-contaner').remove()
+            }
         }, 900);
     }
 

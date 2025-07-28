@@ -51,7 +51,11 @@ module.exports = (requireAuth) => {
     })
 
     router.get('/solo/game', requireAuth, (req, res) => {
-        res.sendFile(path.join(__dirname, '..', 'pages', 'game.html'))
+        if (!req.session.user.settings) {
+            res.redirect('/')
+            return;
+        }
+        res.sendFile(path.join(__dirname, '..', 'pages', 'play.html'))
     })
 
     return router

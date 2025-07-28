@@ -81,7 +81,7 @@ router.get('/logout', (req, res) => {
     }
 })
 
-const admins = ["Test2"]
+const admins = ["test25"]
 
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
@@ -107,7 +107,7 @@ router.post('/login', async (req, res) => {
         req.session.user = {
             id : user.id,
             username : user.username,
-            isAdmin : admins.includes(user.username)
+            isAdmin : admins.includes(user.username),
         }
 
         res.status(200).json({ ok: true, message: "Connexion réussie." });

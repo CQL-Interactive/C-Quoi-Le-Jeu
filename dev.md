@@ -3,13 +3,11 @@
 
 | 🚥 Etat | ✏️ Modification |
 |-------------|--------|
-| ❌ | Systeme vérification jeux et propositions |
-| ❌ | Orthographe notification |
-| ❌ | Oublis mdp |
-| ❌ | Système ajout de jeu |
-| ❌ | Cassements des meilleurs joueurs |
-| 🟠 | Modification compte (nom d'utilisateur, mdp, suppréssion) |
+| ❌ | Propositions |
+| ❌ | Orthographe notifications |
 | 🟠 | Systeme dynamique pour chargé les éléments réptitifs (header, fotther...) |
+| 🟢 | Systeme vérification |
+| 🟢 | Modification compte (nom d'utilisateur, mdp, suppréssion) |
 | 🟢 | Systeme chargement images en jeux |
 | 🟢 | Plusieurs notifications doivent pouvoir aparaitre |
 | 🟢 | Systeme de création de nouvau joueur |
@@ -21,6 +19,18 @@ Etats possibles :
 
 
 ## 🗞️ Patch notes
+<details>
+    <summary><strong>v3.2.9.7</strong></summary>
+    <ul>
+        <li>Vérification jeux, points, réponses...</li>
+    </ul>
+</details>
+<details>
+    <summary><strong>v3.2.9.6</strong></summary>
+    <ul>
+        <li>Supréssion de compte</li>
+    </ul>
+</details>
 <details>
     <summary><strong>v3.2.9.5</strong></summary>
     <ul>

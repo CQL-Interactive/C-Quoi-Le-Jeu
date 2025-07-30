@@ -14,14 +14,14 @@
         <source src="/videos/background.webm" type="video/webm">
     </video>
     <div class="game-container col" >
-        <section class="small-x" >
-            <h1 class="no-margin" id="nbQuestion" ></h1>
+        <section class="space small-x" >
+            <h1 class="no-margin" id="nbQuestion" ></h1><h1 id="nbScore" style="cursor: pointer;" class="no-margin" onmouseleave="notify.remove(idSurvol)" onclick="notify.warn(`Cette page est encore en cours de développement`)" onmouseenter="idSurvol = notify.info('Comment est calculer le score ?', false)">Score 10</h1>
         </section>
         <img src="/api/game/loadImgs" class="game_img" id="img_current">
         <section class="small" >
             <div  class="center col">
-                <div class="row center"><input type="text" placeholder="Nom du jeu"><button onclick="verif()" >Valider</button></div>
-                <div id="vie"></div>
+                <form id="game_form" class="row center"><input type="text" id="game_name" placeholder="Nom du jeu"><button type="submit" >Valider</button></form>
+                <div onmouseenter="idSurvol = notify.info('Les vies', false)" onmouseleave="notify.remove(idSurvol)"id="vie"></div>
             </div>
         </section>
     </div>

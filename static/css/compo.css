@@ -15,7 +15,7 @@ section.small {
 }
 
 section.small-x {
-    min-width: 800px;
+    min-width: 40vw;
     padding: 20px;
 }
 
@@ -222,8 +222,19 @@ p {
 }
 
 .game_img {
-    width: 800px;
+    width: 40vw;
+    height: calc(40vw * 9 / 16); /* 🧮 calcule automatiquement la bonne hauteur */
     background-color: rgba(255, 255, 255, 0.719);
-    height: 450px;
     border-radius: 15px;
+    transition: 0.5s;
+}
+
+
+.game_img:hover {
+    transition: 0.5s;
+    transform: scale(103%);
+}
+
+a {
+    cursor: pointer;
 }

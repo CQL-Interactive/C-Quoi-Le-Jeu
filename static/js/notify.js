@@ -1,4 +1,5 @@
 let nb = 0;
+let idSurvol = 0;
 const lsitAttente = []
 
 class notify {

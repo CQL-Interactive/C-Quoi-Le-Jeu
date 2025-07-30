@@ -74,7 +74,7 @@ router.patch('/change/username',async (req, res) => {
 })
 
 router.patch('/change/password', (req,res) => {
-    const { password } = req.body;
+    const { password } = req.body
 
     const erreurs = [];
 
@@ -104,6 +104,37 @@ router.patch('/change/password', (req,res) => {
             })
         })
 
+})
+
+router.delete('/', (req, res) => {
+    if (!req.session.user || !req.body.password) {
+        return res.status(401).json({ message: "Impossible de supprimer le compte pour le moment, rechargez la page et réessayez." })
+    }
+
+    const { password } = req.body
+
+    db.get(`SELECT * FROM users WHERE id = ?`, [req.session.user.id], (err, user) => {
+        if (err) return res.status(500).json({ message: "Erreur interne." });
+        if (!user) {
+            return res.status(401).json({ message: "Impossible de supprimer le compte pour le moment, rechargez la page et réessayez." });
+        }
+    
+        const validPassword = bcrypt.compareSync(password, user.password);
+    
+        if (!validPassword) {
+            return res.status(401).json({ message: "Mot de passe incorrect." });
+        }
+    
+        db.run('DELETE FROM users WHERE id = ?', [req.session.user.id], (err) => {
+            if (err) {
+                 return res.status(500).json({ message: "Impossible de supprimer le compte pour le moment, rechargez la page et réessayez." });
+            }
+        })
+
+        req.session.destroy()
+    
+        res.status(200).json({ ok: true, message: "Supréssion réussie réussie. Vous allez être redirigé." });
+    });
 })
 
 module.exports = router

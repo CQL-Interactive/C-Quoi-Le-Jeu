@@ -17,6 +17,8 @@ function loadJeu() {
             .then(res => res.json())
             .then(current => {
                 document.getElementById('nbQuestion').innerHTML = `Jeu ${current.question}/${settings.data.nbGames}`
+                document.getElementById('nbScore').innerHTML = `Score ${current.score}`
+                reloadImage('img_current')
             })
         } else {
             notify.error(settings.message)
@@ -28,15 +30,32 @@ document.addEventListener('DOMContentLoaded', () => {
     loadJeu()
 })
 
-function verif() {
-    fetch('/api/game/verif')
+document.getElementById('game_form').addEventListener('submit', (e) => {
+    e.preventDefault()
+    let pass = false
+    const rep = document.getElementById('game_name').value
+    if (!rep) {
+        pass = true;
+    }
+
+    fetch('/api/game/verif', {
+        method : "POST",
+        headers : {
+            'Content-Type' : 'application/json'
+        },
+        body : JSON.stringify({
+            rep : rep,
+            pass : pass
+        })
+    })
     .then(res => res.json())
     .then(res => {
-        if (res.ok) {
-            reloadImage('img_current')
-            loadJeu()
-        } else {
-            window.location.href = '/?notif=Fin de la patie'
+        if (!res.ok) {
+            notify.error("Une erreur est survenue !")
+            return;
         }
+
+        notify.info(res.message)
+        loadJeu()
     })
-}
+})

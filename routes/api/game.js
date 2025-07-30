@@ -10,7 +10,6 @@ function ordone(n) {
   return liste
 }
 
-
 router.post('/settings', async (req, res) => {
     if (!req.session.user) return;
 
@@ -57,7 +56,9 @@ router.post('/settings', async (req, res) => {
     req.session.user.settings = settings
     if (!req.session.user.play) req.session.user.play = {}
     if (!req.session.user.play.current) req.session.user.play.current = {}
+    req.session.user.play.score = 0
     req.session.user.play.current.question = 1
+    req.session.user.play.current.lives = settings.lives
 
     req.session.user.play.ordre = ordone(jeux.length)
 
@@ -70,12 +71,15 @@ router.get('/current', (req, res) => {
     if (!req.session.user) return;
     if (!req.session.user.play) req.session.user.play = {}
     if (!req.session.user.play.current) req.session.user.play.current = {}
+    req.session.user.play.current.vies === 
     res.json({
         question : req.session.user.play.current.question,
+        score  : req.session.user.play.score
     })
 })
 
 router.get('/settings', (req, res) => {
+    console.log(req.session.user.play)
     if (!req.session.user) return;
 
     if (!req.session.user.settings) {
@@ -87,7 +91,7 @@ router.get('/settings', (req, res) => {
 
     res.status(200).json({
         ok : true,
-        data : req.session.user.settings
+        data : req.session.user.settings,
     })
 })
 
@@ -100,18 +104,58 @@ router.get('/loadImgs', async (req, res) => {
     res.sendFile(path.join(__dirname, '..', '..', 'static', 'games', `IMG_${img}.webp`))
 })
 
-router.get('/verif', (req, res) => {
-    req.session.user.play.current.question ++
+router.post('/verif', async (req, res) => {
+    const { rep, pass } = req.body;
+
+    if (!rep) return;
+
+    if (!req.session.user)  {
+        res.json({
+            ok : false,
+            deco : true,
+            message : "Vous avez été déconnecté."
+        })
+    }
+
     if(req.session.user.play.current.question > req.session.user.settings.nbGames) {
         res.json({
-            ok : false
+            ok : false,
+            message : "Fin de la partie."
         })
         return;
     }
-    
-    res.json({
-        ok : true
-    })
+
+    if (pass) {
+        req.session.user.play.score = req.session.user.play.score - 50
+        req.session.user.play.current.question ++
+        res.json({
+            ok : true,
+            succes : true,
+            message : "Vous avez passez la question ! Vous perdez 50 pts"
+        })
+    }
+
+    const jeux = await JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'games_list.json')))
+
+    if (jeux[req.session.user.play.ordre[req.session.user.play.current.question] - 1].answers.includes(rep)) {
+        req.session.user.play.score = req.session.user.play.score + 100
+        req.session.user.play.current.question ++
+        res.json({
+            ok : true,
+            succes : true,
+            message : `${jeux[req.session.user.play.ordre[req.session.user.play.current.question - 1] - 1].answers[0]} est la bonne réponse.<br>Vous recevez 100 pts.`
+        })
+        
+        return;
+    } else {
+        req.session.user.play.current.lives --
+        req.session.user.play.current.question ++
+        res.json({
+            ok : true,
+            message : `${jeux[req.session.user.play.ordre[req.session.user.play.current.question - 1] - 1].answers[0]} était la bonne réponse.<br>Vous perdez une vie.`
+        })
+        return;
+    }
 })
 
 module.exports = router

@@ -9,13 +9,18 @@ function loadJeu() {
     .then(res => res.json())
     .then(settings => {
         if (settings.ok) {
-            document.getElementById('vie').innerHTML = ""
-            for (let index = 0; index < settings.data.lives; index++) {
-                document.getElementById('vie').innerHTML += `<img class='icon' src='/img/vie.png' >`
-            }
+            document.getElementById('game_name').value = ""
+            serchGames()
             fetch('/api/game/current')
             .then(res => res.json())
             .then(current => {
+                document.getElementById('vie').innerHTML = ""
+                for (let index = 0; index < current.lives; index++) {
+                    document.getElementById('vie').innerHTML += `<img class='icon' src='/img/vie.png' >`
+                }
+                for (let index = 0; index < settings.data.lives - current.lives; index++) {
+                    document.getElementById('vie').innerHTML += `<img class='icon' src='/img/vieVide.png' >`
+                }
                 document.getElementById('nbQuestion').innerHTML = `Jeu ${current.question}/${settings.data.nbGames}`
                 document.getElementById('nbScore').innerHTML = `Score ${current.score}`
                 reloadImage('img_current')
@@ -34,7 +39,7 @@ document.getElementById('game_form').addEventListener('submit', (e) => {
     e.preventDefault()
     let pass = false
     const rep = document.getElementById('game_name').value
-    if (!rep) {
+    if (rep.length === 0) {
         pass = true;
     }
 
@@ -50,8 +55,18 @@ document.getElementById('game_form').addEventListener('submit', (e) => {
     })
     .then(res => res.json())
     .then(res => {
+        if (res.perdu) {
+            window.location.href = '/?notif=Fin de la partie. Vous avez perdu.'
+            return;
+        }
+
+        if (res.win) {
+            window.location.href = '/?notif=Fin de la partie. Vous avez gagner.'
+        }
+        
         if (!res.ok) {
             notify.error("Une erreur est survenue !")
+            window.location.reload()
             return;
         }
 
@@ -59,3 +74,32 @@ document.getElementById('game_form').addEventListener('submit', (e) => {
         loadJeu()
     })
 })
+
+function serchGames() {
+    const query = document.getElementById('game_name').value;
+
+    if (query.length === 0) {
+        document.getElementById('propositions').style.display = 'none'
+        return;
+    } else {
+        document.getElementById('propositions').style.display = 'block'
+    }
+
+    fetch(`/api/game/searchGames?query=${query}`)
+    .then(res => res.json())
+    .then(res => {
+        document.getElementById('propositions').innerHTML = ''
+        if (!res || res.length === 0) {
+            document.getElementById('propositions').style.display = 'none'
+            return;
+        }
+        res.forEach(jeux => {
+            document.getElementById('propositions').innerHTML += `<div class='list' onclick="rep('${jeux.name}')" ><p>${jeux.name}</p></div>`
+        });
+    })
+}
+
+function rep(value) {
+    document.getElementById('game_name').value = value
+    serchGames()
+} 

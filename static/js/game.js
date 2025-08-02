@@ -25,6 +25,17 @@ document.addEventListener('DOMContentLoaded', () => {
         games = res
         inputs.nbGames.placeholder = `Nombre de jeux (Max ${res.length})`
     })
+    fetch('/api/game/current')
+    .then(res => res.json())
+    .then(res => {
+        if (res.continue) {
+            if(confirm("Une partie est en cours, voulez vous la continuer ou l'abandonner ?")) {
+                window.location.href = '/solo/game'
+                return;
+            } 
+            fetch('/api/game/fin')
+        }
+    })
 })
 
 async function changeSettings() {

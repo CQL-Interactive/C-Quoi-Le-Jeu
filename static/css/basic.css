@@ -20,6 +20,10 @@
     padding: 20px;
 }
 
+.relative {
+    position: relative;
+}
+
 .padding-y {
     padding:  20px 0;
 }

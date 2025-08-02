@@ -69,17 +69,21 @@ router.post('/settings', async (req, res) => {
 
 router.get('/current', (req, res) => {
     if (!req.session.user) return;
-    if (!req.session.user.play) req.session.user.play = {}
-    if (!req.session.user.play.current) req.session.user.play.current = {}
-    req.session.user.play.current.vies === 
+    if (!req.session.user.play || !req.session.user.play.current) {
+        res.json({
+            continue : false
+        })
+        return;
+    }
     res.json({
+        continue : true,
         question : req.session.user.play.current.question,
-        score  : req.session.user.play.score
+        score  : req.session.user.play.score,
+        lives : req.session.user.play.current.lives
     })
 })
 
 router.get('/settings', (req, res) => {
-    console.log(req.session.user.play)
     if (!req.session.user) return;
 
     if (!req.session.user.settings) {
@@ -96,12 +100,45 @@ router.get('/settings', (req, res) => {
 })
 
 router.get('/loadImgs', async (req, res) => {
+    if (!req.session.user || !req.session.user.play) return;
     if(req.session.user.play.current.question > req.session.user.settings.nbGames) {
         return;
     }
     const jeux = await JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'games_list.json')))
     const img = req.session.user.play.ordre[req.session.user.play.current.question]
     res.sendFile(path.join(__dirname, '..', '..', 'static', 'games', `IMG_${img}.webp`))
+})
+
+router.get('/fin', (req, res) => {
+    if (!req.session.user) return;
+    if (!req.session.user.play || !req.session.user.settings) {
+        return;
+    }
+    delete req.session.user.play
+    delete req.session.user.settings
+
+    res.redirect('/')
+})
+
+router.get('/searchGames', async (req, res) => {
+    if (!req.query.query) return;
+    const listeJeux = await JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'games_list.json')))
+    const query = req.query.query.toLowerCase();
+
+    const resultatsNom = listeJeux.filter(jeu =>
+        jeu.name.toLowerCase().includes(query)
+    );
+
+    if (resultatsNom.length > 0) {
+        res.json(resultatsNom)
+        return;
+    }
+
+    const resultatsAnswers = listeJeux.filter(jeu =>
+        jeu.answers.some(ans => ans.toLowerCase().includes(query))
+    );
+
+    res.json(resultatsAnswers)
 })
 
 router.post('/verif', async (req, res) => {
@@ -115,11 +152,24 @@ router.post('/verif', async (req, res) => {
             deco : true,
             message : "Vous avez été déconnecté."
         })
-    }
+        return;
+    } 
 
-    if(req.session.user.play.current.question > req.session.user.settings.nbGames) {
+    if (!req.session.user.play)  {
         res.json({
             ok : false,
+            deco : true,
+            message : "Vous avez été déconnecté."
+        })
+        return;
+    } 
+
+    if(req.session.user.play.current.question >= req.session.user.settings.nbGames) {
+        delete req.session.user.play
+        delete req.session.user.settings
+        res.json({
+            ok : true,
+            win : true,
             message : "Fin de la partie."
         })
         return;
@@ -137,19 +187,35 @@ router.post('/verif', async (req, res) => {
 
     const jeux = await JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'games_list.json')))
 
-    if (jeux[req.session.user.play.ordre[req.session.user.play.current.question] - 1].answers.includes(rep)) {
-        req.session.user.play.score = req.session.user.play.score + 100
-        req.session.user.play.current.question ++
+    const currentQuestionIndex = req.session.user.play.ordre[req.session.user.play.current.question] - 1;
+    const currentQuestion = jeux[currentQuestionIndex];
+
+    if (currentQuestion.answers.some(ans => ans.toLowerCase() === rep.toLowerCase())) {
+        req.session.user.play.score += 100;
+        req.session.user.play.current.question++;
+
         res.json({
-            ok : true,
-            succes : true,
-            message : `${jeux[req.session.user.play.ordre[req.session.user.play.current.question - 1] - 1].answers[0]} est la bonne réponse.<br>Vous recevez 100 pts.`
-        })
-        
+            ok: true,
+            succes: true,
+            message: `${currentQuestion.answers[0]} est la bonne réponse.<br>Vous recevez 100 pts.`
+        });
+
         return;
     } else {
         req.session.user.play.current.lives --
         req.session.user.play.current.question ++
+        if (req.session.user.play.current.lives === 0) {
+            const msg = `${jeux[req.session.user.play.ordre[req.session.user.play.current.question - 1] - 1].answers[0]} était la bonne réponse.<br>Vous perdez une vie.`
+            delete req.session.user.play
+            delete req.session.user.settings
+            res.json({
+                ok : true,
+                message : msg,
+                notif : "Fin de la partie. Vous avez perdu.",
+                perdu : true
+            })
+            return;
+        }
         res.json({
             ok : true,
             message : `${jeux[req.session.user.play.ordre[req.session.user.play.current.question - 1] - 1].answers[0]} était la bonne réponse.<br>Vous perdez une vie.`

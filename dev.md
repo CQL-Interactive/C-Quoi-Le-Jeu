@@ -3,7 +3,6 @@
 
 | 🚥 Etat | ✏️ Modification |
 |-------------|--------|
-| ❌ | Propositions |
 | ❌ | Orthographe notifications |
 | 🟠 | Systeme dynamique pour chargé les éléments réptitifs (header, fotther...) |
 | 🟢 | Systeme vérification |
@@ -11,6 +10,7 @@
 | 🟢 | Systeme chargement images en jeux |
 | 🟢 | Plusieurs notifications doivent pouvoir aparaitre |
 | 🟢 | Systeme de création de nouvau joueur |
+
 Etats possibles :
 - Non fait : ❌
 - En cours, ne pas toucher : 🔴
@@ -19,6 +19,16 @@ Etats possibles :
 
 
 ## 🗞️ Patch notes
+<details>
+    <summary><strong>v3.2.9.8</strong></summary>
+    <ul>
+        <li>Correction bug plus de vies</li>
+        <li>Correction bug partie en cours</li>
+        <li>Ignoree les majuscules lors de la vérification</li>
+        <li>Propositions</li>
+        <li>Coredction bug fin de partie</li>
+    </ul>
+</details>
 <details>
     <summary><strong>v3.2.9.7</strong></summary>
     <ul>

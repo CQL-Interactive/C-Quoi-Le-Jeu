@@ -18,10 +18,15 @@
             <h1 class="no-margin" id="nbQuestion" ></h1><h1 id="nbScore" style="cursor: pointer;" class="no-margin" onmouseleave="notify.remove(idSurvol)" onclick="notify.warn(`Cette page est encore en cours de développement`)" onmouseenter="idSurvol = notify.info('Comment est calculer le score ?', false)">Score 10</h1>
         </section>
         <img src="/api/game/loadImgs" class="game_img" id="img_current">
-        <section class="small" >
+        <section style="margin-bottom: 100px;" class="small" >
             <div  class="center col">
-                <form id="game_form" class="row center"><input type="text" id="game_name" placeholder="Nom du jeu"><button type="submit" >Valider</button></form>
-                <div onmouseenter="idSurvol = notify.info('Les vies', false)" onmouseleave="notify.remove(idSurvol)"id="vie"></div>
+                <div class="col">
+                    <form id="game_form" class="row center"><input type="text" autocomplete="off" id="game_name" oninput="serchGames()" placeholder="Nom du jeu"><button type="submit" >Valider</button></form>
+                    <div class="relative prop-co" >
+                        <div id="propositions"></div>
+                    </div>
+                </div>
+                <div id="vie"></div>
             </div>
         </section>
     </div>

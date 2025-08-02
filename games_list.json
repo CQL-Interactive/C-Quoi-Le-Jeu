@@ -276,5 +276,18 @@
             "horizon (forbidden west)",
             "horizon :forbidden west"
         ]
+    },
+    {
+        "name": "Fortnite",
+        "image": "images/IMG_028.webp",
+        "answers": [
+            "horizon : forbidden west",
+            "horizon: forbidden west",
+            "horizon:forbidden west",
+            "horizon forbidden west",
+            "horizon",
+            "horizon (forbidden west)",
+            "horizon :forbidden west"
+        ]
     }
 ]

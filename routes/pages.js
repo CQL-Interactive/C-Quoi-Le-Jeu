@@ -29,7 +29,7 @@ module.exports = (requireAuth) => {
         res.sendFile(path.join(__dirname, '..', 'pages', 'register.html'))
     })
 
-    router.get('/privacy-notice-FR', requireAuth, (req, res) => {
+    router.get('/privacy-notice-FR', (req, res) => {
         res.sendFile(path.join(__dirname, '..', 'pages', 'politique.html'))
     })
 

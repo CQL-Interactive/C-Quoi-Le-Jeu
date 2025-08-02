@@ -254,7 +254,7 @@ a {
     border: solid 1px rgba(255, 255, 255, 0.048);
     box-shadow: rgba(0, 0, 0, 0.445) 0 0 20px 5px;
     background-color: #4e482ce0;
-    max-height: 200px;
+    max-height: 10vw;
     overflow-y: auto;
 }
 

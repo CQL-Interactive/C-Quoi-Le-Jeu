@@ -61,7 +61,7 @@ document.getElementById('game_form').addEventListener('submit', (e) => {
         }
 
         if (res.win) {
-            window.location.href = '/?notif=Fin de la partie. Vous avez gagner.'
+            window.location.href = '/?notif=Fin de la partie. Vous avez gagné.'
         }
         
         if (!res.ok) {

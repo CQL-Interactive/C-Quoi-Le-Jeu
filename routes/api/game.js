@@ -197,7 +197,7 @@ router.post('/verif', async (req, res) => {
         res.json({
             ok: true,
             succes: true,
-            message: `${currentQuestion.answers[0]} est la bonne réponse.<br>Vous recevez 100 pts.`
+            message: `${currentQuestion.name} est la bonne réponse.<br>Vous recevez 100 pts.`
         });
 
         return;
@@ -205,7 +205,7 @@ router.post('/verif', async (req, res) => {
         req.session.user.play.current.lives --
         req.session.user.play.current.question ++
         if (req.session.user.play.current.lives === 0) {
-            const msg = `${jeux[req.session.user.play.ordre[req.session.user.play.current.question - 1] - 1].answers[0]} était la bonne réponse.<br>Vous perdez une vie.`
+            const msg = `${jeux[req.session.user.play.ordre[req.session.user.play.current.question - 1] - 1].name} était la bonne réponse.<br>Vous perdez une vie.`
             delete req.session.user.play
             delete req.session.user.settings
             res.json({
@@ -218,7 +218,7 @@ router.post('/verif', async (req, res) => {
         }
         res.json({
             ok : true,
-            message : `${jeux[req.session.user.play.ordre[req.session.user.play.current.question - 1] - 1].answers[0]} était la bonne réponse.<br>Vous perdez une vie.`
+            message : `${jeux[req.session.user.play.ordre[req.session.user.play.current.question - 1] - 1].name} était la bonne réponse.<br>Vous perdez une vie.`
         })
         return;
     }

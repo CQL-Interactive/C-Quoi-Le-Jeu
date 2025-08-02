@@ -23,13 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(res => res.json())
     .then(res => {
         games = res
-        inputs.nbGames.placeholder = `Nombre de jeux (Max ${res.length})`
+        inputs.nbGames.placeholder = `Nombre de jeux (max ${res.length})`
     })
     fetch('/api/game/current')
     .then(res => res.json())
     .then(res => {
         if (res.continue) {
-            if(confirm("Une partie est en cours, voulez vous la continuer ou l'abandonner ?")) {
+            if(confirm("Une partie est en cours, voulez vous la continuer ?")) {
                 window.location.href = '/solo/game'
                 return;
             } 

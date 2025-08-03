@@ -3,4 +3,4 @@ node_modules/
 .env
 package-lock.json
 C Quoi Le Jeu - GitHub.code-workspace
-user.db
+users.db

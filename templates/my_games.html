@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes parties - C Quoi Le Jeu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.svg') }}" type="image/png">
+</head>
+<body>
+    <video autoplay muted loop id="background-video">
+        <source src="{{ url_for('static', filename='videos/background.webm') }}" type="video/webm">
+    </video>
+    <div class="header">
+        <div class="logo-container" onclick="location.href='/'">
+            <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="Logo" class="logo">
+            <span class="site-name">C Quoi Le Jeu</span>
+        </div>
+    </div>
+    <div class="game-container">
+        <h1>Mes parties</h1>
+        <p>Historique des parties jouées :</p>
+        <div id="games-history">
+            <ul>
+                {% for game in games %}
+                    <li>{{ game.game_name }} - Score : {{ game.score }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <footer>
+    <p>&copy; 2025 C Quoi Le Jeu. Tous droits réservés. Version 2.2.1 - <a href="{{ url_for('static', filename='pdf/privacy_policy.pdf') }}">Politique de Confidentialité</a></p>
+</footer>
+</body>
+</html>

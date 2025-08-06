@@ -1,9 +1,42 @@
+@import url("input.css");
+@import url("basic.css");
+@import url("compo.css");
+
 body, html {
     margin: 0;
     padding: 0;
     height: 100%;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     overflow: hidden;
+    user-select: none;
+}
+
+body {
+    background-color: #302c20;
+}
+
+strong {
+    margin: 0;
+    padding: 0;
+    color: rgb(255, 244, 198);
+}
+
+td {
+    padding: 0 10px;
+}
+
+.prop {
+    padding: 10px;
+    background-color: #1f1f1f52;
+    border-radius: 10px;
+}
+
+
+img {
+  max-width: 100%;
+}
+body {
+  font-family: 'Open Sans', sans-serif;
 }
 
 #background-video {
@@ -13,8 +46,22 @@ body, html {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: -1;
+    z-index: -2;
     opacity: 1; /* Opacité du fond */
+}
+
+#filter-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 101%;
+    height: 101%;
+    margin: -2px;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 80%;
+    background: #301f06;
+    background: linear-gradient(90deg, rgba(48, 31, 6, 1) 0%, rgba(20, 15, 2, 1) 100%);
 }
 
 .header {
@@ -23,15 +70,29 @@ body, html {
     left: 20px;
     right: 20px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     z-index: 1000;
+}
+
+.header.drop {
+    animation: drop 1s;
+}
+
+header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 20px;
 }
 
 .logo-container {
     display: flex;
     align-items: center;
     cursor: pointer;
+    position: relative;
+    top: 0;
+    left: 0;
 }
 
 .logo {
@@ -49,7 +110,13 @@ body, html {
 
 .user-menu {
     position: relative;
-    display: inline-block;
+    display: flex;
+    min-width: 200px;
+    flex-direction: column;
+    align-content: center;
+}
+.user-menu button{
+    min-width: 200px;
 }
 
 .user-button {
@@ -70,26 +137,41 @@ body, html {
     transform: scale(1.05);
 }
 
+@keyframes drop {
+    0% {
+        opacity: 0;
+        margin-top: -50px;
+    } 100% {
+        opacity: 1;
+        margin-top: 0;
+    }
+}
+
 .dropdown-content {
     display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
+    background-color: #0000004f;
+    flex-direction: column;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1001;
-    right: 0;
-    top: 100%;
+    width: 80%;
+    text-align: center;
+    align-self: center;
+    animation: drop 0.5s;
+    border-radius: 15px;
+    z-index: 1;
 }
 
 .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
+    border-radius: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color: #ffffffbb;
     text-decoration: none;
     display: block;
 }
 
 .dropdown-content a:hover {
-    background-color: #f1f1f1;
+    background-color: #ffffff77;
 }
 
 .dropdown-submenu {
@@ -119,7 +201,7 @@ body, html {
 
 .user-menu:hover .dropdown-content,
 .dropdown-content:hover .dropdown-submenu {
-    display: block;
+    display: flex;
 }
 
 .game-container {
@@ -127,33 +209,18 @@ body, html {
     width: 100%;
     height: 100%;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    color: black;
-    background: none;
+    gap: 10px;
     padding: 20px;
     box-sizing: border-box;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    z-index: 999;
-}
-
-#home-page h1 {
-    font-size: 3em;
-    margin-bottom: 20px;
-    animation: fadeInDown 1s ease-in-out;
-    color: #ffcc00;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-#home-page p {
-    font-size: 1.3em;
-    max-width: 600px;
-    margin-bottom: 30px;
-    animation: fadeInDown 1s ease-in-out;
-    color: #000000;
+    z-index: 3;
+}.game-container h1{
+    margin-right: 10px;
+}.game-container p{
+    color: #ffc400;
 }
 
 #start-button {
@@ -169,7 +236,7 @@ body, html {
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
 
-#start-button:hover {
+#start-:hover {
     background: linear-gradient(90deg, #0072ff, #00c6ff);
     transform: scale(1.05);
 }
@@ -215,37 +282,6 @@ body, html {
     transform: scale(1.05);
 }
 
-.input-bar {
-    width: 70%;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 20px;
-    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
-    border-radius: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    bottom: 0;
-    animation: fadeInUp 1s ease-in-out;
-}
-
-input {
-    padding: 15px;
-    margin: 5px;
-    border-radius: 25px;
-    border: 2px solid #007BFF;
-    font-size: 1.3em;
-    flex-grow: 1;
-    transition: border-color 0.3s, box-shadow 0.3s;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-input:focus {
-    border-color: #0056b3;
-    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
-    outline: none;
-}
-
 #game-count {
     width: 100px;
     height: 30px;
@@ -266,24 +302,6 @@ input:focus {
     border-color: #0056b3;
     box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
     outline: none;
-}
-
-button {
-    background: linear-gradient(90deg, #00c6ff, #0072ff);
-    color: white;
-    padding: 15px 30px;
-    border: none;
-    border-radius: 25px;
-    font-size: 1.3em;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.2s;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    margin-right: 1.3mm;
-}
-
-button:hover {
-    background: linear-gradient(90deg, #0072ff, #00c6ff);
-    transform: scale(1.05);
 }
 
 #feedback {
@@ -365,31 +383,6 @@ button:hover {
     }
 }
 
-input[type="text"], input[type="password"] {
-    width: 100%;
-    padding: 15px;
-    margin: 7.5px;
-    border-radius: 25px;
-    border: 2px solid #007BFF;
-    font-size: 1.3em;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-button[type="submit"] {
-    width: 100%;
-    padding: 15px;
-    margin: 7.5px;
-    font-size: 1.3em;
-    background: linear-gradient(90deg, #00c6ff, #0072ff);
-    color: white;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.2s;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
 .input-bar {
     width: 100%;
     max-width: 500px;
@@ -398,7 +391,6 @@ button[type="submit"] {
 
 footer {
     position: absolute;
-    z-index: 9999;
     left: 0;
     bottom: -9px;
     width: 100%;
@@ -406,6 +398,7 @@ footer {
     text-align: center;
     padding: 0px 0;
     font-size: 0.8em;
+    z-index: 4;
 }
 
 #suggestions-container {
@@ -436,9 +429,7 @@ footer {
 .input-bar {
     position: relative;
     width: 70%;
-    background: rgba(255, 255, 255, 0.95);
     padding: 20px;
-    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
     border-radius: 15px;
     display: flex;
     justify-content: center;
@@ -449,11 +440,18 @@ footer {
 }
 
 #games-history {
-    max-height: 300px;
-    overflow-y: auto;
-    border: 1px solid #ccc;
     padding: 10px;
     margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: none;
+    border-left: 2px #ffc400 solid;
+}#games-history p {
+    color: #2b1b08;
+    font-weight: 600;
+    margin: 0;
+    margin-bottom: 10px;
 }
 
 /* Bouton "Contactez-nous !" */
@@ -479,13 +477,15 @@ footer {
 }
 
 /* Conteneur pour les boutons de contact */
-.contact-buttons {
+.group-contact-buttons{
+    margin-left: 30px;
     position: relative;
     height: 100vh; /* Prend toute la hauteur de la fenêtre */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 5mm;
 }
 
 /* Style de base pour les boutons de contact */
@@ -493,17 +493,17 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
     color: white;
-    padding: 15px 30px;
-    border: none;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
     border-radius: 25px;
     font-size: 1.3em;
     cursor: pointer;
     transition: background 0.3s, transform 0.2s;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     text-decoration: none;
-    margin-bottom: 5mm;
 }
 
 /* Style spécifique pour le bouton Discord */
@@ -526,6 +526,11 @@ footer {
 .contact-logo {
     width: 24px;
     height: 24px;
+}
+
+.form-settings{
+    display: flex;
+    flex-direction: row;
 }
 
 @media (max-width: 768px) {

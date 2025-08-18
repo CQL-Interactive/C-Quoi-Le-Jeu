@@ -58,5 +58,10 @@ module.exports = (requireAuth) => {
         res.sendFile(path.join(__dirname, '..', 'pages', 'play.html'))
     })
 
+
+    router.get('/multi', requireAuth, (req, res) => {
+        res.sendFile(path.join(__dirname, '..', 'pages', 'multi.html'))
+    })
+
     return router
 }

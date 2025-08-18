@@ -32,10 +32,16 @@ document.addEventListener('DOMContentLoaded', () => {
             if(confirm("Une partie est en cours, voulez vous la continuer ?")) {
                 window.location.href = '/solo/game'
                 return;
-            } 
+            }
             fetch('/api/game/fin')
         }
     })
+
+    // Ajouter l'event listener pour le mode hardcore
+    const hardcoreCheckbox = document.getElementById('hardcore-mode');
+    if (hardcoreCheckbox) {
+        hardcoreCheckbox.addEventListener('change', toggleHardcoreMode);
+    }
 })
 
 async function changeSettings() {
@@ -44,6 +50,9 @@ async function changeSettings() {
 }
 
 function play() {
+    const hardcoreMode = document.getElementById('hardcore-mode').checked;
+    const hardcoreTimeout = hardcoreMode ? Number(document.getElementById('hardcore-timeout').value) : null;
+
     fetch('/api/game/settings', {
         method : "POST",
         headers : {
@@ -51,7 +60,9 @@ function play() {
         },
         body : JSON.stringify({
             nbGames : Number(document.getElementById('seettings_nbGames').value),
-            lives : Number(document.getElementById('settings_lives').value)
+            lives : Number(document.getElementById('settings_lives').value),
+            hardcore : hardcoreMode,
+            hardcoreTimeout : hardcoreTimeout
         })
     })
     .then(res => res.json())
@@ -96,4 +107,11 @@ function displayInputTemps() {
     const input = document.getElementById('temps-input');
 
     input.style.display = input.style.display === 'none' ? 'block' : 'none'
+}
+
+function toggleHardcoreMode() {
+    const checkbox = document.getElementById('hardcore-mode');
+    const timeoutSelect = document.getElementById('hardcore-timeout');
+
+    timeoutSelect.style.display = checkbox.checked ? 'block' : 'none';
 }

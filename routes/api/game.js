@@ -36,6 +36,14 @@ router.post('/settings', async (req, res) => {
         return;
     }
 
+    // Validation des paramètres hardcore
+    if (settings.hardcore && (!settings.hardcoreTimeout || ![30, 60].includes(settings.hardcoreTimeout))) {
+        res.status(400).json({
+            message : "Le timeout hardcore doit être de 30 ou 60 secondes"
+        })
+        return;
+    }
+
     const jeux = await JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'games_list.json')))
 
     if (settings.nbGames > jeux.length) {
@@ -61,6 +69,16 @@ router.post('/settings', async (req, res) => {
     req.session.user.play.current.lives = settings.lives
 
     req.session.user.play.ordre = ordone(jeux.length)
+
+    // Initialiser les paramètres hardcore
+    if (settings.hardcore) {
+        req.session.user.play.hardcore = {
+            enabled: true,
+            timeout: settings.hardcoreTimeout,
+            startTime: null,
+            revealLevel: 0
+        }
+    }
 
     res.status(200).json({
         ok : true
@@ -106,7 +124,60 @@ router.get('/loadImgs', async (req, res) => {
     }
     const jeux = await JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'games_list.json')))
     const img = req.session.user.play.ordre[req.session.user.play.current.question]
+
+    // Démarrer le timer hardcore si activé
+    if (req.session.user.play.hardcore && req.session.user.play.hardcore.enabled) {
+        req.session.user.play.hardcore.startTime = Date.now()
+        req.session.user.play.hardcore.revealLevel = 0
+    }
+
     res.sendFile(path.join(__dirname, '..', '..', 'static', 'games', `IMG_${img}.webp`))
+})
+
+// Nouvelle route pour obtenir le niveau de révélation hardcore
+router.get('/hardcore-status', (req, res) => {
+    if (!req.session.user || !req.session.user.play || !req.session.user.play.hardcore) {
+        return res.json({ enabled: false })
+    }
+
+    const hardcore = req.session.user.play.hardcore
+    if (!hardcore.enabled || !hardcore.startTime) {
+        return res.json({ enabled: false })
+    }
+
+    const elapsed = (Date.now() - hardcore.startTime) / 1000
+    const timeout = hardcore.timeout
+    const remaining = Math.max(0, timeout - elapsed)
+
+    // Calculer le niveau de révélation (0-4, 4 étant complètement révélé)
+    let revealLevel = 0
+    if (elapsed > timeout * 0.2) revealLevel = 1  // 20% du temps
+    if (elapsed > timeout * 0.4) revealLevel = 2  // 40% du temps
+    if (elapsed > timeout * 0.6) revealLevel = 3  // 60% du temps
+    if (elapsed > timeout * 0.8) revealLevel = 4  // 80% du temps
+
+    // Timeout atteint
+    if (remaining <= 0) {
+        // Passer automatiquement à la question suivante
+        req.session.user.play.score -= 50
+        req.session.user.play.current.question++
+
+        return res.json({
+            enabled: true,
+            timeout: true,
+            remaining: 0,
+            revealLevel: 4,
+            message: "Temps écoulé ! Vous perdez 50 pts"
+        })
+    }
+
+    res.json({
+        enabled: true,
+        timeout: false,
+        remaining: Math.ceil(remaining),
+        revealLevel: revealLevel,
+        totalTime: timeout
+    })
 })
 
 router.get('/fin', (req, res) => {

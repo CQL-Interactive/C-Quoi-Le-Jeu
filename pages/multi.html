@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multijoueur - C Quoi Le Jeu</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" href="/img/logo.svg" >
+</head>
+<body>
+    <div class="header"></div>
+    <img id="filter-back" >
+    <video autoplay muted loop id="background-video">
+        <source src="/videos/background.webm" type="video/webm">
+    </video>
+
+    <div class="game-container col">
+        <section class="space small-x">
+            <h1 class="no-margin">Multijoueur</h1>
+            <div class="row space">
+                <div id="room-info"></div>
+                <button id="copy-code" style="display:none;">Copier le code</button>
+            </div>
+        </section>
+
+        <section id="lobby" class="col">
+            <div class="col" style="gap: 8px;">
+                <h3>Créer une partie</h3>
+                <div class="row center" style="gap: 8px; flex-wrap: wrap;">
+                    <label>Joueurs max <input id="create-max" type="number" min="2" max="12" value="4" style="width: 90px;"></label>
+                    <label>Temps/Manche (s) <input id="create-time" type="number" min="5" max="120" value="30" style="width: 90px;"></label>
+                    <label>Manches <input id="create-rounds" type="number" min="1" max="50" value="10" style="width: 90px;"></label>
+                    <label class="row center" style="gap: 4px;">
+                        <input id="create-public" type="checkbox"> Partie publique
+                    </label>
+                    <label class="row center" style="gap: 4px;">
+                        <input id="create-hardcore" type="checkbox"> Mode Hardcore
+                    </label>
+                    <button id="create-room">Créer</button>
+                </div>
+            </div>
+
+            <hr>
+            <div class="col" style="gap: 8px;">
+                <h3>Rejoindre une partie</h3>
+                <div class="row center" style="gap: 8px;">
+                    <input id="join-code" placeholder="Code de salle" maxlength="6" style="text-transform: uppercase;" />
+                    <button id="join-room">Rejoindre</button>
+                </div>
+            </div>
+
+            <hr>
+            <div class="col" id="public-rooms" style="gap: 8px;">
+                <h3>Parties publiques</h3>
+                <div id="public-list" class="col small"></div>
+            </div>
+
+            <div id="prestart" class="col" style="display:none; gap: 8px; margin-top: 16px;">
+                <h3>Lobby</h3>
+                <div id="players-list" class="col small"></div>
+                <div class="row center" style="gap: 8px;">
+                    <button id="toggle-ready">Je suis prêt</button>
+                    <button id="start-game" style="display:none;">Démarrer</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="game" style="display:none;">
+            <div class="row" style="gap: 16px; align-items: flex-start;">
+                <div class="col" style="flex: 2;">
+                    <h2 id="round-title"></h2>
+                    <img id="img_current" class="game_img" src="" />
+                    <form id="guess-form" class="row center">
+                        <input type="text" id="guess" placeholder="Nom du jeu" autocomplete="off" />
+                        <button type="submit">Valider</button>
+                    </form>
+                    <div id="scores" class="small"></div>
+                </div>
+                <div id="chat" class="col" style="flex: 1; max-width: 360px;">
+                    <h3>Chat</h3>
+                    <div id="chat-log" class="small" style="max-height: 420px; overflow: auto;"></div>
+                    <form id="chat-form" class="row center">
+                        <input type="text" id="chat-input" placeholder="Message (optionnel)" autocomplete="off" />
+                        <button>Envoyer</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer></footer>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/notify.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/multi.js"></script>
+</body>
+</html>
+

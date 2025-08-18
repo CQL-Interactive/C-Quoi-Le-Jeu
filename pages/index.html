@@ -37,6 +37,15 @@
             <h2>Difficulté</h2>
             <div class="col">
                 <div class="row"><input type="number" id="seettings_nbGames"><input type="number" id="settings_lives" placeholder="Vie(s) (max 10)"></div>
+                <div class="row center" style="gap: 8px; margin-top: 8px;">
+                    <label class="row center" style="gap: 4px;">
+                        <input id="hardcore-mode" type="checkbox"> Mode Hardcore
+                    </label>
+                    <select id="hardcore-timeout" style="display: none;">
+                        <option value="30">30 secondes</option>
+                        <option value="60">60 secondes</option>
+                    </select>
+                </div>
                 <!--<div class="row center"><div class="row center"><input onclick="displayInputTemps()" type="checkbox"><p>Activer le temps</p></div><input id="temps-input" type="number" style="display: none;" placeholder="Temps (en secondes)"></div>-->
             </div>
             <hr>
@@ -60,14 +69,8 @@
             </div>
             <hr>-->
             <h2>Multi-joueurs</h2>
-            <div class="relative-soon">
-                <div class="soon-overlay"><h3>Bientôt</h3></div>
-                <div class="row soon">
-                    <input type="number" placeholder="Nombre de joueurs">
-                    <select>
-                        <option value="">Type de multi-joueurs</option>
-                    </select>
-                </div>
+            <div class="row">
+                <button onclick="window.location.href='/multi'">Aller au multijoueur</button>
             </div>
             <hr>
             <div style="width: 100%;" class="space"><button onclick="changeSettings()" >Paramètres aléatoires</button><button onclick="play()" >Jouer</button></div>

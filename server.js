@@ -7,13 +7,15 @@ const fs = require('fs')
 const dotenv = require('dotenv')
 const bcrypt = require('bcrypt')
 const sqlite3 = require('sqlite3').verbose()
-
+const http = require('http')
 
 const app = express()
 dotenv.config({ path: './config.env' })
 const PORT = process.env.PORT
 const HOST = process.env.HOST
 
+// HTTP server wrapper (needed for Socket.IO)
+const server = http.createServer(app)
 
 app.use(session({
     secret : process.env.SECRET,
@@ -65,7 +67,17 @@ app.get('/', (req, res) => {
     }
 })
 
-app.listen(PORT, () => {
+// Initialize Socket.IO if available
+try {
+    const { Server } = require('socket.io')
+    const io = new Server(server)
+    // Initialize multiplayer engine
+    require(path.join(__dirname, 'routes', 'multiplayer', 'engine'))(io, app)
+    console.log('🎮 Mode multijoueur initialisé (Socket.IO)')
+} catch (e) {
+    console.warn('ℹ️ Socket.IO non disponible. Le mode multijoueur est désactivé.')
+}
+
+server.listen(PORT, () => {
     console.log(`✅ Serveur en ligne sur : http://${HOST}:${PORT}`)
 })
-

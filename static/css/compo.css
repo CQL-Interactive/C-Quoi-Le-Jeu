@@ -227,12 +227,23 @@ p {
     background-color: rgba(255, 255, 255, 0.719);
     border-radius: 15px;
     transition: 0.5s;
+    position: relative;
 }
-
 
 .game_img:hover {
     transition: 0.5s;
     transform: scale(103%);
+}
+
+/* Styles pour le mode Hardcore - masquage progressif */
+.game_img.hardcore {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Les niveaux de révélation sont appliqués dynamiquement via JavaScript */
+.game_img.hardcore.reveal-4 {
+    clip-path: none;
 }
 
 a {

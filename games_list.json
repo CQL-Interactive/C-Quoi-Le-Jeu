@@ -301,5 +301,193 @@
             "horizon (forbidden west)",
             "horizon :forbidden west"
         ]
+    },
+    {
+        "name": "New Super Mario Bros.",
+        "image": "images/IMG_29.webp",
+        "answers": [
+            "new super mario bros.",
+            "nsmb"
+        ]
+    },
+    {
+        "name": "Chrono Trigger",
+        "image": "images/IMG_30.webp",
+        "answers": [
+            "chrono trigger"
+        ]
+    },
+    {
+        "name": "Tomodachi Life",
+        "image": "images/IMG_31.webp",
+        "answers": [
+            "tomodachi life"
+        ]
+    },
+    {
+        "name": "Kid Icarus Uprising",
+        "image": "images/IMG_32.webp",
+        "answers": [
+            "kid icarus uprising",
+            "kid icarus",
+            "kid icarus: uprising"
+        ]
+    },
+    {
+        "name": "Call of Duty : Modern Warfare 2",
+        "image": "images/IMG_33.webp",
+        "answers": [
+            "call of duty : modern warfare 2",
+            "cod : modern warfare 2",
+            "cod modern warfare 2",
+            "call of duty modern warfare 2",
+            "cod mw2",
+            "cod : mw2",
+            "cod : mw2"
+        ]
+    },
+    {
+        "name": "Pikuniku",
+        "image": "images/IMG_34.webp",
+        "answers": [
+            "pikuniku"
+        ]
+    },
+    {
+        "name": "Miitopia",
+        "image": "images/IMG_35.webp",
+        "answers": [
+            "miitopia"
+        ]
+    },
+    {
+        "name": "Super Mario Party Jamboree",
+        "image": "images/IMG_36.webp",
+        "answers": [
+            "super mario party jamboree",
+            "smpj",
+            "mario party jamboree"
+        ]
+    },
+    {
+        "name": "The Hundred Line : Last Defense Academy",
+        "image": "images/IMG_37.webp",
+        "answers": [
+            "the hundred line : last defense academy",
+            "thl : lda",
+            "the hundred line last defense academy"
+        ]
+    },
+    {
+        "name": "Demon Bluff",
+        "image": "images/IMG_38.webp",
+        "answers": [
+            "demon bluff"
+        ]
+    },
+    {
+        "name": "Roblox",
+        "image": "images/IMG_39.webp",
+        "answers": [
+            "roblox",
+            "rblx"
+        ]
+    },
+    {
+        "name": "Mario & Luigi Superstar Saga",
+        "image": "images/IMG_40.webp",
+        "answers": [
+            "mario et luigi superstar saga",
+            "mario & luigi superstar saga",
+            "m&l superstar saga"
+        ]
+    },
+    {
+        "name": "Terra Nil",
+        "image": "images/IMG_41.webp",
+        "answers": [
+            "terra nil"
+        ]
+    },
+    {
+        "name": "Townscaper",
+        "image": "images/IMG_42.webp",
+        "answers": [
+            "townscaper",
+            "tsp"
+        ]
+    },
+    {
+        "name": "Nine Sols",
+        "image": "images/IMG_43.webp",
+        "answers": [
+            "nine sols"
+        ]
+    },
+    {
+        "name": "The Legend of Zelda : Link's Awakening",
+        "image": "images/IMG_44.webp",
+        "answers": [
+            "the legend of zelda : link's awakening",
+            "the legend of zelda: link's awakening",
+            "link's awakening",
+            "links awakening",
+            "zelda link's awakening",
+            "zelda links awakening",
+            "zelda : link's awakening",
+            "zelda : links awakening"
+        ]
+    },
+    {
+        "name": "The Legend of Zelda : Breath of the Wild",
+        "image": "images/IMG_45.webp",
+        "answers": [
+            "the legend of zelda : breath of the wild",
+            "the legend of zelda: breath of the wild",
+            "breath of the wild",
+            "botw",
+            "zelda botw",
+            "zelda : botw",
+            "zelda: botw"
+        ]
+    },
+    {
+        "name": "Super Mario 3D World",
+        "image": "images/IMG_46.webp",
+        "answers": [
+            "super mario 3d world",
+            "sm3dw",
+            "m3dw"
+        ]
+    },
+    {
+        "name": "Super Mario Maker 2",
+        "image": "images/IMG_47.webp",
+        "answers": [
+            "super mario maker 2",
+            "mario maker 2",
+            "mm2"
+        ]
+    },
+    {
+        "name": "1-2-Switch",
+        "image": "images/IMG_48.webp",
+        "answers": [
+            "1-2-switch",
+            "one two switch",
+            "1 2 switch"
+        ]
+    },
+    {
+        "name": "Wario Ware : Get It Together!",
+        "image": "images/IMG_49.webp",
+        "answers": [
+            "wario ware : get it together!",
+            "wario ware: get it together!",
+            "wario ware get it together!",
+            "wario ware : get it together",
+            "wario ware: get it together",
+            "wario ware get it together"
+        ]
     }
 ]

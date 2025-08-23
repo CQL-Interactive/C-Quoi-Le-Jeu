@@ -1,7 +1,10 @@
 const router = require('express').Router()
 const path = require('path')
 const fs = require('fs');
+const sqlite3 = require('sqlite3').verbose()
+const db = new sqlite3.Database('users.db')
 const { ok } = require('assert');
+const { info } = require('console');
 function ordone(n) {
   const liste = Array.from({ length: n }, (_, i) => i + 1)
   for (let i = liste.length - 1; i > 0; i--) {
@@ -174,6 +177,19 @@ router.get('/searchGames', async (req, res) => {
     } 
 */ 
 
+function saveGame(req, stats) {
+    if (!stats) {
+        return "error"
+    }
+
+    const infos = stats[0]
+
+    db.run(/*SQL*/ `
+        INSERT INTO games_history (user_id, score, end_date, end_lives, begin_lives, nbGames)
+        VALUES (?, ?, ?, ?, ?, ?)
+    `, [req.session.user.id, infos.fin.score, infos.fin.date, infos.fin.vie, infos.settings.lives, infos.settings.nbGames])    
+}
+
 router.post('/verif', async (req, res) => {
     const { rep/*, pass*/ } = req.body;
 
@@ -232,6 +248,7 @@ router.post('/verif', async (req, res) => {
         req.session.user.stats[0].fin.win = true
         delete req.session.user.play
         delete req.session.user.settings
+        saveGame(req, req.session.user.stats)
         res.json({
             ok : true,
             win : true,
@@ -260,7 +277,6 @@ router.post('/verif', async (req, res) => {
                 name : jeux[currentQuestionIndex].name,
                 link : jeux[currentQuestionIndex].link
             },
-            win : true,
             rep : rep
         })
 
@@ -289,11 +305,12 @@ router.post('/verif', async (req, res) => {
             delete req.session.user.settings
             req.session.user.stats[0].fin.vie = 0,
             req.session.user.stats[0].fin.date = Date.now()
+            saveGame(req, req.session.user.stats)
             res.json({
                 ok : true,
                 message : msg,
-                notif : "Fin de la partie. Vous avez perdu.",
                 perdu : true,
+                notif : "Fin de la partie. Vous avez perdu.",
                 stats : req.session.user.stats
             })
             return;

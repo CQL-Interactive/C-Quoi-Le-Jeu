@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CQLJ | Nouveau jeu</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/page.css">
+    <link rel="icon" href="/img/logo.svg" >
+</head>
+<body>
+    <div class="header"></div>
+    <header></header>
+    <main class="two" style="margin-top: 70px;">
+        <div class="center"><h1 class="center no" >Ajouter un jeu</h1></div>
+        <div class="row gap">
+            <form id="game_form" class="col" >
+                <h2>Infos sur le jeu</h2>
+                <input id="game_name" type="text" placeholder="Nom du jeu" required>
+                <input id="game_url" type="url" placeholder="Site du jeu" required>
+                <h2>Image</h2>
+                <input id="game_img" type="file" placeholder="Images du jeu">
+                <button>Proposer le jeu</button>
+            </form>
+            <div class="col no-gap" >
+                <h2 class="no">Conditions d'acceptation</h2>
+                <p>Le jeu ne doit pas déjà apparaître dans la <a onclick="window.open('/games')">liste des jeux</a>.</p></li>
+                <p>L’image doit être libre de droits, de bonne qualité, au format 1920x1080 en JPG ou PNG.</p></li>
+                <p>Le jeu doit pouvoir être reconnu rapidement.</p>
+                <p>Le jeu doit être au minimum modérément populaire (au moins 50 000 téléchargements).</p>
+            </div>
+        </div>
+    </main>
+    <script src="/js/newGame.js" ></script>
+    <script src="/js/main.js" ></script>
+    <script>
+        config = {
+            contact: false,
+            ".header": {
+                "logo-container" : true,
+                "menu" : true
+            },
+            "footer": false
+        }
+    </script>
+</body>
+</html>

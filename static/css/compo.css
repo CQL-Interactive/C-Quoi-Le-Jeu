@@ -76,7 +76,6 @@ p {
 
 .notify {
     position: absolute;
-    
 }
 
 .new-game {
@@ -173,7 +172,7 @@ p {
     justify-content: center;
     width: auto;
     gap: 10px;
-    z-index: 20;
+    z-index: 1000;
 }
 
 .notif {
@@ -262,6 +261,7 @@ a {
     padding: 15px;
     border-radius: 10px;
     cursor: pointer;
+    margin-right: 5px;
 }
 
 .list p {
@@ -271,4 +271,9 @@ a {
 
 .list:hover {
     background-color: #facc0075;
+}
+
+#games-history {
+    max-height: 20vw;
+    overflow-y: auto;
 }

@@ -17,6 +17,13 @@ Etats possibles :
 <details>
     <summary><strong>v3.3.1</strong></summary>
     <ul>
+        <li>Systeme dezz statistique fin de partie</li>
+        <li>Actualaisation de la nav après changement de nom d'utilisateur</li>
+    </ul>
+</details>
+<details>
+    <summary><strong>v3.3.1</strong></summary>
+    <ul>
         <li>Vérifiaction si le nombre de vie est plus élevé que le nombre de question à la création de la partie</li>
         <li>Préparation du back pour implémenter un syteme de statistiques de fin de partie.</li>
     </ul>

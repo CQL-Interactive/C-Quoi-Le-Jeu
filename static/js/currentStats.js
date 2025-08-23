@@ -22,16 +22,15 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch('/api/game/stats')
     .then(res => res.json())
     .then(res => {
-        console.log(res)
         if (res.part) {
             document.getElementById('error').style.display = 'flex'
             return;
         }
 
-        if (res.data[0].fin.win) {
-            document.getElementById('win').innerHTML = `Victoire - ${res.data[0].fin.score}pts`
-        } else {
+        if (res.data[0].fin.vie === 0) {
             document.getElementById('win').innerHTML = `Defaite - ${res.data[0].fin.score}pts`
+        } else {
+            document.getElementById('win').innerHTML = `Victoire - ${res.data[0].fin.score}pts`
         }
 
         const dateDebut = new Date(res.data[0].dateDebut);

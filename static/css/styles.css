@@ -11,6 +11,33 @@ body, html {
     user-select: none;
 }
 
+::-webkit-scrollbar {
+  width: 10px;       
+  height: 10px;      
+}
+
+
+::-webkit-scrollbar-track {
+  background: #f0f0f032;
+  border-radius: 10px;
+}
+
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #ffc40056, #cca30044); 
+  border-radius: 10px;
+  transition: 0.2s;
+}
+
+
+::-webkit-scrollbar-thumb:hover { 
+     background: linear-gradient(180deg, #ffc400, #cca300);
+     transition: 0.5s;
+  opacity: 100%;
+  cursor: pointer;
+}
+
+
 body {
     background-color: #302c20;
 }
@@ -32,9 +59,6 @@ td {
 }
 
 
-img {
-  max-width: 100%;
-}
 body {
   font-family: 'Open Sans', sans-serif;
 }
@@ -72,7 +96,7 @@ body {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    z-index: 1000;
+    z-index: 100;
 }
 
 .header.drop {
@@ -439,19 +463,8 @@ footer {
     animation: fadeInUp 1s ease-in-out;
 }
 
-#games-history {
-    padding: 10px;
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: none;
-    border-left: 2px #ffc400 solid;
-}#games-history p {
-    color: #2b1b08;
-    font-weight: 600;
-    margin: 0;
-    margin-bottom: 10px;
+#games-history .list, .list-contaner .list{
+    border : solid 1px #ffcc0042
 }
 
 /* Bouton "Contactez-nous !" */

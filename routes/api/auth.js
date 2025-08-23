@@ -60,7 +60,7 @@ router.post('/register', (req, res) => {
 
                     req.session.user = {
                         id: user.id,
-                        username: user.username,
+                        username: user.username
                     };
 
                     req.session.save(() => {
@@ -78,10 +78,15 @@ router.post('/register', (req, res) => {
 router.get('/logout', (req, res) => {
     if (req.session.user) {
         req.session.destroy()
+        res.json({
+            ok : true
+        })
+        return;
     }
+    res.json({
+        msg: "Connectez vous."
+    })
 })
-
-const admins = ["test25"]
 
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
@@ -106,11 +111,24 @@ router.post('/login', async (req, res) => {
 
         req.session.user = {
             id : user.id,
-            username : user.username,
-            isAdmin : admins.includes(user.username),
+            username : user.username
         }
 
-        res.status(200).json({ ok: true, message: "Connexion réussie." });
+        db.get(/* SQL */ `SELECT * FROM users_admin WHERE user_id = ?`, [user.id], (err, user) => {
+            if (err) {
+                res.json({
+                    msg : "Erreur serveur."
+                })
+                console.error(err)
+                return;
+            }
+
+            if (user) {
+                req.session.user.isAdmin = true;
+            }
+
+            res.status(200).json({ ok: true, message: "Connexion réussie." });
+        })
     });
 })
 

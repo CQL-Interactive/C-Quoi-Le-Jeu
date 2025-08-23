@@ -1,0 +1,198 @@
+nav {
+    margin-top: 50px;
+    background-color: rgb(50, 50, 50);
+}
+
+nav button {
+    background: rgb(255, 230, 0);
+    font-size: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    border-bottom: solid 5px transparent;
+    border: solid 5px rgb(255, 230, 0);
+}
+
+nav button:hover {
+    transform: initial;
+    background: rgb(227, 205, 0);
+}
+
+nav button.select {
+    border-bottom: solid 5px white;
+} 
+
+main {
+    margin: 20px;
+    padding: 20px 20vw;
+}
+
+section {
+    transition: 0.2s;
+}
+
+section:hover {
+    transform: translateY(-10px);
+    transition: 0.5s;
+}
+
+h2 {
+    margin: 0;
+    padding: 0;
+}
+
+input[type = 'checkbox'] {
+    padding: 10px;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    min-width: auto;
+}
+
+label {
+    margin: 0;
+}
+
+@keyframes big {
+    0% {
+        filter: blur(10px);
+    } 100% {
+        filter: blur(0);
+    }
+}
+
+div.big {
+    margin: 0;
+    padding: 0;
+    font-size: 50px;
+    font-weight: bold;
+    color: white;
+    animation: 1s big;
+}
+
+section {
+    min-width: 100px;
+    width: auto;
+    border-bottom: 8px solid yellow;
+    padding: 50px;
+    height: 150px;
+    min-width: 150px;
+}
+
+p {
+    padding: 0;
+    margin: 0;
+}
+
+p:hover {
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+}
+
+.checkbox-container {
+  display: flex;
+  gap: 20px;
+  padding: 10px;
+  align-items: center;
+}
+
+.ios-checkbox {
+  --checkbox-size: 28px;
+  --checkbox-color: rgb(227, 205, 0);
+  --checkbox-bg: yellow;
+  --checkbox-border: rgb(255, 230, 0);
+
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ios-checkbox input {
+  display: none;
+}
+
+.checkbox-wrapper {
+  position: relative;
+  width: var(--checkbox-size);
+  height: var(--checkbox-size);
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+.checkbox-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  border: 2px solid var(--checkbox-border);
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+.checkbox-icon {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 80%;
+  height: 80%;
+  color: white;
+  transform: scale(0);
+  transition: all 0.2s ease;
+}
+
+.check-path {
+  stroke-dasharray: 40;
+  stroke-dashoffset: 40;
+  transition: stroke-dashoffset 0.3s ease 0.1s;
+}
+
+/* Checked State */
+.ios-checkbox input:checked + .checkbox-wrapper .checkbox-bg {
+  background: var(--checkbox-color);
+  border-color: var(--checkbox-color);
+}
+
+.ios-checkbox input:checked + .checkbox-wrapper .checkbox-icon {
+  transform: scale(1);
+}
+
+.ios-checkbox input:checked + .checkbox-wrapper .check-path {
+  stroke-dashoffset: 0;
+}
+
+/* Hover Effects */
+.ios-checkbox:hover .checkbox-wrapper {
+  transform: scale(1.05);
+}
+
+/* Active Animation */
+.ios-checkbox:active .checkbox-wrapper {
+  transform: scale(0.95);
+}
+
+/* Focus Styles */
+.ios-checkbox input:focus + .checkbox-wrapper .checkbox-bg {
+  box-shadow: 0 0 0 4px var(--checkbox-bg);
+}
+
+.ios-checkbox.red {
+  --checkbox-color: rgba(219, 219, 4, 0.41);
+  --checkbox-bg: #fefde2;
+  --checkbox-border: rgb(227, 205, 0);
+}
+
+/* Animation */
+@keyframes bounce {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.ios-checkbox input:checked + .checkbox-wrapper {
+  animation: bounce 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}

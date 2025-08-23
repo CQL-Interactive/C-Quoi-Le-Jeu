@@ -137,4 +137,22 @@ router.delete('/', (req, res) => {
     });
 })
 
+router.get('/games', (req, res) => {
+    db.all('SELECT * FROM games_history WHERE user_id = ? ORDER BY id DESC', [req.session.user.id], (err, games) => {
+        if (err) {
+            console.error(err)
+            res.json({
+                msg : "Erreur serveur",
+                error : err
+            })
+            return;
+        }
+
+        res.json({
+            ok : true,
+            data : games
+        })
+    })
+})
+
 module.exports = router

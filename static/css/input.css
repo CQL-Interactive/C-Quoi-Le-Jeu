@@ -44,6 +44,24 @@ select::placeholder {
     color: rgba(255, 248, 209, 0.753);
 }
 
+.notif button {
+    cursor: pointer;
+    background: hsl(49, 100%, 49%) ;
+    padding: 10px;
+    border-radius: 15px;
+    font-size: 15px;
+    margin: 0;
+    box-shadow: none;
+}
+
+.notif button:hover {
+    cursor: pointer;
+    background: hsl(49, 100%, 49%) ;
+    padding: 10px;
+    border-radius: 15px;
+    margin: 0;
+}
+
 button {
     z-index: 2;
     padding: 15px;

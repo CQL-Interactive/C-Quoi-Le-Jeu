@@ -9,7 +9,14 @@ window.config = window.config || {
 
 function logout() {
     fetch('/api/auth/logout')
-    window.location.href = `/login?redir=${window.location.pathname}&notif=Déconnexion réussie%info`
+    .then(res => res.json())
+    .then(res => {
+        if (res.ok) {
+            window.location.href = `/login?redir=${window.location.pathname}&notif=Déconnexion réussie%info`
+        } else {
+            window.location.href = `/login?redir=${window.location.pathname}`
+        }
+    })
 }
 
 const components = {
@@ -27,14 +34,13 @@ const components = {
 
         if (subConfig["menu"]) {
             const user = await fetch('/api/user').then(res => res.json())
-            console.log(user)
             html += `
                 <div class="user-menu">
                     <button class="small">${user.username}</button>
                     <div class="dropdown-content">
                         <a href="/histo">Mes parties</a>
                         <a href="/settings">Paramètres</a>
-                        ${user.isAdmin ? '<a href="/admin">Panel administrateur</a>' : ''}
+                        ${user.isAdmin ? '<a href="/admin">Admin</a>' : ''}
                         <a onclick="logout()">Déconnexion</a>
                     </div>
                 </div>
@@ -61,9 +67,9 @@ const components = {
     }
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
+async function loadNav() {
     for (const [selector, value] of Object.entries(window.config)) {
-        const enabled = value !== false // ✅ vrai si true ou object, faux uniquement si `false`
+        const enabled = value !== false 
         if (!enabled) continue
 
         const targetEl = selector === "contact"
@@ -77,4 +83,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             await renderer(targetEl, typeof value === "object" ? value : undefined)
         }
     }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadNav()
 })

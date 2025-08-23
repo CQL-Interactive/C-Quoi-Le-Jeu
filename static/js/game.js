@@ -27,9 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     fetch('/api/game/current')
     .then(res => res.json())
-    .then(res => {
+    .then(async res => {
         if (res.continue) {
-            if(confirm("Une partie est en cours, voulez vous la continuer ?")) {
+            const result = await notify.confirm("Une partie est en cours, voulez vous la continuer ?")
+            if(result) {
                 window.location.href = '/solo/game'
                 return;
             } 

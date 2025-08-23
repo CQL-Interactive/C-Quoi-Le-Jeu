@@ -21,6 +21,10 @@ module.exports = (requireAuth) => {
         res.sendFile(path.join(__dirname, '..', 'pages', 'login.html'))
     })
 
+    router.get('/games/new', (req, res) => {
+        res.sendFile(path.join(__dirname, '..', 'pages', 'newGame.html'))
+    })
+
     router.get('/register', (req, res) => {
         if (req.session.user) {
             res.redirect('/?notif=Vous êtes déjà connecté !%warn');
@@ -33,7 +37,7 @@ module.exports = (requireAuth) => {
         res.sendFile(path.join(__dirname, '..', 'pages', 'politique.html'))
     })
 
-    router.get('/games-list', requireAuth, (req, res) => {
+    router.get('/games', (req, res) => {
         res.sendFile(path.join(__dirname, '..', 'pages', 'list.html'))
     })
 
@@ -64,6 +68,10 @@ module.exports = (requireAuth) => {
             return;
         }
         res.sendFile(path.join(__dirname, '..', 'pages', 'stats.html'))
+    })
+
+    router.get('/admin/users', (req, res) => {
+        res.sendFile(path.join(__dirname, '..', 'pages', 'admin', 'users.html'))
     })
 
     return router

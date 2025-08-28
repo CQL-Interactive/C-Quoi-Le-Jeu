@@ -1,6 +1,10 @@
 const router = require('express').Router()
 const path = require('path')
-const fs = require('fs')
+const fs = require('fs');
+const sqlite3 = require('sqlite3').verbose()
+const db = new sqlite3.Database('users.db')
+const { ok } = require('assert');
+const { info } = require('console');
 function ordone(n) {
   const liste = Array.from({ length: n }, (_, i) => i + 1)
   for (let i = liste.length - 1; i > 0; i--) {
@@ -48,7 +52,14 @@ router.post('/settings', async (req, res) => {
 
     if (settings.lives > 10) {
         res.status(400).json({
-            message : `Vous ne pouvez pas aavoir plus de 10 vies`
+            message : `Vous ne pouvez pas avoir plus de 10 vies`
+        })
+        return;
+    }
+
+    if (settings.lives > settings.nbGames) {
+        res.status(400).json({
+            message : `Vous ne pouvez pas avoir plus de vie que de questions.`
         })
         return;
     }
@@ -59,6 +70,11 @@ router.post('/settings', async (req, res) => {
     req.session.user.play.score = 0
     req.session.user.play.current.question = 1
     req.session.user.play.current.lives = settings.lives
+    req.session.user.stats = [{
+        settings,
+        dateDebut : Date.now()
+    }]
+    req.session.user.stats[0].fin = {}
 
     req.session.user.play.ordre = ordone(jeux.length)
 
@@ -116,6 +132,7 @@ router.get('/fin', (req, res) => {
     }
     delete req.session.user.play
     delete req.session.user.settings
+    delete req.session.user.stats
 
     res.redirect('/')
 })
@@ -141,8 +158,40 @@ router.get('/searchGames', async (req, res) => {
     res.json(resultatsAnswers)
 })
 
+/*
+    -- req.session.user.play.current.stats --
+    req.session.user.stats[num] = Stat d'une question
+    
+    ex : [
+        {
+            jeuxIndex : 1,
+            win : true or false,
+            rep : [reponse]
+        }
+    ]
+
+    req.session.user.stats[0] = {
+        heure de la partie: 
+        paramtres : 
+        utilisateur : 
+    } 
+*/ 
+
+function saveGame(req, stats) {
+    if (!stats) {
+        return "error"
+    }
+
+    const infos = stats[0]
+
+    db.run(/*SQL*/ `
+        INSERT INTO games_history (user_id, score, end_date, end_lives, begin_lives, nbGames)
+        VALUES (?, ?, ?, ?, ?, ?)
+    `, [req.session.user.id, infos.fin.score, infos.fin.date, infos.fin.vie, infos.settings.lives, infos.settings.nbGames])    
+}
+
 router.post('/verif', async (req, res) => {
-    const { rep, pass } = req.body;
+    const { rep/*, pass*/ } = req.body;
 
     if (!rep) return;
 
@@ -164,18 +213,52 @@ router.post('/verif', async (req, res) => {
         return;
     } 
 
+    const jeux = await JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'games_list.json')))
+    const currentQuestionIndex = req.session.user.play.ordre[req.session.user.play.current.question] - 1;
+    const currentQuestion = jeux[currentQuestionIndex];
+
     if(req.session.user.play.current.question >= req.session.user.settings.nbGames) {
+        if (currentQuestion.answers.some(ans => ans.toLowerCase() === rep.toLowerCase())) {
+            req.session.user.play.score += 100;
+            req.session.user.play.current.question++;
+
+            req.session.user.stats.push({
+                jeu : {
+                    name : jeux[currentQuestionIndex].name,
+                    link : jeux[currentQuestionIndex].link
+                },
+                win : true,
+                rep : rep
+            })
+        } else {
+            req.session.user.play.current.lives --
+            req.session.user.play.current.question ++
+            req.session.user.stats.push({
+                jeu : {
+                    name : jeux[currentQuestionIndex].name,
+                    link : jeux[currentQuestionIndex].link
+                },
+                win : false,
+                rep : rep
+            })
+        }
+        req.session.user.stats[0].fin.score = req.session.user.play.score
+        req.session.user.stats[0].fin.vie = req.session.user.play.current.lives
+        req.session.user.stats[0].fin.date = Date.now()
+        req.session.user.stats[0].fin.win = true
         delete req.session.user.play
         delete req.session.user.settings
+        saveGame(req, req.session.user.stats)
         res.json({
             ok : true,
             win : true,
-            message : "Fin de la partie."
+            message : "Fin de la partie.",
+            stats : req.session.user.stats
         })
         return;
     }
 
-    if (pass) {
+    /*if (pass) {
         req.session.user.play.score = req.session.user.play.score - 50
         req.session.user.play.current.question ++
         res.json({
@@ -183,16 +266,20 @@ router.post('/verif', async (req, res) => {
             succes : true,
             message : "Vous avez passez la question ! Vous perdez 50 pts"
         })
-    }
-
-    const jeux = await JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'games_list.json')))
-
-    const currentQuestionIndex = req.session.user.play.ordre[req.session.user.play.current.question] - 1;
-    const currentQuestion = jeux[currentQuestionIndex];
+    }*/
 
     if (currentQuestion.answers.some(ans => ans.toLowerCase() === rep.toLowerCase())) {
         req.session.user.play.score += 100;
         req.session.user.play.current.question++;
+
+        req.session.user.stats.push({
+            jeu : {
+                name : jeux[currentQuestionIndex].name,
+                link : jeux[currentQuestionIndex].link
+            },
+            win : true,
+            rep : rep
+        })
 
         res.json({
             ok: true,
@@ -204,15 +291,28 @@ router.post('/verif', async (req, res) => {
     } else {
         req.session.user.play.current.lives --
         req.session.user.play.current.question ++
+        req.session.user.stats.push({
+            jeu : {
+                name : jeux[currentQuestionIndex].name,
+                link : jeux[currentQuestionIndex].link
+            },
+            win : false,
+            rep : rep
+        })
         if (req.session.user.play.current.lives === 0) {
+            req.session.user.stats[0].fin.score = req.session.user.play.score
             const msg = `${jeux[req.session.user.play.ordre[req.session.user.play.current.question - 1] - 1].name} était la bonne réponse.<br>Vous perdez une vie.`
             delete req.session.user.play
             delete req.session.user.settings
+            req.session.user.stats[0].fin.vie = 0,
+            req.session.user.stats[0].fin.date = Date.now()
+            saveGame(req, req.session.user.stats)
             res.json({
                 ok : true,
                 message : msg,
+                perdu : true,
                 notif : "Fin de la partie. Vous avez perdu.",
-                perdu : true
+                stats : req.session.user.stats
             })
             return;
         }
@@ -222,6 +322,66 @@ router.post('/verif', async (req, res) => {
         })
         return;
     }
+})
+
+router.get('/stats', (req, res) => {
+    if (!req.session.user) return;
+    if (!req.session.user.stats) {
+        res.json({
+            ok : false,
+            message : "Les statistiques de la dernière partie ont été supprimées."
+        })
+        return;
+    }
+
+    if (!req.session.user.stats) {
+        res.json({
+            ok : false,
+            message : "Les statistiques de la dernière partie ont été supprimées."
+        })
+        return;
+    }
+
+    if (req.session.user.play) {
+        res.json({
+            part : true,
+            message : "Les statistiques ne sont pas disponibles pendant une partie."
+        })
+        return;
+    }
+
+    const stats = req.session.user.stats
+    
+    res.json({
+        ok : true,
+        data : stats
+    })
+})
+
+router.delete('/stats', (req, res) => {
+    if (!req.session.user) return;
+    if (!req.session.user.stats) {
+        res.json({
+            message : "Les statistiques ont déjà été supprimées."
+        })
+        return;
+    }
+
+    if (req.session.user.play) {
+        res.json({
+            part : true,
+            message : "Vous ne pouvez pas supprimer les stats pendant une partie"
+        })
+        return;
+    }
+
+    delete req.session.user.stats;
+
+    res.json({
+        ok : true,
+        message : "Statistiques supprimées avec succès."
+    })
+
 })
 
 module.exports = router

@@ -133,8 +133,65 @@ router.delete('/', (req, res) => {
 
         req.session.destroy()
     
-        res.status(200).json({ ok: true, message: "Supression réussie. Vous allez être redirigé." });
+        res.status(200).json({ ok: true, message: "Supréssion réussie réussie. Vous allez être redirigé." });
     });
+})
+
+router.get('/games', (req, res) => {
+    db.all('SELECT * FROM games_history WHERE user_id = ? ORDER BY id DESC', [req.session.user.id], (err, games) => {
+        if (err) {
+            console.error(err)
+            res.json({
+                msg : "Erreur serveur",
+                error : err
+            })
+            return;
+        }
+
+        res.json({
+            ok : true,
+            data : games
+        })
+    })
+})
+
+router.get('/patch', (req, res) => {
+    if (!req.session.user) {
+        res.json(false)
+        return;
+    }
+    if (req.session.user.patch === 1) {
+        res.json(false)
+    } else {
+        db.get(/* SQL */ `SELECT * FROM users WHERE id = ?`, [req.session.user.id], (err, user) => {
+            if (err) {
+                console.log(err)
+                res.json(false)
+                return;
+            }
+            
+            if (Number(user.patch) === 0) {
+                db.run(/* SQL */`UPDATE users SET patch=1 WHERE "id"=?`, [req.session.user.id], (err) => {
+                    if (err) {
+                        console.error(err)
+                        res.json(true)
+                    } else {
+                        res.json(true)
+                    }
+                })
+                return;
+            } else {
+                res.json(false)
+            }
+        })
+    }
+})
+
+router.patch('/patch', (req, res) => {
+    if (!req.session.user) {
+        res.json(false)
+        return;
+    }
 })
 
 module.exports = router

@@ -22,6 +22,11 @@ function login() {
                 const url = new URL(window.location.href);
                 const Param = url.searchParams.get("redir");
                 const redir = Param ? Param : ""
+                console.log(redir)
+                if (!redir || redir.length === 0 ) {
+                    window.location.href = `/?notif=Connexion réussie !%info`
+                    return;
+                }
                 window.location.href = `${redir}?notif=Connexion réussie !%info`
                 notify.info(res.message)
             }

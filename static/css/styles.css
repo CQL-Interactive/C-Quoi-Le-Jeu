@@ -11,8 +11,56 @@ body, html {
     user-select: none;
 }
 
+::-webkit-scrollbar {
+  width: 10px;       
+  height: 10px;      
+}
+
+
+::-webkit-scrollbar-track {
+  background: #f0f0f032;
+  border-radius: 10px;
+}
+
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #ffc40056, #cca30044); 
+  border-radius: 10px;
+  transition: 0.2s;
+}
+
+
+::-webkit-scrollbar-thumb:hover { 
+     background: linear-gradient(180deg, #ffc400, #cca300);
+     transition: 0.5s;
+  opacity: 100%;
+  cursor: pointer;
+}
+
+
 body {
     background-color: #302c20;
+}
+
+strong {
+    margin: 0;
+    padding: 0;
+    color: rgb(255, 244, 198);
+}
+
+td {
+    padding: 0 10px;
+}
+
+.prop {
+    padding: 10px;
+    background-color: #1f1f1f52;
+    border-radius: 10px;
+}
+
+
+body {
+  font-family: 'Open Sans', sans-serif;
 }
 
 #background-video {
@@ -48,7 +96,7 @@ body {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    z-index: 1000;
+    z-index: 100;
 }
 
 .header.drop {
@@ -415,19 +463,8 @@ footer {
     animation: fadeInUp 1s ease-in-out;
 }
 
-#games-history {
-    padding: 10px;
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: none;
-    border-left: 2px #ffc400 solid;
-}#games-history p {
-    color: #2b1b08;
-    font-weight: 600;
-    margin: 0;
-    margin-bottom: 10px;
+#games-history .list, .list-contaner .list{
+    border : solid 1px #ffcc0042
 }
 
 /* Bouton "Contactez-nous !" */
@@ -515,14 +552,23 @@ footer {
         padding: 10px;
     }
 
-    input[type="text"], input[type="password"] {
-        width: 100%;
-        padding: 10px;
-        font-size: 1em;
-    }
 
     button {
         padding: 10px 20px;
         font-size: 1em;
     }
+}
+
+input[type=file]::file-selector-button {
+  margin-right: 8px;
+  border: none;
+  background: #ffcc00;
+  padding: 8px 12px;
+  color: #080808;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+input[type=file]::file-selector-button:hover {
+  background: #ffc400;
 }

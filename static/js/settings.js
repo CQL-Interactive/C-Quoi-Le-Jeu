@@ -15,6 +15,7 @@ document.getElementById('username-form').addEventListener('submit', (e) => {
         if (res.ok) {
             notify.info(`Le nom d'utlisateur à bien été modifié<br>Acien nom d'utilisateur : ${res.before}<br>Nouveau nom d'utlisateur : ${username}`)
             document.getElementById('username-input').value = ""
+            loadNav()
         } else {
             notify.error(res.message)
         }
@@ -44,9 +45,11 @@ document.getElementById('mdp-from').addEventListener('submit', (e) => {
     })
 })
 
-document.getElementById('delete-form').addEventListener('submit', (e) => {
+document.getElementById('delete-form').addEventListener('submit', async (e) => {
     e.preventDefault()
-    if(!confirm("Etes vous sûr de vouloir supprimer votre compte ? Cettez action est iréversiible.")) {
+    const confirmOk = await notify.confirm(`Etes vous sûr de vouloir supprimer votre compte ? Cettez action est iréversiible.`)
+    if(!confirmOk) {
+        notify.info("Action annulée.");
         return;
     }
     const password = document.getElementById('password_user')

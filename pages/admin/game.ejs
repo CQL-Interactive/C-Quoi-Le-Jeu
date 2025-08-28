@@ -12,25 +12,18 @@
 <body>
     <div class="header"></div>
     <main>
-        <div class="row center gap">
-            <section style="cursor: pointer;" onclick="window.location.href = '/admin/users'">
-                <h2>Nombre d'utilisateurs</h2>
-                <div class="big" id="nb_users">0</div>
-                <!--<p style="color: rgb(123, 225, 123);" >+ 50%</p>-->
-            </section>
-            <section style="cursor: pointer;" onclick="window.location.href = '/admin/games'">
-                <h2>Nombre de jeux</h2>
-                <div id="nb_games" class="big">0</div>
-            </section>
-            <section>
-                <h2>Nombre de parties jouées</h2>
-                <div id="nb_party" class="big"></div>
-            </section>
+        <div id="games" class="col list-contaner">
+            <div class="col">
+                <div class="col" style="min-width: 300px;">
+                    <h2>Infos sur le jeu</h2>
+                    <p><strong>Nom : </strong><%= jeu.name %></p>
+                    <p><strong>Site : </strong><a href="<%= jeu.link %>"><%= jeu.link %></a></p>
+                </div>
+                <img class="game_img" src="/api/admin/img/IMG_<%= index %>.webp">
+            </div>
         </div>
     </main>
     <script src="/js/main.js" ></script>
-    <script src="/api/admin/js/dashboard.js" ></script>
-    <script src="/js/notify.js" ></script>
     <script src="/api/admin/js/admin.js" ></script>
     <script>
         config = {

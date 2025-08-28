@@ -7,14 +7,27 @@ main {
     padding: 0px 25vw;
 }
 
+main.two {
+    padding: 0px 20vw;
+}
+
 h1, h2, h3 {
     color: rgb(224, 224, 224);
+    margin: 0;
 }
 
 h2 {
     margin: 10px 0;
     margin-top: 40px;
 }
+
+form h2, h2.no {
+    margin: 10px;
+}
+
+.no-gap {
+    gap: 0;
+} 
 
 h1 {
     color: #dddddd;
@@ -35,4 +48,51 @@ p:hover {
     transform: scale(102%);
     padding: 10px;
     cursor: pointer;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+h1.no {
+    margin-bottom: 20px;
+}
+
+select:focus {
+    background-color: white;
+    color: black;
+}
+
+select {
+    width: 382px;
+}
+
+textarea {
+    height: 100px;
+}
+
+input, select, textarea {
+    border: 1px #facc006f solid;
+    border-radius: 10px;
+    background-color: transparent;
+    min-width: 350px;
+    font-size: 15px;
+    max-height: 200px;
+    resize: none;
+    color: white;
+    outline: none;
+    padding: 15px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+input:focus {
+    box-shadow: none;
+}
+
+.gap {
+    gap: 50px;
 }

@@ -10,7 +10,15 @@ function randomNb(min, max) {
 }
 
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    const infos = await (await fetch('/api/user/patch')).json()
+    
+    const vers = await (await fetch('/version')).json()
+    
+    if(infos) {
+        document.body.insertAdjacentHTML('beforeend', vers.patch)
+    }
+
     fetch('/api/game/settings')
     .then(res => res.json())
     .then(res => {
@@ -27,9 +35,10 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     fetch('/api/game/current')
     .then(res => res.json())
-    .then(res => {
+    .then(async res => {
         if (res.continue) {
-            if(confirm("Une partie est en cours, voulez vous la continuer ?")) {
+            const result = await notify.confirm("Une partie est en cours, voulez vous la continuer ?")
+            if(result) {
                 window.location.href = '/solo/game'
                 return;
             } 
@@ -43,7 +52,13 @@ async function changeSettings() {
     inputs.lives.value = randomNb(1, 10)
 }
 
-function play() {
+async function play() {
+    document.getElementById('play_btn').classList.add('loadingBtn')
+    const user = await fetch('/api/user').then(res => res.json())
+    if (!user.username) {
+        window.location.href = '/login?notif=Merci de vous connecter pour jouer'
+        return;
+    }
     fetch('/api/game/settings', {
         method : "POST",
         headers : {
@@ -60,11 +75,12 @@ function play() {
             window.location.href = '/solo/game?notif=Paramètres enregistrés%info'
         } else {
             notify.error(res.message)
+            document.getElementById('play_btn').classList.remove('loadingBtn')
         }
     })
 }
 
-document.querySelector('.new-game').addEventListener('mouseenter', () => {
+document.getElementById('new-game-button').addEventListener('mouseenter', () => {
     document.querySelector('.fen-new-game').classList.add('overed');
     document.querySelector('.new-game').classList.add('overed');
 })

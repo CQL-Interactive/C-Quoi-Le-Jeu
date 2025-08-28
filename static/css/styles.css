@@ -552,14 +552,23 @@ footer {
         padding: 10px;
     }
 
-    input[type="text"], input[type="password"] {
-        width: 100%;
-        padding: 10px;
-        font-size: 1em;
-    }
 
     button {
         padding: 10px 20px;
         font-size: 1em;
     }
+}
+
+input[type=file]::file-selector-button {
+  margin-right: 8px;
+  border: none;
+  background: #ffcc00;
+  padding: 8px 12px;
+  color: #080808;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+input[type=file]::file-selector-button:hover {
+  background: #ffc400;
 }

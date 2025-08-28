@@ -63,8 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <table>
                 <tr>
                     <td>
-                        <p><strong>Début de la partie :</strong>
-                            Le 0${dateDebut.getDate()}/0${dateDebut.getMonth() + 1}/${dateDebut.getFullYear()}
+                        <p><strong>Date :</strong>
+                            Le ${dateDebut.getDate()}/0${dateDebut.getMonth() + 1}/${dateDebut.getFullYear()}
                             à ${dateDebut.getHours()}h${dateDebut.getMinutes()}
                         </p>
                     </td>

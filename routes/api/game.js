@@ -277,6 +277,7 @@ router.post('/verif', async (req, res) => {
                 name : jeux[currentQuestionIndex].name,
                 link : jeux[currentQuestionIndex].link
             },
+            win : true,
             rep : rep
         })
 

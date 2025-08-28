@@ -11,10 +11,13 @@ const fs = require('fs')
 const dotenv = require('dotenv')
 const bcrypt = require('bcrypt')
 const sqlite3 = require('sqlite3').verbose()
+const formidable = require('formidable')
 
 
 const app = express()
 dotenv.config({ path: "./config.env" })
+app.set('view engine', 'ejs');
+app.set('views', __dirname + '/pages');
 const PORT = process.env.PORT
 const HOST = process.env.HOST
 
@@ -61,13 +64,13 @@ app.use('/', require(path.join(__dirname, 'routes', 'pages'))(requireAuth))
 app.use('/api/', require(path.join(__dirname, 'routes', 'index')))
 
 app.get('/', (req, res) => {
-    if (req.session.user) {
-        res.sendFile(path.join(__dirname, 'pages', 'index.html'))
-    } else {
-        const redirectPath = req.originalUrl
-        res.redirect(`/login?redir=${encodeURIComponent(redirectPath)}`)
-    }
+    res.sendFile(path.join(__dirname, 'pages', 'index.html'))
 })
+
+app.use((req, res, next) => {
+  res.status(404).sendFile(path.join(__dirname, 'pages', 'error.html'))
+});
+
 
 app.listen(PORT, () => {
     console.log(`✅ Serveur en ligne sur : http://${HOST}:${PORT}`)

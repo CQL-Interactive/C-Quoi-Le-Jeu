@@ -155,4 +155,43 @@ router.get('/games', (req, res) => {
     })
 })
 
+router.get('/patch', (req, res) => {
+    if (!req.session.user) {
+        res.json(false)
+        return;
+    }
+    if (req.session.user.patch === 1) {
+        res.json(false)
+    } else {
+        db.get(/* SQL */ `SELECT * FROM users WHERE id = ?`, [req.session.user.id], (err, user) => {
+            if (err) {
+                console.log(err)
+                res.json(false)
+                return;
+            }
+            
+            if (Number(user.patch) === 0) {
+                db.run(/* SQL */`UPDATE users SET patch=1 WHERE "id"=?`, [req.session.user.id], (err) => {
+                    if (err) {
+                        console.error(err)
+                        res.json(true)
+                    } else {
+                        res.json(true)
+                    }
+                })
+                return;
+            } else {
+                res.json(false)
+            }
+        })
+    }
+})
+
+router.patch('/patch', (req, res) => {
+    if (!req.session.user) {
+        res.json(false)
+        return;
+    }
+})
+
 module.exports = router

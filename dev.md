@@ -15,6 +15,12 @@ Etats possibles :
 
 ## 🗞️ Patch notes
 <details>
+    <summary><strong>v3.40.0</strong></summary>
+    <ul>
+        <li>Systeme dezz statistique fin de partie</li>
+    </ul>
+</details>
+<details>
     <summary><strong>v3.3.1</strong></summary>
     <ul>
         <li>Systeme dezz statistique fin de partie</li>

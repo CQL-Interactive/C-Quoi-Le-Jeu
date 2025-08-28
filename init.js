@@ -29,6 +29,24 @@ function createTables() {
         });
 
         db.run(`
+            CREATE TABLE IF NOT EXISTS new_game (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER,
+                nom TEXT,
+                site TEXT,
+                accept INTEGER,
+                post_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (user_id) REFERENCES users (id)
+            )
+        `, (err) => {
+            if (err) {
+                console.error("❌ Erreur création table new_game :", err.message);
+            } else {
+                console.log("✅ Table new_game créée ou déjà existante.");
+            }
+        });
+
+        db.run(`
             CREATE TABLE IF NOT EXISTS games_history (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 user_id INTEGER,

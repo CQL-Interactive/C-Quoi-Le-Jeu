@@ -62,12 +62,31 @@ h1.no {
     margin-bottom: 20px;
 }
 
-input {
+select:focus {
+    background-color: white;
+    color: black;
+}
+
+select {
+    width: 382px;
+}
+
+textarea {
+    height: 100px;
+}
+
+input, select, textarea {
     border: 1px #facc006f solid;
     border-radius: 10px;
     background-color: transparent;
     min-width: 350px;
     font-size: 15px;
+    max-height: 200px;
+    resize: none;
+    color: white;
+    outline: none;
+    padding: 15px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 input:focus {

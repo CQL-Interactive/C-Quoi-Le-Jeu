@@ -2,10 +2,13 @@
   "dependencies": {
     "bcrypt": "^6.0.0",
     "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-session": "^1.18.1",
+    "formidable": "^3.5.4",
     "fs": "^0.0.1-security",
     "pg": "^8.16.0",
+    "sharp": "^0.34.3",
     "sqlite3": "^5.1.7"
   }
 }

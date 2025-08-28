@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C Quoi Le Jeu</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" href="/img/logo.svg" >
+</head>
+<body>
+    <img id="filter-back" >
+    <video autoplay muted loop id="background-video">
+        <source src="/videos/background.webm" type="video/webm">
+    </video>
+    <div class="header drop"></div>
+    <div id="home-page" class="game-container">
+        <section class="col" >
+            <h1>Erreur 404</h1>
+            <h2>Cette page est introuvable.</h2>
+            <div class="center"><button id="accbtn" >Retour à l'accueil</button></div>
+        </section>
+    </div>
+    <script src="/js/notify.js" ></script>
+    <script>
+        document.getElementById('accbtn').addEventListener('click', () => {
+            window.location.href = '/'
+        })
+    </script>
+</body>
+</html>

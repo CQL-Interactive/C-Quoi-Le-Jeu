@@ -48,8 +48,8 @@ router.post('/register', (req, res) => {
         }
 
         const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync());
-        db.run(`INSERT INTO users (username, password) VALUES (?, ?)`,
-            [trimmedUsername, hashedPassword],
+        db.run(`INSERT INTO users (username, password, patch) VALUES (?, ?, ?)`,
+            [trimmedUsername, hashedPassword, 1],
             function (insertErr) {
                 if (insertErr) return res.status(500).json({ ok: false, message: "Erreur lors de l'inscription." });
 
@@ -60,7 +60,8 @@ router.post('/register', (req, res) => {
 
                     req.session.user = {
                         id: user.id,
-                        username: user.username
+                        username: user.username,
+                        patch : 1
                     };
 
                     req.session.save(() => {
@@ -111,7 +112,8 @@ router.post('/login', async (req, res) => {
 
         req.session.user = {
             id : user.id,
-            username : user.username
+            username : user.username,
+            patch : Number(user.patch)
         }
 
         db.get(/* SQL */ `SELECT * FROM users_admin WHERE user_id = ?`, [user.id], (err, user) => {
@@ -125,6 +127,7 @@ router.post('/login', async (req, res) => {
 
             if (user) {
                 req.session.user.isAdmin = true;
+                req.session.user.adminLevel = user.admin_level;
             }
 
             res.status(200).json({ ok: true, message: "Connexion réussie." });

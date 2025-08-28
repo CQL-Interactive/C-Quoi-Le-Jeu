@@ -1,9 +1,26 @@
 nav {
-    margin-top: 50px;
     background-color: rgb(50, 50, 50);
+    top: 0px;
+    position: sticky;
+    z-index: 10;
 }
 
-nav button {
+.dropdown-content {
+  position: absolute;
+  z-index: 11;
+  transform: translateY(60px);
+}
+
+.user-menu button {
+  z-index: 12;
+}
+
+.header {
+  position:initial;
+  padding: 20px;
+}
+
+nav button, button {
     background: rgb(255, 230, 0);
     font-size: 15px;
     padding: 10px;
@@ -12,10 +29,98 @@ nav button {
     border: solid 5px rgb(255, 230, 0);
 }
 
-nav button:hover {
+nav button:hover, button:hover {
     transform: initial;
-    background: rgb(227, 205, 0);
+    background: rgb(219, 197, 0);
 }
+
+.preview {
+  border: solid 2px rgb(219, 197, 0);
+  width: 100%;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.preview {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    color: white;
+}
+
+@keyframes pop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(50%);
+  }
+}
+
+.preview section {
+    padding: 50px;
+    background-color: #2e2e2e4f ;
+    color: white;
+    backdrop-filter: blur(10px);
+    border: solid 1px rgba(255, 255, 255, 0.048);
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.445) 0 0 20px 5px;
+    min-width: 540px;
+    transform: translate(-50%, -50%) scale(50%);
+}
+
+.preview section:hover {
+  transform: translate(-50%, -50%) scale(50%) !important;
+}
+
+section.fen {
+  animation: pop 1s;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: #ffd72631;
+  padding: 20px;
+  color: white;
+  backdrop-filter: blur(50px);
+  border: solid 1px rgba(255, 255, 255, 0.048);
+  box-shadow: rgba(0, 0, 0, 0.445) 0 0 20px 5px;
+  z-index: 10;
+  border-radius: 15px;
+  min-width: 800px;
+  height: auto;
+}
+
+.preview section h1 {
+  color: #facb00;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.preview .background-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+}
+
+.preview::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(90deg, rgba(48, 31, 6, 0.8) 0%, rgba(20, 15, 2, 0.8) 100%);
+}
+
+
 
 nav button.select {
     border-bottom: solid 5px white;
@@ -94,6 +199,10 @@ p:hover {
   gap: 20px;
   padding: 10px;
   align-items: center;
+}
+
+label {
+  cursor: pointer;
 }
 
 .ios-checkbox {

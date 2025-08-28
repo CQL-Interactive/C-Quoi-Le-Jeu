@@ -12,7 +12,7 @@ function logout() {
     .then(res => res.json())
     .then(res => {
         if (res.ok) {
-            window.location.href = `/login?redir=${window.location.pathname}&notif=Déconnexion réussie%info`
+            window.location.href = `/?notif=Déconnecté avec succès`
         } else {
             window.location.href = `/login?redir=${window.location.pathname}`
         }
@@ -34,27 +34,41 @@ const components = {
 
         if (subConfig["menu"]) {
             const user = await fetch('/api/user').then(res => res.json())
-            html += `
-                <div class="user-menu">
-                    <button class="small">${user.username}</button>
-                    <div class="dropdown-content">
-                        <a href="/histo">Mes parties</a>
-                        <a href="/settings">Paramètres</a>
-                        ${user.isAdmin ? '<a href="/admin">Admin</a>' : ''}
-                        <a onclick="logout()">Déconnexion</a>
-                    </div>
-                </div>
-            `
+            if (user.username) {
+                    html += `
+                        <div class="user-menu">
+                            <button class="small">${user.username}</button>
+                            <div class="dropdown-content">
+                                <a href="/histo">Mes parties</a>
+                                <a href="/settings">Paramètres</a>
+                                ${user.isAdmin ? '<a href="/admin">Admin</a>' : ''}
+                                <a onclick="logout()">Déconnexion</a>
+                            </div>
+                        </div>
+                    `
+            } else {
+                    html += `
+                        <div class="user-menu">
+                            <button id="idbtn" class="small">Identification</button>
+                        </div>
+                    `
+                    el.innerHTML = html 
+
+                    document.getElementById('idbtn').addEventListener('click', () => {
+                        window.location.href = '/login'
+                    })     
+                    return;       
+            }
         }
 
         el.innerHTML = html
     },
 
     "footer": async (el) => {
-        const version = await (await fetch('/version')).json()
+        const infos = await (await fetch('/version')).json()
         el.innerHTML = `
             <p>&copy; 2025 C Quoi Le Jeu. Tous droits réservés. 
-            Version ${version} - 
+            Version ${infos.version} - 
             <a href="/privacy-notice-FR">Politique de Confidentialité</a></p>
         `
     },
@@ -62,7 +76,7 @@ const components = {
     "contact": (footerEl) => {
         footerEl.insertAdjacentHTML(
             'beforebegin',
-            `<button onclick="window.location.href = '/contact'" class="small bottom-left">✉️Contactez-nous !</button>`
+            `<button onclick="window.location.href = '/contact'" class="small bottom-left">Contactez-nous !</button>`
         )
     }
 }

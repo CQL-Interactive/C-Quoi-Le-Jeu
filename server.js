@@ -51,7 +51,7 @@ function requireAuth(req, res, next) {
 app.use((req, res, next) => {
     const userAgent = req.headers['user-agent'] || ''
 
-    const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|Mobile/i.test(userAgent)
+    const isMobile = /Android|iPhone|iPod|Opera Mini|IEMobile|Mobile/i.test(userAgent)
 
     if (isMobile) {
         return res.sendFile(path.join(__dirname, 'pages', 'mobile.html'))

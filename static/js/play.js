@@ -15,6 +15,9 @@ function reloadImage(id) {
     });
 }
 function loadJeu(e, res) {
+    let timeout = setTimeout(() => {
+        document.getElementById('timeout_loading').style.display = 'flex'
+    }, 8000)
     fetch('/api/game/settings')
     .then(res => res.json())
     .then(settings => {
@@ -62,14 +65,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.getElementById('game_form').addEventListener('submit', (e) => {
     e.preventDefault()
-    let pass = false
+    let rep = document.getElementById('game_name').value
+    if (rep.length === 0) {
+        notify.info("Vous ne pouvez pas passer dans ce mode de jeu.")
+        return;
+    }
     e.submitter.classList.add('loadingBtn')
     e.submitter.disabled = true
     document.getElementById('game_name').readOnly  = true
-    const rep = document.getElementById('game_name').value
-    if (rep.length === 0) {
-        pass = true;
-    }
 
     fetch('/api/game/verif', {
         method : "POST",
@@ -77,8 +80,7 @@ document.getElementById('game_form').addEventListener('submit', (e) => {
             'Content-Type' : 'application/json'
         },
         body : JSON.stringify({
-            rep : rep,
-            pass : pass
+            rep : rep
         })
     })
     .then(res => res.json())

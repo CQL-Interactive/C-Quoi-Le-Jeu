@@ -112,6 +112,10 @@ module.exports = (requireAuth) => {
         res.render('admin/game', { jeu : jeux[index], index : indexImg })
     })
 
+    router.get('/admin/parties', requireAuth, (req, res) => {
+        res.sendFile(path.join(process.cwd(), 'pages', 'admin', 'parties.html'))
+    })
+
     // En cours de dev :
     router.get('/games/new', /*requireAuth,*/ (req, res) => {
         //res.sendFile(path.join(__dirname, '..', 'pages', 'newGame.html'))

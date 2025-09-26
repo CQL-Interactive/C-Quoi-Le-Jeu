@@ -4,6 +4,9 @@
 | 🚥 Etat | ✏️ Modification |
 |-------------|--------|
 | 🟠 | Vérifications suplémentaires création d'une partie |
+| 🔴 | Systeme classement |
+| 🔴 | Review orthographe |
+| 🔴 | Filtrage/Triage admin |
 
 
 Etats possibles :
@@ -15,9 +18,24 @@ Etats possibles :
 
 ## 🗞️ Patch notes
 <details>
-    <summary><strong>v3.40.0</strong></summary>
+    <summary><strong>v3.4.1</strong></summary>
     <ul>
-        <li>Systeme dezz statistique fin de partie</li>
+        <li>Correction de bugs
+            <ul>
+                <li>Ajout bouton recharger la page si temps de création partie trop long</li>
+                <li>Avant si on confiermait le jeu avec une répoonse vide le bouton chargais à l'infinit mainteant la réponse n'est pas envoyer au serveur.</li>
+                <li>Optimisation de certaines parties longue de l'app</li>
+                <li>Correction bug patch note</li>
+            </ul>
+        </li>
+        <li>Les admin peuvent desormais consulter les parties des joueurs dans l'onglet "parties"</li>
+        <li>Préparation de l'api pour le système de classment (il arrive la semaine prochaine)</li>
+    </ul>
+</details>
+<details>
+    <summary><strong>v3.4.0</strong></summary>
+    <ul>
+        <li>Systeme de statistiques fin de partie</li>
     </ul>
 </details>
 <details>

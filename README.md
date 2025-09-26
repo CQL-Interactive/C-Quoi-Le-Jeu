@@ -7,10 +7,10 @@ Ce fork vise à réécrire l’architecture back-end initialement en Python en N
 
 ## 🤝 Crédits
 
-- **Théo Graziano** – Fondateur du projet  
-- **Elie Saidane Lemercier** – Fondateur du projet
+- **Théo** – Fondateur du projet  
+- **Elie** – Fondateur du projet
 - **Lugame Cooper** – Développeur
-- **Timéo Menvielle Larrouy** – Créateur de ce fork & dévelooppeur (TML)
+- **Timéo Menvielle Larrouy** – Créateur de ce fork & développeur (TML)
 
 ---
 

@@ -4,7 +4,7 @@ C Quoi Le Jeu est un site web créé par 2 élèves de 3ème, dont le principe e
 
 Les co-créateurs🤝:
 
-Nous sommes deux collégiens à avoir créé ce projet : Théo GRAZIANO et Elie SAIDANE LEMERCIER. "Nous voulons créer un jeu gratuit, sans publicités, accessible à tous et respectueux des données."
+Nous sommes deux collégiens à avoir créé ce projet : Théo et Elie. "Nous voulons créer un jeu gratuit, sans publicités, accessible à tous et respectueux des données."
 
 Un peu d'histoire📜...
 

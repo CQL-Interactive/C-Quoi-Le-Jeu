@@ -1,12 +1,12 @@
-Mais qu’est-ce que C Quoi Le Jeu🤔?
+# **Mais qu’est-ce que C Quoi Le Jeu🤔?**
 
 C Quoi Le Jeu est un site web créé par 2 élèves de 3ème, dont le principe est de deviner le nom d'un jeu vidéo à partir d'une image. CQLJ est disponible sur "https://cquoilejeu.fr".
 
-Les co-créateurs🤝:
+# **Les co-créateurs🤝:**
 
 Nous sommes deux collégiens à avoir créé ce projet : Théo GRAZIANO et Elie SAIDANE LEMERCIER. "Nous voulons créer un jeu gratuit, sans publicités, accessible à tous et respectueux des données."
 
-Un peu d'histoire📜...
+# **Un peu d'histoire📜...**
 
 Date de création : 8 avril 2025 : Le projet commence lors d’une discussion entre amis au collège, et abouti à une version minimaliste.
 
@@ -16,7 +16,7 @@ Mise à jour 1.2.1 : 18 mai 2025 : Grosse MAJ avec intégration de suggestions d
 
 Date de sortie : 8 juin 2025
 
-Nos liens🔗:
+# **Nos liens🔗:**
 
 Lien vers C Quoi Le Jeu : https://cquoilejeu.fr
 
@@ -35,3 +35,28 @@ Lien vers le TikTok : https://www.tiktok.com/@c_quoi_le_jeu?_t=ZN-8wN2w0gTh4w&_r
 Lien vers la chaîne YouTube : https://www.youtube.com/@cquoilejeu
 
 Email Contact : contact.cquoilejeu@gmail.com
+
+# **Execution en local :**
+
+Requis : `Node.js` et `npm`
+1. `git clone https://github.com/C-Quoi-Le-Jeu/C-Quoi-Le-Jeu.git`
+2. `cd C-Quoi-Le-Jeu`
+3. `npm install`
+4. créer un fichier config.env avec ces informations :
+```
+SECRET=your_secret_key
+HOST=localhost
+PORT=3000
+SECURE=false
+```
+5. créer un fichier `annonce.json` avec ces informations :
+```
+{
+    "patch" :
+}
+```
+6. `node server.js`
+
+# **LICENCE :**
+
+C Quoi Le Jeu est sous licence GNU General Public License v2.0. Consultez le fichier `License` pour plus de détails

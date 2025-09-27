@@ -59,4 +59,4 @@ SECURE=false
 
 ## **LICENCE :**
 
-C Quoi Le Jeu est sous licence GNU General Public License v2.0. Consultez le fichier [lICENSE](https://github.com/C-Quoi-Le-Jeu/C-Quoi-Le-Jeu/blob/main/LICENSE) pour plus de détails.
+C Quoi Le Jeu est sous licence GNU General Public License v2.0. Consultez le fichier [LICENSE](https://github.com/C-Quoi-Le-Jeu/C-Quoi-Le-Jeu/blob/main/LICENSE) pour plus de détails.

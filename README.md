@@ -55,7 +55,8 @@ SECURE=false
     "patch" :
 }
 ```
-6. `node server.js`
+6. `node init.js`
+7. `node server.js`
 
 ## **LICENCE :**
 

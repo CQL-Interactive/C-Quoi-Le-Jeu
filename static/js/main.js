@@ -39,7 +39,7 @@ const components = {
                         <div class="user-menu">
                             <button class="small">${user.username}</button>
                             <div class="dropdown-content">
-                                <a href="/histo">Mes parties</a>
+                                <a href="/historique">Mes parties</a>
                                 <a href="/settings">Paramètres</a>
                                 ${user.isAdmin ? '<a href="/admin">Admin</a>' : ''}
                                 <a onclick="logout()">Déconnexion</a>
@@ -76,7 +76,7 @@ const components = {
     "contact": (footerEl) => {
         footerEl.insertAdjacentHTML(
             'beforebegin',
-            `<button onclick="window.location.href = '/contact'" class="small bottom-left">Contactez-nous !</button>`
+            `<button onclick="window.location.href = '/liens'" class="small bottom-left">🔗 Nos liens</button>`
         )
     }
 }

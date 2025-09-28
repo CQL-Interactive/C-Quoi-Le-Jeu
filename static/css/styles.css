@@ -467,7 +467,7 @@ footer {
     border : solid 1px #ffcc0042
 }
 
-/* Bouton "Contactez-nous !" */
+/* Bouton "Nos liens" */
 .contact-us-button {
     position: fixed;
     bottom: 20px;
@@ -505,6 +505,7 @@ footer {
 .contact-button {
     display: flex;
     align-items: center;
+    gap: 10px;
     justify-content: center;
     color: white;
     padding-top: 5px;
@@ -512,26 +513,16 @@ footer {
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 25px;
-    font-size: 1.3em;
+    font-size: 1.4em;
     cursor: pointer;
     transition: background 0.3s, transform 0.2s;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     text-decoration: none;
 }
 
-/* Style spécifique pour le bouton Discord */
-.discord-button {
-    background: linear-gradient(90deg, #7289da, #5a69c6);
-}
-
-/* Style spécifique pour le bouton Email */
-.mail-button {
-    background: linear-gradient(90deg, #ff6b6b, #ff5252);
-}
-
 /* Effet de survol pour les boutons de contact */
 .contact-button:hover {
-    background: linear-gradient(90deg, #0072ff, #00c6ff);
+    background: linear-gradient(90deg, #0657b9, #04aad8);
     transform: scale(1.05);
 }
 

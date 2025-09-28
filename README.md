@@ -39,24 +39,28 @@ Date de sortie : 8 juin 2025
 ## **Execution en local :**
 
 Requis : `Node.js` et `npm`
-1. `git clone https://github.com/C-Quoi-Le-Jeu/C-Quoi-Le-Jeu.git`
-2. `cd C-Quoi-Le-Jeu`
-3. `npm install`
-4. créer un fichier config.env avec ces informations :
+``` 
+git clone https://github.com/C-Quoi-Le-Jeu/C-Quoi-Le-Jeu.git
+cd C-Quoi-Le-Jeu
+npm install
+```
+créer un fichier config.env avec ces informations :
 ```
 SECRET=your_secret_key
 HOST=localhost
 PORT=3000
 SECURE=false
 ```
-5. créer un fichier `annonce.json` avec ces informations :
+créer un fichier `annonce.json` avec ces informations :
 ```
 {
     "patch" :
 }
 ```
-6. `node init.js`
-7. `node server.js`
+```
+node init.js
+node server.js
+```
 
 ## **LICENCE :**
 

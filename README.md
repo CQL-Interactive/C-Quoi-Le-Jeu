@@ -1,5 +1,3 @@
-![GitHub stars](https://img.shields.io/gitea/stars/:C-Quoi-Le-Jeu/:C-Quoi-Le-Jeu)
-
 ## **Mais qu’est-ce que C Quoi Le Jeu🤔?**
 
 C Quoi Le Jeu est un site web créé par 2 élèves de 3ème, dont le principe est de deviner le nom d'un jeu vidéo à partir d'une image. CQLJ est disponible sur "https://cquoilejeu.fr".

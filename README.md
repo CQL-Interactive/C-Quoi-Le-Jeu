@@ -1,4 +1,4 @@
-![GitHub stars](https://img.shields.io/gitea/stars/C-Quoi-Le-Jeu/C-Quoi-Le-Jeu)
+![GitHub stars](https://img.shields.io/gitea/stars/:C-Quoi-Le-Jeu/:C-Quoi-Le-Jeu)
 
 ## **Mais qu’est-ce que C Quoi Le Jeu🤔?**
 

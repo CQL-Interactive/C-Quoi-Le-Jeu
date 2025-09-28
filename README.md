@@ -44,7 +44,7 @@ git clone https://github.com/C-Quoi-Le-Jeu/C-Quoi-Le-Jeu.git
 cd C-Quoi-Le-Jeu
 npm install
 ```
-créer un fichier config.env avec ces informations :
+créer un fichier `config.env` avec ces informations :
 ```
 SECRET=your_secret_key
 HOST=localhost

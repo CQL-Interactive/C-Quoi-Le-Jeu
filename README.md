@@ -34,7 +34,7 @@ Date de sortie : 8 juin 2025
 
 **Lien vers la chaîne YouTube :** [youtube.com/@cquoilejeu](https://www.youtube.com/@cquoilejeu)
 
-**Email Contact :** contact.cquoilejeu@gmail.com
+**Email Contact :** contact@cquoilejeu.fr
 
 ## **Execution en local :**
 

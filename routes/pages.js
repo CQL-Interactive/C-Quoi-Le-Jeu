@@ -21,8 +21,8 @@ module.exports = (requireAuth) => {
     router.get('/contact', requireAuth, (req, res) => {
         res.sendFile(path.join(__dirname, '..', 'pages', 'contact.html'))
     })
-    router.get('/histo', requireAuth, (req, res) => {
-        res.sendFile(path.join(__dirname, '..', 'pages', 'my_games.html'))
+    router.get('/historique', requireAuth, (req, res) => {
+        res.sendFile(path.join(__dirname, '..', 'pages', 'profile', 'my_games.html'))
     })
     router.get('/settings', requireAuth, (req, res) => {
         res.sendFile(path.join(__dirname, '..', 'pages', 'settings.html'))
@@ -117,7 +117,7 @@ module.exports = (requireAuth) => {
     })
 
     // En cours de dev :
-    router.get('/games/new', /*requireAuth,*/ (req, res) => {
+    router.get('/games/new', requireAuth, (req, res) => {
         //res.sendFile(path.join(__dirname, '..', 'pages', 'newGame.html'))
         res.sendFile(path.join(__dirname, '..', 'pages', 'dev.html'))
     })

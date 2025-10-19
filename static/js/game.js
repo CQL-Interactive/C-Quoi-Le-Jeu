@@ -100,8 +100,14 @@ document.querySelector('.new-game').addEventListener('mouseleave', () => {
     document.querySelector('.new-game').classList.remove('overed');
 })
 
-function openGameSettings() {
-    document.getElementById('game-settings').style.display = 'block'
+async function openGameSettings() {
+    const user = await fetch('/api/user').then(res => res.json())
+
+    if (user.username) {
+        document.getElementById('game-settings').style.display = 'block'
+    } else {
+        window.location.href = "/login?notif=Connectez vous pour jouer."
+    }
 }
 
 function closeGameSettings() {

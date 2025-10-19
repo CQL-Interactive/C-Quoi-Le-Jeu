@@ -5,7 +5,6 @@ const fs = require('fs')
 const sqlite3 = require('sqlite3').verbose()
 const db = new sqlite3.Database('users.db')
 const bcrypt = require('bcrypt')
-const { count } = require('console')
 
 router.use('/js', express.static(path.join(__dirname, '..', '..', 'static', 'admin', 'js')))
 

@@ -62,24 +62,87 @@ select::placeholder {
     margin: 0;
 }
 
-button {
-    z-index: 2;
-    padding: 15px;
-    margin: 7.5px;
-    font-size: 1.3em;
-    background: linear-gradient(90deg, #ffee01, #ffa600);
-    color: rgb(37, 37, 37);
+.nav-button {
+    padding: 12px 20px;
+    margin: 5px;
+    font-size: 1.05em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    background: linear-gradient(90deg, #ffd900, #ff8c00);
+    color: #2c2c2c;
     border: none;
-    border-radius: 25px;
+    border-radius: 16px;
+
     cursor: pointer;
-    transition: background 0.3s, transform 0.2s;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: background 0.25s ease, transform 0.15s ease, box-shadow 0.25s ease;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
 
-button:hover {
-    background: linear-gradient(90deg, #ffa600, #ffee01);
-    transform: scale(1.05);
+
+.nav-button:hover {
+    background: linear-gradient(90deg, #ffe74d, #ff9a1a);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
+
+
+.nav-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+
+.nav-button:focus {
+    outline: 2px solid #ff8c00;
+    outline-offset: 2px;
+}
+
+
+
+button {
+    z-index: 2;
+    padding: 15px 25px;
+    margin: 8px;
+    font-size: 1.2em;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, #ffea00, #ff8c00);
+    color: #222;
+    border: 2px solid #ffb700;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow:
+        0 3px 0 #c87c00,
+        0 6px 15px rgba(0, 0, 0, 0.3),
+        0 0 10px rgba(255, 200, 0, 0.4);
+}
+
+
+button:hover {
+    background: linear-gradient(90deg, #fff45b, #ffae00);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow:
+        0 5px 0 #c87c00,
+        0 8px 20px rgba(0, 0, 0, 0.35),
+        0 0 15px rgba(255, 200, 0, 0.6);
+}
+
+
+button:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow:
+        0 4px 0 #c87c00,
+        0 4px 10px rgba(0, 0, 0, 0.3),
+        0 0 8px rgba(255, 200, 0, 0.3);
+}
+
+button:focus {
+    outline: 2px solid #ffea00;
+    outline-offset: 3px;
+}
+
 
 button.small {
     padding: 10px 20px;

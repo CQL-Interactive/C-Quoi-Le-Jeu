@@ -1,4 +1,11 @@
 {
+  "name": "cquoilejeu",
+  "version": "3.5.0",
+  "description": "Le site cquoilejeu.fr",
+  "license": "GPL-2.0",
+  "author": "Elie",
+  "type": "commonjs",
+  "main": "server.js",
   "dependencies": {
     "bcrypt": "^6.0.0",
     "dotenv": "^16.5.0",

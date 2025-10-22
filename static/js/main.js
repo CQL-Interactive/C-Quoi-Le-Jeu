@@ -77,7 +77,7 @@ const components = {
     "contact": (footerEl) => {
         footerEl.insertAdjacentHTML(
             'beforebegin',
-            `<button onclick="window.location.href = '/contact'" class="small bottom-left">Contactez-nous !</button>`
+            `<button onclick="window.location.href = '/liens'" class="small bottom-left">🔗 Nos liens</button>`
         )
     }
 }

@@ -506,6 +506,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap : 10px;
     color: white;
     padding-top: 5px;
     padding-bottom: 5px;

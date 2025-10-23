@@ -35,11 +35,12 @@ const components = {
         if (subConfig["menu"]) {
             const user = await fetch('/api/user').then(res => res.json())
             if (user.username) {
+                    html += `<nav id="additonal_nav" ></nav>`
                     html += `
                         <div class="user-menu">
                             <button class="small">${user.username}</button>
                             <div class="dropdown-content">
-                                <a href="/historique">Mes parties</a>
+                                <a href="/historique">Profil</a>
                                 <a href="/settings">Paramètres</a>
                                 ${user.isAdmin ? '<a href="/admin">Admin</a>' : ''}
                                 <a onclick="logout()">Déconnexion</a>

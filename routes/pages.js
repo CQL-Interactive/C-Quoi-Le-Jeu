@@ -22,7 +22,7 @@ module.exports = (requireAuth) => {
         res.sendFile(path.join(__dirname, '..', 'pages', 'liens.html'))
     })
     router.get('/historique', requireAuth, (req, res) => {
-        res.sendFile(path.join(__dirname, '..', 'pages', 'my_games.html'))
+        res.sendFile(path.join(__dirname, '..', 'pages', 'profile', 'my_games.html'))
     })
     router.get('/settings', requireAuth, (req, res) => {
         res.sendFile(path.join(__dirname, '..', 'pages', 'settings.html'))
@@ -112,8 +112,12 @@ module.exports = (requireAuth) => {
         res.render('admin/game', { jeu : jeux[index], index : indexImg })
     })
 
+    router.get('/admin/parties', requireAuth, (req, res) => {
+        res.sendFile(path.join(process.cwd(), 'pages', 'admin', 'parties.html'))
+    })
+
     // En cours de dev :
-    router.get('/games/new', /*requireAuth,*/ (req, res) => {
+    router.get('/games/new', requireAuth, (req, res) => {
         //res.sendFile(path.join(__dirname, '..', 'pages', 'newGame.html'))
         res.sendFile(path.join(__dirname, '..', 'pages', 'dev.html'))
     })

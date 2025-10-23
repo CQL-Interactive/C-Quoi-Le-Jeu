@@ -5,7 +5,6 @@ const fs = require('fs')
 const sqlite3 = require('sqlite3').verbose()
 const db = new sqlite3.Database('users.db')
 const bcrypt = require('bcrypt')
-const { count } = require('console')
 
 router.use('/js', express.static(path.join(__dirname, '..', '..', 'static', 'admin', 'js')))
 
@@ -79,6 +78,38 @@ router.get('/users', (req, res) => {
         res.json({
             ok : true,
             data : PlayersList
+        })
+    })
+})
+
+router.get('/parties', (req, res) => {
+    const  query = `
+        SELECT 
+        games_history.id,
+        users.username AS user,
+        users.id AS user_id,
+        games_history.score,
+        games_history.end_date,
+        games_history.end_lives,
+        games_history.begin_lives,
+        games_history.nbGames,
+        games_history.played_at
+        FROM games_history
+        JOIN users ON games_history.user_id = users.id
+        ORDER BY games_history.score DESC;
+    `
+    db.all(query, (err, games) => {
+        if (err) {
+            console.error(err)
+            res.json({
+                msg: "Erreur serveur."
+            })
+            return;
+        }
+
+        res.json({
+            ok : true,
+            data : games
         })
     })
 })

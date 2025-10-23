@@ -54,7 +54,7 @@ SECURE=false
 créer un fichier `annonce.json` avec ces informations :
 ```
 {
-    "patch" :
+    "patch" :""
 }
 ```
 ```

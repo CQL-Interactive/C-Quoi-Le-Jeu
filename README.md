@@ -40,7 +40,7 @@ Date de sortie : 8 juin 2025
 
 Requis : `Node.js` et `npm`
 ``` 
-git clone https://github.com/C-Quoi-Le-Jeu/C-Quoi-Le-Jeu.git
+git clone https://github.com/CQL-Interactive/C-Quoi-Le-Jeu.git
 cd C-Quoi-Le-Jeu
 npm install
 ```
@@ -64,4 +64,4 @@ node server.js
 
 ## **LICENCE :**
 
-C Quoi Le Jeu est sous licence GNU General Public License v2.0. Consultez le fichier [LICENSE](https://github.com/C-Quoi-Le-Jeu/C-Quoi-Le-Jeu/blob/main/LICENSE) pour plus de détails.
+C Quoi Le Jeu est sous licence GNU General Public License v2.0. Consultez le fichier [LICENSE](https://github.com/CQL-Interactive/C-Quoi-Le-Jeu/blob/main/LICENSE) pour plus de détails.

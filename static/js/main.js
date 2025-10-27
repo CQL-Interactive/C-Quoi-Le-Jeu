@@ -68,7 +68,7 @@ const components = {
     "footer": async (el) => {
         const infos = await (await fetch('/version')).json()
         el.innerHTML = `
-            <p>&copy; 2025 C Quoi Le Jeu. Tous droits réservés. 
+            <p>&copy; 2025 CQL Interactive. Tous droits réservés. 
             Version ${infos.version} - 
             <a href="/privacy-notice-FR">Politique de Confidentialité</a></p>
         `

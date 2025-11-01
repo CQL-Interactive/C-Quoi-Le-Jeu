@@ -65,4 +65,3 @@ node server.js
 ## **LICENCE :**
 
 C Quoi Le Jeu est sous licence GNU General Public License v2.0. Consultez le fichier [LICENSE](https://github.com/CQL-Interactive/C-Quoi-Le-Jeu/blob/main/LICENSE) pour plus de détails.
-test

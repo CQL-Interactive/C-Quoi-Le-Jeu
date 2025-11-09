@@ -20,21 +20,21 @@ Date de sortie : 8 juin 2025
 
 **Lien vers C Quoi Le Jeu :** [cquoilejeu.fr](https://cquoilejeu.fr)
 
-**Lien vers notre Bento :** [bento.me/cquoilejeu](https://bento.me/cquoilejeu)
+**Lien vers notre Bento :** [bento.me/cql-interactive](https://bento.me/cql-interactive)
 
 **Lien vers le GitHub :** [github.com/CQL-Interactive/C-Quoi-Le-Jeu](https://github.com/CQL-Interactive/C-Quoi-Le-Jeu)
 
 **Lien vers le serveur Discord officiel :** [discord.gg/Evu8WXm27z](https://discord.gg/Evu8WXm27z)
 
-**Lien vers le Tipeee :** [tipeee.com/c-quoi-le-jeu](https://fr.tipeee.com/c-quoi-le-jeu)
+**Lien vers le Tipeee :** [tipeee.com/cql-interactive](https://fr.tipeee.com/cql-interactive)
 
-**Lien vers Instagram :** [instagram.com/cquoi_lejeu](https://www.instagram.com/cquoi_lejeu?igsh=bDl6OGFtdnA2OGdo)
+**Lien vers Instagram :** [instagram.com/cql_interactive](https://www.instagram.com/cql_interactive)
 
-**Lien vers le TikTok :** [tiktok.com/@c_quoi_le_jeu](https://www.tiktok.com/@c_quoi_le_jeu?_t=ZN-8wN2w0gTh4w&_r=1)
+**Lien vers le TikTok :** [tiktok.com/@cql_interactive](https://www.tiktok.com/@cql_interactive)
 
-**Lien vers la chaîne YouTube :** [youtube.com/@cquoilejeu](https://www.youtube.com/@cquoilejeu)
+**Lien vers la chaîne YouTube :** [youtube.com/@cql-interactive](https://www.youtube.com/@cql-interactive)
 
-**Email Contact :** contact@cquoilejeu.fr
+**Email Contact :** contact@cql-interactive.fr
 
 ## **Execution en local :**
 

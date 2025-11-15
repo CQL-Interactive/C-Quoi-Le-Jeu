@@ -50,7 +50,7 @@ const components = {
             } else {
                     html += `
                         <div class="user-menu">
-                            <button id="idbtn" class="small">Identification</button>
+                            <button id="idbtn" class="small">Connexion</button>
                         </div>
                     `
                     el.innerHTML = html 

@@ -19,41 +19,82 @@ function loadJeu(e, res) {
     .then(res => res.json())
     .then(settings => {
         if (settings.ok) {
-            serchGames()
+            searchGames()
             fetch('/api/game/current')
             .then(res => res.json())
             .then(current => {
                 reloadImage('img_current')
                 .then(() => {
-                    document.getElementById('game_name').value = ""
-                    serchGames()
-                    document.getElementById('game_name').readOnly  = false;
-                    document.getElementById('game_name').focus() 
-                    document.getElementById('vie').innerHTML = ""
-                    for (let index = 0; index < current.lives; index++) {
-                        document.getElementById('vie').innerHTML += `<img class='icon' src='/img/vie.png' >`
-                    }
-                    for (let index = 0; index < settings.data.lives - current.lives; index++) {
-                        document.getElementById('vie').innerHTML += `<img class='icon' src='/img/vieVide.png' >`
-                    }
-                    document.getElementById('nbQuestion').innerHTML = `Jeu ${current.question}/${settings.data.nbGames}`
-                    document.getElementById('nbScore').innerHTML = `Score ${current.score}`
-                    if (e) {
-                        e.submitter.classList.remove('loadingBtn')
-                        e.submitter.disabled = false;
-                    }
-                    if (res) {
-                        notify.info(res.message)
-                    }
-                    setTimeout(() => {
-                        document.getElementById('loader').style.display = 'none'
-                    }, 1000)
+                    updateGameUI(e, res, current, settings)
                 })
+                .catch(() => {
+                    updateGameUI(e, res, current, settings)
+                })
+            })
+            .catch(err => {
+                console.error("Erreur lors du chargement du jeu :", err)
+                if (e) {
+                    e.submitter.classList.remove('loadingBtn')
+                    e.submitter.disabled = false;
+                }
+                notify.error("Erreur lors du chargement du jeu")
             })
         } else {
             notify.error(settings.message)
+            if (e) {
+                e.submitter.classList.remove('loadingBtn')
+                e.submitter.disabled = false;
+            }
         }
     })
+    .catch(err => {
+        console.error("Erreur lors de la récupération des paramètres :", err)
+        if (e) {
+            e.submitter.classList.remove('loadingBtn')
+            e.submitter.disabled = false;
+        }
+        notify.error("Erreur serveur")
+    })
+}
+
+function updateGameUI(e, res, current, settings) {
+    const gameNameInput = document.getElementById('game_name')
+    const vieDiv = document.getElementById('vie')
+    const nbQuestionDiv = document.getElementById('nbQuestion')
+    const nbScoreDiv = document.getElementById('nbScore')
+    const loaderDiv = document.getElementById('loader')
+
+    if (!gameNameInput || !vieDiv || !nbQuestionDiv || !nbScoreDiv) {
+        console.error("Éléments HTML manquants")
+        return;
+    }
+
+    gameNameInput.value = ""
+    searchGames()
+    gameNameInput.readOnly = false
+    gameNameInput.focus()
+    vieDiv.innerHTML = ""
+    
+    for (let index = 0; index < current.lives; index++) {
+        vieDiv.innerHTML += `<img class='icon' src='/img/vie.png'>`
+    }
+    for (let index = 0; index < settings.data.lives - current.lives; index++) {
+        vieDiv.innerHTML += `<img class='icon' src='/img/vieVide.png'>`
+    }
+    
+    nbQuestionDiv.innerHTML = `Jeu ${current.question}/${settings.data.nbGames}`
+    nbScoreDiv.innerHTML = `Score ${current.score}`
+    
+    if (e) {
+        e.submitter.classList.remove('loadingBtn')
+        e.submitter.disabled = false;
+    }
+    if (res) {
+        notify.info(res.message)
+    }
+    if (loaderDiv) {
+        loaderDiv.style.display = 'none'
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -103,11 +144,18 @@ document.getElementById('game_form').addEventListener('submit', (e) => {
             loadJeu(e, res)
         }, 200)
     })
+    .catch(err => {
+        console.error("Erreur lors de la vérification :", err)
+        notify.error("Erreur lors de la vérification")
+        e.submitter.classList.remove('loadingBtn')
+        e.submitter.disabled = false
+        document.getElementById('game_name').readOnly = false
+    })
 })
 
 let prop = "" 
 
-function serchGames() {
+function searchGames() {
     const query = document.getElementById('game_name').value;
 
     if (query.length === 0) {
@@ -143,3 +191,5 @@ document.addEventListener('keydown', (e) => {
         rep(prop)
     }
 })
+
+document.getElementById('game_name').addEventListener('input', searchGames)

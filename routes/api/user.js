@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 router.patch('/change/username',async (req, res) => {
     if(!req.session.user) {
         res.status(401).json({
-            message : 'Il faut êtes déconnecté !'
+            message : 'Il faut être connecté !'
     })
         return;
     }
@@ -133,7 +133,7 @@ router.delete('/', (req, res) => {
 
         req.session.destroy()
     
-        res.status(200).json({ ok: true, message: "Supréssion réussie réussie. Vous allez être redirigé." });
+        res.status(200).json({ ok: true, message: "Suppression réussie. Vous allez être redirigé." });
     });
 })
 

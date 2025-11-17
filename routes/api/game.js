@@ -5,7 +5,7 @@ const sqlite3 = require('sqlite3').verbose()
 const db = new sqlite3.Database('users.db')
 const { ok } = require('assert');
 const { info } = require('console');
-function ordone(n) {
+function ordonne(n) {
   const liste = Array.from({ length: n }, (_, i) => i + 1)
   for (let i = liste.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
@@ -28,7 +28,7 @@ router.post('/settings', async (req, res) => {
 
     if (!settings || !settings.nbGames || !settings.lives ) {
         res.status(400).json({
-            message : "Données manquentes"
+            message : "Données manquantes"
         })
         return;
     }
@@ -76,7 +76,7 @@ router.post('/settings', async (req, res) => {
     }]
     req.session.user.stats[0].fin = {}
 
-    req.session.user.play.ordre = ordone(jeux.length)
+    req.session.user.play.ordre = ordonne(jeux.length)
 
     res.status(200).json({
         ok : true
@@ -84,7 +84,13 @@ router.post('/settings', async (req, res) => {
 })
 
 router.get('/current', (req, res) => {
-    if (!req.session.user) return;
+    if (!req.session.user) {
+        res.status(401).json({
+            ok : false,
+            message : "Non authentifié"
+        })
+        return;
+    }
     if (!req.session.user.play || !req.session.user.play.current) {
         res.json({
             continue : false
@@ -100,11 +106,18 @@ router.get('/current', (req, res) => {
 })
 
 router.get('/settings', (req, res) => {
-    if (!req.session.user) return;
+    if (!req.session.user) {
+        res.status(401).json({
+            ok : false,
+            message : "Non authentifié"
+        })
+        return;
+    }
 
     if (!req.session.user.settings) {
         res.status(400).json({
-            message : "Données manquentes"
+            ok : false,
+            message : "Données manquantes"
         })
         return;
     }
@@ -116,8 +129,18 @@ router.get('/settings', (req, res) => {
 })
 
 router.get('/loadImgs', async (req, res) => {
-    if (!req.session.user || !req.session.user.play) return;
+    if (!req.session.user || !req.session.user.play) {
+        res.status(401).json({
+            ok : false,
+            message : "Non authentifié"
+        })
+        return;
+    }
     if(req.session.user.play.current.question > req.session.user.settings.nbGames) {
+        res.status(400).json({
+            ok : false,
+            message : "Question invalide"
+        })
         return;
     }
     const jeux = await JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'games_list.json')))
@@ -126,8 +149,15 @@ router.get('/loadImgs', async (req, res) => {
 })
 
 router.get('/fin', (req, res) => {
-    if (!req.session.user) return;
+    if (!req.session.user) {
+        res.status(401).json({
+            ok : false,
+            message : "Non authentifié"
+        })
+        return;
+    }
     if (!req.session.user.play || !req.session.user.settings) {
+        res.redirect('/')
         return;
     }
     delete req.session.user.play
@@ -138,7 +168,13 @@ router.get('/fin', (req, res) => {
 })
 
 router.get('/searchGames', async (req, res) => {
-    if (!req.query.query) return;
+    if (!req.query.query) {
+        res.status(400).json({
+            ok : false,
+            message : "Query manquante"
+        })
+        return;
+    }
     const listeJeux = await JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'games_list.json')))
     const query = req.query.query.toLowerCase();
 
@@ -193,7 +229,13 @@ function saveGame(req, stats) {
 router.post('/verif', async (req, res) => {
     const { rep/*, pass*/ } = req.body;
 
-    if (!rep) return;
+    if (!rep) {
+        res.status(400).json({
+            ok : false,
+            message : "Réponse vide"
+        })
+        return;
+    }
 
     if (!req.session.user)  {
         res.json({
@@ -220,7 +262,6 @@ router.post('/verif', async (req, res) => {
     if(req.session.user.play.current.question >= req.session.user.settings.nbGames) {
         if (currentQuestion.answers.some(ans => ans.toLowerCase() === rep.toLowerCase())) {
             req.session.user.play.score += 100;
-            req.session.user.play.current.question++;
 
             req.session.user.stats.push({
                 jeu : {
@@ -232,7 +273,6 @@ router.post('/verif', async (req, res) => {
             })
         } else {
             req.session.user.play.current.lives --
-            req.session.user.play.current.question ++
             req.session.user.stats.push({
                 jeu : {
                     name : jeux[currentQuestionIndex].name,
@@ -245,7 +285,7 @@ router.post('/verif', async (req, res) => {
         req.session.user.stats[0].fin.score = req.session.user.play.score
         req.session.user.stats[0].fin.vie = req.session.user.play.current.lives
         req.session.user.stats[0].fin.date = Date.now()
-        req.session.user.stats[0].fin.win = true
+        req.session.user.stats[0].fin.win = req.session.user.play.current.lives > 0
         delete req.session.user.play
         delete req.session.user.settings
         saveGame(req, req.session.user.stats)
@@ -325,17 +365,15 @@ router.post('/verif', async (req, res) => {
 })
 
 router.get('/stats', (req, res) => {
-    if (!req.session.user) return;
-    if (!req.session.user.stats) {
-        res.json({
+    if (!req.session.user) {
+        res.status(401).json({
             ok : false,
-            message : "Les statistiques de la dernière partie ont été supprimées."
+            message : "Non authentifié"
         })
         return;
     }
-
     if (!req.session.user.stats) {
-        res.json({
+        res.status(404).json({
             ok : false,
             message : "Les statistiques de la dernière partie ont été supprimées."
         })
@@ -344,6 +382,7 @@ router.get('/stats', (req, res) => {
 
     if (req.session.user.play) {
         res.json({
+            ok : false,
             part : true,
             message : "Les statistiques ne sont pas disponibles pendant une partie."
         })
@@ -359,9 +398,16 @@ router.get('/stats', (req, res) => {
 })
 
 router.delete('/stats', (req, res) => {
-    if (!req.session.user) return;
+    if (!req.session.user) {
+        res.status(401).json({
+            ok : false,
+            message : "Non authentifié"
+        })
+        return;
+    }
     if (!req.session.user.stats) {
         res.json({
+            ok : false,
             message : "Les statistiques ont déjà été supprimées."
         })
         return;
@@ -369,6 +415,7 @@ router.delete('/stats', (req, res) => {
 
     if (req.session.user.play) {
         res.json({
+            ok : false,
             part : true,
             message : "Vous ne pouvez pas supprimer les stats pendant une partie"
         })

@@ -1,7 +1,7 @@
 [
     {
         "name": "The Legend of Zelda : Tears of the Kingdom",
-        "image": "images/IMG_001.webp",
+        "image": "games/IMG_1.webp",
         "link" : "https://zelda.nintendo.com/",
         "answers": [
             "the legend of zelda : tears of the kingdom",
@@ -16,7 +16,7 @@
     },
     {
         "name": "Pikmin 4",
-        "image": "images/IMG_002.webp",
+        "image": "games/IMG_2.webp",
         "link" : "https://pikmin.nintendo.com/fr/",
         "answers": [
             "pikmin 4",
@@ -26,7 +26,7 @@
     },
     {
         "name": "Minecraft",
-        "image": "images/IMG_003.webp",
+        "image": "games/IMG_3.webp",
         "link" : "https://www.minecraft.net/fr-fr",
         "answers": [
             "minecraft",
@@ -35,7 +35,7 @@
     },
     {
         "name": "Mario Kart 8 Deluxe",
-        "image": "images/IMG_004.webp",
+        "image": "games/IMG_4.webp",
         "link" : "https://mariokart8.nintendo.com/",
         "answers": [
             "mario kart 8 deluxe",
@@ -51,7 +51,7 @@
     },
     {
         "name": "Pokémon Rouge et Bleu",
-        "image": "images/IMG_005.webp",
+        "image": "games/IMG_5.webp",
         "link" : "https://www.pokemon.com/us/pokemon-video-games/pokemon-red-version-and-pokemon-blue-version",
         "answers": [
             "pokemon rouge et bleu",
@@ -64,7 +64,7 @@
     },
     {
         "name": "GTA 5",
-        "image": "images/IMG_006.webp",
+        "image": "games/IMG_6.webp",
         "link" : "https://www.rockstargames.com/games/V",
         "answers": [
             "grand theft auto 5",
@@ -78,7 +78,7 @@
     },
     {
         "name": "Slime Rancher",
-        "image": "images/IMG_007.webp",
+        "image": "games/IMG_7.webp",
         "link" : "https://www.slimerancher.com/",
         "answers": [
             "slime rancher",
@@ -87,7 +87,7 @@
     },
     {
         "name": "Spider-Man 2",
-        "image": "images/IMG_008.webp",
+        "image": "games/IMG_8.webp",
         "link" : "https://www.playstation.com/fr-fr/games/marvels-spider-man-2/",
         "answers": [
             "spider man 2",
@@ -100,7 +100,7 @@
     },
     {
         "name": "Paper Mario : La Porte Millénaire",
-        "image": "images/IMG_009.webp",
+        "image": "games/IMG_9.webp",
         "link" : "https://www.nintendo.com/store/products/paper-mario-the-thousand-year-door-switch/",
         "answers": [
             "paper mario : la porte millénaire",
@@ -110,7 +110,7 @@
     },
     {
         "name": "Clash of Clans",
-        "image": "images/IMG_010.webp",
+        "image": "games/IMG_10.webp",
         "link" : "https://clashofclans.com/",
         "answers": [
             "clash of clans",
@@ -119,7 +119,7 @@
     },
     {
         "name": "World of Warcraft",
-        "image": "images/IMG_011.webp",
+        "image": "games/IMG_11.webp",
         "link" : "https://worldofwarcraft.com/",
         "answers": [
             "world of warcraft",
@@ -128,7 +128,7 @@
     },
     {
         "name": "League of Legends",
-        "image": "images/IMG_012.webp",
+        "image": "games/IMG_12.webp",
         "link": "https://www.leagueoflegends.com/",
         "answers": [
           "league of legends",
@@ -137,7 +137,7 @@
     },
     {
         "name": "Overwatch",
-        "image": "images/IMG_013.webp",
+        "image": "games/IMG_13.webp",
         "link": "https://playoverwatch.com/",
         "answers": [
             "overwatch",
@@ -146,7 +146,7 @@
     },
     {
         "name": "Genshin Impact",
-        "image": "images/IMG_014.webp",
+        "image": "games/IMG_14.webp",
         "link": "https://genshin.hoyoverse.com/fr/home?utm_source=fab&utm_medium=home",
         "answers": [
             "genshin impact",
@@ -155,7 +155,7 @@
     },
     {
         "name": "Rocket League",
-        "image": "images/IMG_015.webp",
+        "image": "games/IMG_15.webp",
         "link": "https://www.rocketleague.com/",
         "answers": [
             "rocket league",
@@ -164,7 +164,7 @@
     },
     {
         "name": "Elden Ring",
-        "image": "images/IMG_016.webp",
+        "image": "games/IMG_16.webp",
         "link": "https://fr.bandainamcoent.eu/elden-ring/elden-ring",
         "answers": [
             "elden ring"
@@ -172,7 +172,7 @@
     },
     {
         "name": "FIFA 21",
-        "image": "images/IMG_017.webp",
+        "image": "games/IMG_17.webp",
         "link": "https://www.ea.com/games/fifa/fifa-21",
         "answers": [
             "fifa 21",
@@ -181,7 +181,7 @@
     },
     {
         "name": "Animal Crossing : New Horizons",
-        "image": "images/IMG_018.webp",
+        "image": "games/IMG_18.webp",
         "link": "https://animalcrossing.nintendo.com/new-horizons/fr/",
         "answers": [
             "animal crossing : new horizons",
@@ -193,7 +193,7 @@
     },
     {
         "name": "Boomerang Fu",
-        "image": "images/IMG_019.webp",
+        "image": "games/IMG_19.webp",
         "link": "https://www.boomerangfu.com/",
         "answers": [
             "boomerang fu",
@@ -202,7 +202,7 @@
     },
     {
         "name": "Deltarune",
-        "image": "images/IMG_020.webp",
+        "image": "games/IMG_20.webp",
         "link": "https://deltarune.com/",
         "answers": [
             "deltarune",
@@ -213,7 +213,7 @@
     },
     {
         "name": "Hades",
-        "image": "images/IMG_021.webp",
+        "image": "games/IMG_21.webp",
         "link": "https://www.supergiantgames.com/games/hades/",
         "answers": [
             "hades",
@@ -222,7 +222,7 @@
     },
     {
         "name": "It Takes Two",
-        "image": "images/IMG_022.webp",
+        "image": "games/IMG_22.webp",
         "link": "https://www.ea.com/games/it-takes-two/it-takes-two",
         "answers": [
             "it takes two",
@@ -233,7 +233,7 @@
     },
     {
         "name": "Mini Motorways",
-        "image": "images/IMG_023.webp",
+        "image": "games/IMG_23.webp",
         "link": "https://www.minimotorways.net/",
         "answers": [
             "mini motorways",
@@ -244,7 +244,8 @@
     },
     {
         "name": "Rayman Legends : Definitive Edition",
-        "image": "images/IMG_024.webp",
+        "image": "games/IMG_24.webp",
+        "link": "https://store.ubisoft.com/fr/rayman-legends/5704fac688a7e32b078b4674.html",
         "answers": [
             "rayman legends : definitive edition",
             "rayman legends: definitive edition",
@@ -256,7 +257,7 @@
     },
     {
         "name": "Super Smash Bros. Ultimate",
-        "image": "images/IMG_025.webp",
+        "image": "games/IMG_25.webp",
         "link": "https://www.smashbros.com/fr_FR/",
         "answers": [
             "super smash bros. ultimate",
@@ -269,7 +270,7 @@
     },
     {
         "name": "Splatoon 3",
-        "image": "images/IMG_026.webp",
+        "image": "games/IMG_26.webp",
         "link": "https://splatoon.nintendo.com/fr/",
         "answers": [
             "splatoon 3",
@@ -279,7 +280,7 @@
     },
     {
         "name": "Undertale",
-        "image": "images/IMG_027.webp",
+        "image": "games/IMG_27.webp",
         "link": "https://undertale.com/",
         "answers": [
             "undertale",
@@ -290,7 +291,7 @@
     },
     {
         "name": "Horizon : Forbidden West",
-        "image": "images/IMG_028.webp",
+        "image": "games/IMG_28.webp",
         "link": "https://www.playstation.com/fr-fr/games/horizon-forbidden-west/",
         "answers": [
             "horizon : forbidden west",
@@ -304,7 +305,8 @@
     },
     {
         "name": "New Super Mario Bros.",
-        "image": "images/IMG_29.webp",
+        "image": "games/IMG_29.webp",
+        "link": "https://www.nintendo.com/fr-fr/Jeux/Nintendo-DS/New-Super-Mario-Bros-271969.html",
         "answers": [
             "new super mario bros.",
             "nsmb"
@@ -312,21 +314,24 @@
     },
     {
         "name": "Chrono Trigger",
-        "image": "images/IMG_30.webp",
+        "image": "games/IMG_30.webp",
+        "link": "https://www.square-enix-games.com/games/chrono-trigger",
         "answers": [
             "chrono trigger"
         ]
     },
     {
         "name": "Tomodachi Life",
-        "image": "images/IMG_31.webp",
+        "image": "games/IMG_31.webp",
+        "link": "https://www.nintendo.com/fr-fr/Jeux/Jeux-Nintendo-3DS/Tomodachi-Life-871968.html",
         "answers": [
             "tomodachi life"
         ]
     },
     {
-        "name": "Kid Icarus Uprising",
-        "image": "images/IMG_32.webp",
+        "name": "Kid Icarus: Uprising",
+        "image": "games/IMG_32.webp",
+        "link":"https://www.nintendo.com/fr-fr/Jeux/Jeux-Nintendo-3DS/Kid-Icarus-Uprising-274281.html",
         "answers": [
             "kid icarus uprising",
             "kid icarus",
@@ -335,7 +340,8 @@
     },
     {
         "name": "Call of Duty : Modern Warfare 2",
-        "image": "images/IMG_33.webp",
+        "image": "games/IMG_33.webp",
+        "link": "https://www.callofduty.com/fr/store/games/modernwarfare2",
         "answers": [
             "call of duty : modern warfare 2",
             "cod : modern warfare 2",
@@ -348,21 +354,24 @@
     },
     {
         "name": "Pikuniku",
-        "image": "images/IMG_34.webp",
+        "image": "games/IMG_34.webp",
+        "link": "https://pikuniku.net/",
         "answers": [
             "pikuniku"
         ]
     },
     {
         "name": "Miitopia",
-        "image": "images/IMG_35.webp",
+        "image": "games/IMG_35.webp",
+        "link":"https://www.nintendo.com/fr-fr/Jeux/Jeux-Nintendo-3DS/Miitopia-1225809.html",
         "answers": [
             "miitopia"
         ]
     },
     {
         "name": "Super Mario Party Jamboree",
-        "image": "images/IMG_36.webp",
+        "image": "games/IMG_36.webp",
+        "link": "https://www.nintendo.com/fr-fr/Jeux/Jeux-Nintendo-Switch/Super-Mario-Party-Jamboree-2591147.html",
         "answers": [
             "super mario party jamboree",
             "smpj",
@@ -371,7 +380,8 @@
     },
     {
         "name": "The Hundred Line : Last Defense Academy",
-        "image": "images/IMG_37.webp",
+        "image": "games/IMG_37.webp",
+        "link": "https://hundred-line.com/en/",
         "answers": [
             "the hundred line : last defense academy",
             "thl : lda",
@@ -380,14 +390,15 @@
     },
     {
         "name": "Demon Bluff",
-        "image": "images/IMG_38.webp",
+        "image": "games/IMG_38.webp",
         "answers": [
             "demon bluff"
         ]
     },
     {
         "name": "Roblox",
-        "image": "images/IMG_39.webp",
+        "image": "games/IMG_39.webp",
+        "link": "https://corp.roblox.com/fr/",
         "answers": [
             "roblox",
             "rblx"
@@ -395,7 +406,8 @@
     },
     {
         "name": "Mario & Luigi Superstar Saga",
-        "image": "images/IMG_40.webp",
+        "image": "games/IMG_40.webp",
+        "link": "https://www.nintendo.com/fr-fr/Jeux/Game-Boy-Advance/Mario-Luigi-Superstar-Saga-267024.html",
         "answers": [
             "mario et luigi superstar saga",
             "mario & luigi superstar saga",
@@ -404,14 +416,16 @@
     },
     {
         "name": "Terra Nil",
-        "image": "images/IMG_41.webp",
+        "image": "games/IMG_41.webp",
+        "link": "https://www.terranil.com/",
         "answers": [
             "terra nil"
         ]
     },
     {
         "name": "Townscaper",
-        "image": "images/IMG_42.webp",
+        "image": "games/IMG_42.webp",
+        "link": "https://www.townscapergame.com/",
         "answers": [
             "townscaper",
             "tsp"
@@ -419,14 +433,15 @@
     },
     {
         "name": "Nine Sols",
-        "image": "images/IMG_43.webp",
+        "image": "games/IMG_43.webp",
         "answers": [
             "nine sols"
         ]
     },
     {
         "name": "The Legend of Zelda : Breath of the Wild",
-        "image": "images/IMG_44.webp",
+        "image": "games/IMG_44.webp",
+        "link": "https://zelda.nintendo.com/breath-of-the-wild/",
         "answers": [
             "the legend of zelda : breath of the wild",
             "the legend of zelda: breath of the wild",
@@ -439,7 +454,8 @@
     },
     {
         "name": "Super Mario 3D World",
-        "image": "images/IMG_45.webp",
+        "image": "games/IMG_45.webp",
+        "link": "https://supermario3dworld.nintendo.com/",
         "answers": [
             "super mario 3d world",
             "sm3dw",
@@ -448,7 +464,8 @@
     },
     {
         "name": "Super Mario Maker 2",
-        "image": "images/IMG_46.webp",
+        "image": "games/IMG_46.webp",
+        "link": "https://supermariomaker.nintendo.com/",
         "answers": [
             "super mario maker 2",
             "mario maker 2",
@@ -457,7 +474,8 @@
     },
     {
         "name": "1-2-Switch",
-        "image": "images/IMG_47.webp",
+        "image": "games/IMG_47.webp",
+        "link": "https://1-2-switch.nintendo.com/",
         "answers": [
             "1-2-switch",
             "one two switch",
@@ -466,7 +484,8 @@
     },
     {
         "name": "Wario Ware : Get It Together!",
-        "image": "images/IMG_48.webp",
+        "image": "games/IMG_48.webp",
+        "link": "https://www.nintendo.com/fr-fr/Jeux/Jeux-Nintendo-Switch/WarioWare-Get-It-Together--1987424.html",
         "answers": [
             "wario ware : get it together!",
             "wario ware: get it together!",
@@ -474,6 +493,14 @@
             "wario ware : get it together",
             "wario ware: get it together",
             "wario ware get it together"
+        ]
+    },
+    {
+        "name": "Omori",
+        "image": "games/IMG_49.webp",
+        "link": "https://www.omori-game.com/en/",
+        "answers": [
+            "omori"
         ]
     }
 ]

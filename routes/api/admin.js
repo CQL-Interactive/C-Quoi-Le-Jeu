@@ -166,7 +166,7 @@ router.post('/annonce', (req, res) => {
 
             res.json({
                 ok : true,
-                msg: "Patch mit à jour !"
+                msg: "Patch mis à jour !"
             })
         });
     });

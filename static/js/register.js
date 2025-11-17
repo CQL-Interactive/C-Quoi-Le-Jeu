@@ -6,7 +6,7 @@ function register() {
 
     setTimeout(() => {
         if (password != password2) {
-            notify.error("Les mots de passes ne corespondent pas !")
+            notify.error("Les mots de passe ne correspondent pas !")
             button.innerHTML = "S'inscrire"
             return;
         }
@@ -26,7 +26,7 @@ function register() {
             if (!res.ok) {
                 notify.error(res.message)
             } else {
-                window.location.href = '/?notif=Inscription réusie !%info'
+                window.location.href = '/?notif=Inscription réussie !%info'
                 notify.info(res.message)
             }
             button.innerHTML = "S'inscrire"

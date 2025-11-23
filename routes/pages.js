@@ -18,8 +18,8 @@ module.exports = (requireAuth) => {
         }
     })
 
-    router.get('/liens', (req, res) => {
-        res.sendFile(path.join(__dirname, '..', 'pages', 'liens.html'))
+    router.get('/contact', (req, res) => {
+        res.sendFile(path.join(__dirname, '..', 'pages', 'contact.html'))
     })
     router.get('/historique', requireAuth, (req, res) => {
         res.sendFile(path.join(__dirname, '..', 'pages', 'profile', 'my_games.html'))

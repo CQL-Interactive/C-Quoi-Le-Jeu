@@ -50,7 +50,7 @@ const components = {
             } else {
                     html += `
                         <div class="user-menu">
-                            <button id="idbtn" class="small">Connexion</button>
+                            <button id="idbtn" class="small">S'identifier</button>
                         </div>
                     `
                     el.innerHTML = html 
@@ -77,7 +77,7 @@ const components = {
     "contact": (footerEl) => {
         footerEl.insertAdjacentHTML(
             'beforebegin',
-            `<button onclick="window.location.href = '/liens'" class="small bottom-left">🔗 Nos liens</button>`
+            `<button onclick="window.location.href = 'https://cql-interactive.fr/#contact'" class="small bottom-left">Contactez-nous</button>`
         )
     }
 }

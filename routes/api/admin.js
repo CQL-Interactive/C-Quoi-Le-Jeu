@@ -114,6 +114,55 @@ router.get('/parties', (req, res) => {
     })
 })
 
+router.delete('/users/:id', (req, res) => {
+    const userId = req.params.id
+
+    if (!userId) {
+        return res.status(400).json({
+            ok: false,
+            msg: "ID utilisateur manquant"
+        })
+    }
+
+    // Vérifier que l'utilisateur ne supprime pas son propre compte
+    if (userId == req.session.user.id) {
+        return res.status(403).json({
+            ok: false,
+            msg: "Vous ne pouvez pas supprimer votre propre compte"
+        })
+    }
+
+    // Supprimer l'utilisateur
+    db.run(`DELETE FROM users WHERE id = ?`, [userId], function(err) {
+        if (err) {
+            console.error(err)
+            return res.status(500).json({
+                ok: false,
+                msg: "Erreur serveur"
+            })
+        }
+
+        if (this.changes === 0) {
+            return res.status(404).json({
+                ok: false,
+                msg: "Utilisateur non trouvé"
+            })
+        }
+
+        // Supprimer les données associées
+        db.run(`DELETE FROM games_history WHERE user_id = ?`, [userId], (err) => {
+            if (err) {
+                console.error(err)
+            }
+        })
+
+        res.json({
+            ok: true,
+            msg: "Utilisateur supprimé avec succès"
+        })
+    })
+})
+
 router.post('/annonce', (req, res) => {
     const { patch, display } = req.body
 

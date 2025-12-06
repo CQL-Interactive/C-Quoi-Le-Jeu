@@ -63,6 +63,8 @@ function updateGameUI(e, res, current, settings) {
     const nbQuestionDiv = document.getElementById('nbQuestion')
     const nbScoreDiv = document.getElementById('nbScore')
     const loaderDiv = document.getElementById('loader')
+    const submitBtn = document.querySelector('#game_form button[type="submit"]')
+    const skipBtn = document.getElementById('skip_btn')
 
     if (!gameNameInput || !vieDiv || !nbQuestionDiv || !nbScoreDiv) {
         console.error("Éléments HTML manquants")
@@ -85,10 +87,18 @@ function updateGameUI(e, res, current, settings) {
     nbQuestionDiv.innerHTML = `Jeu ${current.question}/${settings.data.nbGames}`
     nbScoreDiv.innerHTML = `Score ${current.score}`
     
-    if (e) {
-        e.submitter.classList.remove('loadingBtn')
-        e.submitter.disabled = false;
+    // Réinitialiser le bouton valider
+    if (submitBtn) {
+        submitBtn.classList.remove('loadingBtn')
+        submitBtn.disabled = false;
     }
+    
+    // Réinitialiser le bouton passer
+    if (skipBtn) {
+        skipBtn.classList.remove('loadingBtn')
+        skipBtn.disabled = false;
+    }
+    
     if (res) {
         notify.info(res.message)
     }
@@ -103,14 +113,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.getElementById('game_form').addEventListener('submit', (e) => {
     e.preventDefault()
-    let pass = false
+    const rep = document.getElementById('game_name').value
+    
+    if (rep.length === 0) {
+        notify.error("Veuillez entrer une réponse ou cliquez sur 'Passer'")
+        return;
+    }
+    
     e.submitter.classList.add('loadingBtn')
     e.submitter.disabled = true
     document.getElementById('game_name').readOnly  = true
-    const rep = document.getElementById('game_name').value
-    if (rep.length === 0) {
-        pass = true;
-    }
 
     fetch('/api/game/verif', {
         method : "POST",
@@ -119,7 +131,7 @@ document.getElementById('game_form').addEventListener('submit', (e) => {
         },
         body : JSON.stringify({
             rep : rep,
-            pass : pass
+            pass : false
         })
     })
     .then(res => res.json())
@@ -152,6 +164,58 @@ document.getElementById('game_form').addEventListener('submit', (e) => {
         document.getElementById('game_name').readOnly = false
     })
 })
+
+document.getElementById('skip_btn').addEventListener('click', (e) => {
+    e.preventDefault()
+    const skipBtn = document.getElementById('skip_btn')
+    skipBtn.classList.add('loadingBtn')
+    skipBtn.disabled = true
+    document.getElementById('game_name').readOnly  = true
+
+    fetch('/api/game/verif', {
+        method : "POST",
+        headers : {
+            'Content-Type' : 'application/json'
+        },
+        body : JSON.stringify({
+            rep : "",
+            pass : true
+        })
+    })
+    .then(res => res.json())
+    .then(res => {
+        if (res.perdu) {
+            window.location.href = '/solo/game/stats?notif=Fin de la partie. Vous avez perdu.'
+            return;
+        }
+
+        if (res.win) {
+            window.location.href = '/solo/game/stats?notif=Fin de la partie. Vous avez gagné.'
+            return;
+        }
+        
+        if (!res.ok) {
+            notify.error("Une erreur est survenue !")
+            skipBtn.classList.remove('loadingBtn')
+            skipBtn.disabled = false
+            document.getElementById('game_name').readOnly = false
+            window.location.reload()
+            return;
+        }
+
+        setTimeout(() => {
+            loadJeu(null, res)
+        }, 200)
+    })
+    .catch(err => {
+        console.error("Erreur lors du passage :", err)
+        notify.error("Erreur lors du passage")
+        skipBtn.classList.remove('loadingBtn')
+        skipBtn.disabled = false
+        document.getElementById('game_name').readOnly = false
+    })
+})
+
 
 let prop = "" 
 

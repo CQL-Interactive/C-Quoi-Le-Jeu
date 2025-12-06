@@ -227,9 +227,9 @@ function saveGame(req, stats) {
 }
 
 router.post('/verif', async (req, res) => {
-    const { rep/*, pass*/ } = req.body;
+    const { rep, pass } = req.body;
 
-    if (!rep) {
+    if (!rep && !pass) {
         res.status(400).json({
             ok : false,
             message : "Réponse vide"
@@ -259,7 +259,35 @@ router.post('/verif', async (req, res) => {
     const currentQuestionIndex = req.session.user.play.ordre[req.session.user.play.current.question] - 1;
     const currentQuestion = jeux[currentQuestionIndex];
 
+    // Vérifier si c'est la dernière question
     if(req.session.user.play.current.question >= req.session.user.settings.nbGames) {
+        if (pass) {
+            // Passer la dernière question sans répondre
+            req.session.user.stats[0].fin.score = req.session.user.play.score
+            req.session.user.stats[0].fin.vie = req.session.user.play.current.lives
+            req.session.user.stats[0].fin.date = Date.now()
+            req.session.user.stats[0].fin.win = req.session.user.play.current.lives > 0
+            req.session.user.stats.push({
+                jeu : {
+                    name : jeux[currentQuestionIndex].name,
+                    link : jeux[currentQuestionIndex].link
+                },
+                win : false,
+                rep : "pass",
+                pass : true
+            })
+            delete req.session.user.play
+            delete req.session.user.settings
+            saveGame(req, req.session.user.stats)
+            res.json({
+                ok : true,
+                win : true,
+                message : "Fin de la partie.",
+                stats : req.session.user.stats
+            })
+            return;
+        }
+        
         if (currentQuestion.answers.some(ans => ans.toLowerCase() === rep.toLowerCase())) {
             req.session.user.play.score += 100;
 
@@ -298,15 +326,25 @@ router.post('/verif', async (req, res) => {
         return;
     }
 
-    /*if (pass) {
-        req.session.user.play.score = req.session.user.play.score - 50
+    // Gestion du passage de question
+    if (pass) {
         req.session.user.play.current.question ++
+        req.session.user.stats.push({
+            jeu : {
+                name : jeux[currentQuestionIndex].name,
+                link : jeux[currentQuestionIndex].link
+            },
+            win : false,
+            rep : "pass",
+            pass : true
+        })
         res.json({
             ok : true,
             succes : true,
-            message : "Vous avez passez la question ! Vous perdez 50 pts"
+            message : "Vous avez passé la question !"
         })
-    }*/
+        return;
+    }
 
     if (currentQuestion.answers.some(ans => ans.toLowerCase() === rep.toLowerCase())) {
         req.session.user.play.score += 100;

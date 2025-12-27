@@ -20,8 +20,6 @@ Date de sortie : 8 juin 2025
 
 **Lien vers C Quoi Le Jeu :** [cquoilejeu.fr](https://cquoilejeu.fr)
 
-**Lien vers notre Bento :** [bento.me/cql-interactive](https://bento.me/cql-interactive)
-
 **Lien vers le GitHub :** [github.com/CQL-Interactive/C-Quoi-Le-Jeu](https://github.com/CQL-Interactive/C-Quoi-Le-Jeu)
 
 **Lien vers le serveur Discord officiel :** [discord.gg/Evu8WXm27z](https://discord.gg/Evu8WXm27z)

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes parties - C Quoi Le Jeu</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" href="/img/logo.svg" >
+</head>
+<body>
+    <img id="filter-back" >
+    <video autoplay muted loop id="background-video">
+        <source src="/videos/background.webm" type="video/webm">
+    </video>
+    <div class="header"></div>
+    <div class="game-container">
+        <div class="row">
+            <section class="space col" >
+                <div class="col" >
+                    <h1>Amis</h1>
+                    <h3>Mes amis</h3>
+                    <div class="center col list-contaner" id="friends_list">
+                        <div class="center" ><p>Chargement...</p></div>
+                    </div>
+                    <br>
+                </div>
+                <div class="col">
+                    <h3>Ajouter un ami</h3>
+                    <form id="friends_form" class="center"><input type="text" id="input_friend" placeholder="Pseudo"><button>Demander en ami</button></form>
+                </div>
+            </section>
+            <section  style="min-width: 100px;">
+                <h3>Demande d'amis reçues</h3>
+                <br>
+                <div id="requests_received" class="col list-contaner center" ><p>Chargement...</p></div>
+                <br>
+                <h3>Demande d'amis envoyées</h3>
+                <br>
+                <div class="center col list-contaner" id="requests_sent" ><p>Chargement...</p></div>
+            </section>
+        </div>
+    </div>
+    <footer></footer>
+<script src="/js/main.js" ></script>
+<script src="/js/notify.js" ></script>
+<script src="/js/profile/friends.js" ></script>
+<script src="/js/profile/main.js" ></script>
+</body>
+</html>

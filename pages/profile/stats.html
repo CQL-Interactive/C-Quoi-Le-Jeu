@@ -14,20 +14,26 @@
     </video>
     <div class="header"></div>
     <div class="game-container">
-        <section>
-            <h1>Mes parties</h1>
-            <!--<h2>Solo</h2>
-            <p>Les 10 dernières parties jouées :</p>-->
-            <div style="padding: 0 20px;" class="space"><p>Date</p><p>Score</p><p></p></div>
-            <div class="col" id="games-history">
-                <div class="center" ><p>Chargement...</p></div>
-            </div>
-        </section>
+            <section>
+                <h1>Statistiques</h1>
+                <br>
+                <div class="row">
+                    <div id="contaner_stats_games" class="stats center col">
+                        <h2>Parties joués</h2>
+                        <h1 id="stats_player_parts" ></h1>
+                    </div>
+                    <div id="contaner_stats_score" class="stats center col">
+                        <h2>Meilleur score</h2>
+                        <h1 id="stats_great_score" ></h1>
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
     <footer></footer>
 <script src="/js/main.js" ></script>
 <script src="/js/notify.js" ></script>
-<script src="/js/profile/myGames.js" ></script>
+<script src="/js/profile/stats.js" ></script>
 <script src="/js/profile/main.js" ></script>
 </body>
 </html>

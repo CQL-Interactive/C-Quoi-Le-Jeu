@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const path = require('path')
+const pool = require(path.join(process.cwd(), 'db.js'))
 const fs = require('fs')
 const session = require('express-session')
 const sqlite3 = require('sqlite3').verbose()
@@ -19,7 +20,7 @@ router.get('/', (req, res) => {
 router.patch('/change/username',async (req, res) => {
     if(!req.session.user) {
         res.status(401).json({
-            message : 'Il faut être connecté !'
+            message : 'Il faut êtes déconnecté !'
     })
         return;
     }
@@ -46,15 +47,15 @@ router.patch('/change/username',async (req, res) => {
         return res.status(400).json({ message: erreurs.join('<br>') });
     }
 
-    db.get(`SELECT * FROM users WHERE username = ?`, [trimmedUsername], (err, existingUser) => {
+    pool.query(`SELECT * FROM users WHERE username = $1`, [trimmedUsername], (err, existingUser) => {
         if (err) return res.status(500).json({ ok: false, message: "Erreur interne" });
-        if (existingUser) {
+        if (existingUser.rows[0]) {
             return res.status(409).json({
                 ok: false,
                 message: "Ce nom d'utilisateur est déjà utilisé"
             });
         }
-        db.run("UPDATE users SET username = ? WHERE id = ?",[trimmedUsername, req.session.user.id], (err) => {
+        pool.query("UPDATE users SET username = $1 WHERE id = $2",[trimmedUsername, req.session.user.id], (err) => {
             if (err) {
                 console.log(err)
                 res.status(500).json({
@@ -90,7 +91,7 @@ router.patch('/change/password', (req,res) => {
     }
 
     const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync());
-    db.run("UPDATE users SET password = ? WHERE id = ?",[hashedPassword, req.session.user.id], (err) => {
+    pool.query("UPDATE users SET password = $1 WHERE id = $2",[hashedPassword, req.session.user.id], (err) => {
             if (err) {
                 console.log(err)
                 res.status(500).json({
@@ -113,8 +114,9 @@ router.delete('/', (req, res) => {
 
     const { password } = req.body
 
-    db.get(`SELECT * FROM users WHERE id = ?`, [req.session.user.id], (err, user) => {
+    pool.query(`SELECT * FROM users WHERE id = $1`, [req.session.user.id], (err, result) => {
         if (err) return res.status(500).json({ message: "Erreur interne." });
+        const user = result.rows[0]
         if (!user) {
             return res.status(401).json({ message: "Impossible de supprimer le compte pour le moment, rechargez la page et réessayez." });
         }
@@ -125,20 +127,20 @@ router.delete('/', (req, res) => {
             return res.status(401).json({ message: "Mot de passe incorrect." });
         }
     
-        db.run('DELETE FROM users WHERE id = ?', [req.session.user.id], (err) => {
+        pool.query('DELETE FROM users WHERE id = $1', [req.session.user.id], (err) => {
             if (err) {
                  return res.status(500).json({ message: "Impossible de supprimer le compte pour le moment, rechargez la page et réessayez." });
             }
-        })
 
-        req.session.destroy()
-    
-        res.status(200).json({ ok: true, message: "Suppression réussie. Vous allez être redirigé." });
+            req.session.destroy()
+
+            res.status(200).json({ ok: true, message: "Supréssion réussie réussie. Vous allez être redirigé." });
+        })
     });
 })
 
 router.get('/games', (req, res) => {
-    db.all('SELECT * FROM games_history WHERE user_id = ? ORDER BY id DESC', [req.session.user.id], (err, games) => {
+    pool.query('SELECT * FROM games_history WHERE user_id = $1 ORDER BY id DESC', [req.session.user.id], (err, games) => {
         if (err) {
             console.error(err)
             res.json({
@@ -150,7 +152,7 @@ router.get('/games', (req, res) => {
 
         res.json({
             ok : true,
-            data : games
+            data : games.rows
         })
     })
 })
@@ -163,15 +165,17 @@ router.get('/patch', (req, res) => {
     if (req.session.user.patch === 1) {
         res.json(false)
     } else {
-        db.get(/* SQL */ `SELECT * FROM users WHERE id = ?`, [req.session.user.id], (err, user) => {
+        db.get(/* SQL */ `SELECT * FROM users WHERE id = $1`, [req.session.user.id], (err, result) => {
             if (err) {
                 console.log(err)
                 res.json(false)
                 return;
             }
+
+            const user = result.rows[0]
             
             if (Number(user.patch) === 0) {
-                db.run(/* SQL */`UPDATE users SET patch=1 WHERE "id"=?`, [req.session.user.id], (err) => {
+                db.run(/* SQL */`UPDATE users SET patch=1 WHERE "id"=$1`, [req.session.user.id], (err) => {
                     if (err) {
                         console.error(err)
                         res.json(true)
@@ -193,5 +197,157 @@ router.patch('/patch', (req, res) => {
         return;
     }
 })
+
+router.patch('/bio', (req, res) => {
+    const { bio } = req.body;
+
+    if (!req.session.user) {
+        res.json({
+            msg : "Connectez vous"
+        })
+        return;
+    }
+
+    pool.query(`UPDATE users SET bio = $1 WHERE id=$2`, [bio, req.session.user.id], (err) => {
+        if (err) {
+            console.error(err);
+            res.json({
+                msg : "Erreur serveur"
+            })
+            return;
+        }
+
+        req.session.user.bio = bio
+        setTimeout(() => {
+            res.json({
+                ok : true,
+                msg:  "Bio modifiée"
+            })
+        }, 1000)
+
+    })
+})
+
+router.get('/notifs/', (req, res) => {
+
+    if (!req.session.user) {
+        res.json({
+            msg : "Connectez vous"
+        })
+        return;
+    }
+
+    const userId = req.session.user.id
+
+    pool.query(
+        `SELECT * FROM logs WHERE user_id = $1 AND public = TRUE ORDER BY id DESC`,
+        [userId],
+        (err, result) => {
+            if (err) return res.status(500).json({ error: 'Erreur serveur.' })
+            res.json({
+                ok : true,
+                data : result.rows
+            })
+        }
+    )
+})
+
+router.patch('/notif/:notifId', async (req, res) => {
+    if (!req.session.user) {
+        res.json({
+            msg : "Connectez vous"
+        })
+        return;
+    }
+    const notifId = req.params.notifId
+    const userId = req.session.user.id
+
+    try {
+        const result = await pool.query(`
+                UPDATE logs 
+            SET public = $3 
+            WHERE id = $1 AND user_id = $2 
+            RETURNING *`,
+            [notifId, userId, false]
+        )
+
+        if (result.rowCount === 0) {
+            return res.status(404).json({ ok: false, message: "Notification introuvable." })
+        }
+
+        res.json({ ok: true, message: "Notification supprimée." })
+    } catch (err) {
+        console.error(err)
+        res.status(500).json({ ok: false, message: "Erreur serveur." })
+    }
+})
+
+router.get('/stats', async (req, res) => {
+    if (!req.session.user) {
+        res.json({
+            msg : "Connectez vous"
+        })
+        return;
+    }
+
+    const result = await pool.query(`
+        SELECT 
+            COUNT(*) AS total_games,
+            MAX(score) AS best_score
+        FROM games_history
+        WHERE user_id = $1
+    `, [req.session.user.id])
+
+    const playedGames = result.rows[0].total_games
+    const greatScore = result.rows[0].best_score ?? 0
+
+    res.json({
+        ok : true,
+        data : { playedGames, greatScore }
+    })
+})
+
+/*router.post('/pins', async (req, res) => {
+    if (!req.session.user) {
+        return res.json({ msg: "Connectez-vous" });
+    }
+
+    const { pinId } = req.body;
+    if (!pinId) {
+        return res.json({ msg: "Champs manquants" });
+    }
+
+    try {
+        await pool.query(`
+            UPDATE users
+            SET pins = 
+                CASE
+                    WHEN $2 = ANY(pins) THEN pins
+                    ELSE array_append(pins, $2)
+                END
+            WHERE id = $1
+        `, [req.session.user.id, pinId]);
+
+        res.json({ msg: "Pin ajouté" });
+    } catch (err) {
+        console.error(err);
+        res.json({ msg: "Erreur serveur" });
+    }
+});
+
+router.get('/pins', (req, res) => {
+    if (!req.session.user) {
+        return res.json({ msg: "Connectez-vous" });
+    }
+
+    pool.query(`SELECT pins FROM users WHERE id = $1`, [req.session.user.id], (err, result) => {
+        if (err) {
+            console.log(err)
+            return;
+        }
+
+
+    })
+})*/
 
 module.exports = router

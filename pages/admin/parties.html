@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CQLJ | Admin</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/page.css">
+    <link rel="stylesheet" href="/api/admin/css">
+    <link rel="icon" href="/img/icone.png" type="image/png">
+</head>
+<body>
+    <div class="header"></div>
+    <main>
+        <div class="row space">
+            <div class="checkbox-container row">
+                <label class="ios-checkbox red">
+                    <input id="showId" type="checkbox" />
+                    <div class="checkbox-wrapper">
+                    <div class="checkbox-bg"></div>
+                    <svg class="checkbox-icon" viewBox="0 0 24 24" fill="none">
+                        <path
+                        class="check-path"
+                        d="M4 12L10 18L20 6"
+                        stroke="currentColor"
+                        stroke-width="3"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        ></path>
+                    </svg>
+                    </div>
+                </label>
+                <label style="color: white;" for="showId">Afficher les id</label>
+            </div>
+            <div class="row">
+                <button onclick="notify.info('En dev')" >Filtrer</button>
+                <button onclick="notify.info('En dev')" >Trier</button>
+            </div>
+        </div>
+        </div>
+        <div id="parties" class="col list-contaner">
+            <div class="center"><p>Chargement...</p></div>
+        </div>
+    </main>
+    <script src="/js/main.js" ></script>
+    <script src="/api/admin/js/parties.js" ></script>
+    <script src="/js/notify.js" ></script>
+    <script src="/api/admin/js/admin.js" ></script>
+    <script>
+        config = {
+            contact: false,
+            ".header": {
+                "logo-container" : true,
+                "menu" : true
+            },
+            "footer": false
+        }
+    </script>
+</body>
+</html>

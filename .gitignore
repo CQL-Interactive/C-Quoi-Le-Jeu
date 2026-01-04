@@ -2,3 +2,4 @@ node_modules/
 .venv/
 config.env
 package-lock.json
+annonce.json

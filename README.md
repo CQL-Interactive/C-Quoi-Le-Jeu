@@ -57,7 +57,7 @@ créer un fichier `annonce.json` avec ces informations :
 ```
 ```
 node init.js
-node server.js
+npm start
 ```
 
 ## **LICENCE :**

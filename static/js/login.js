@@ -1,8 +1,7 @@
 function login() {
     const password = document.getElementById('password').value
     const button = document.getElementById('button-login')
-    button.classList.add('loadingBtn')
-    button.disabled = true
+    button.innerHTML = "Chargement..."
 
     setTimeout(() => {
         fetch('/api/auth/login', {
@@ -31,8 +30,7 @@ function login() {
                 window.location.href = `${redir}?notif=Connexion réussie !%info`
                 notify.info(res.message)
             }
-            button.classList.remove('loadingBtn')
-            button.disabled = false
+            button.innerHTML = "Se connecter"
         })
     }, 1000)
 }

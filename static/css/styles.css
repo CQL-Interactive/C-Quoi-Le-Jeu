@@ -506,6 +506,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap : 10px;
     color: white;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -571,26 +572,4 @@ input[type=file]::file-selector-button {
 
 input[type=file]::file-selector-button:hover {
   background: #ffc400;
-}
-
-textarea {
-    height: 100px;
-}
-
-textarea {
-    background-color: rgba(12, 12, 12, 0.075);
-    border: 1px #facc006f solid;
-    border-radius: 10px;
-    min-width: 350px;
-    font-size: 15px;
-    max-height: 200px;
-    resize: none;
-    color: white;
-    outline: none;
-    padding: 15px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-textarea::placeholder {
-    color: rgb(214, 214, 214);
 }

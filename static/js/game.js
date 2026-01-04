@@ -72,10 +72,7 @@ async function play() {
     .then(res => res.json())
     .then(res => {
         if(res.ok) {
-            setTimeout(() => {
-                window.location.href = '/solo/game?notif=Paramètres enregistrés%info'
-                document.getElementById('play_btn').classList.remove('loadingBtn')
-            }, 2000)
+            window.location.href = '/solo/game?notif=Paramètres enregistrés%info'
         } else {
             notify.error(res.message)
             document.getElementById('play_btn').classList.remove('loadingBtn')

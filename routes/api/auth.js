@@ -4,7 +4,6 @@ const fs = require('fs')
 const sqlite3 = require('sqlite3').verbose()
 const db = new sqlite3.Database('users.db')
 const bcrypt = require('bcrypt')
-const pool = require(path.join(process.cwd(), "db.js"));
 
 router.post('/register', (req, res) => {
     const { username, password } = req.body;
@@ -38,9 +37,9 @@ router.post('/register', (req, res) => {
     if (erreurs.length > 0) {
         return res.status(400).json({ message: erreurs.join('<br>') });
     }
-    pool.query(`SELECT * FROM users WHERE username = $1`, [trimmedUsername], (err, result) => {
+
+    db.get(`SELECT * FROM users WHERE username = ?`, [trimmedUsername], (err, existingUser) => {
         if (err) return res.status(500).json({ ok: false, message: "Erreur interne" });
-        const existingUser = result.rows[0];
         if (existingUser) {
             return res.status(409).json({
                 ok: false,
@@ -49,31 +48,31 @@ router.post('/register', (req, res) => {
         }
 
         const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync());
-        
-        pool.query(
-            `INSERT INTO users (username, password, patch) VALUES ($1, $2, $3) RETURNING id, username`,
+        db.run(`INSERT INTO users (username, password, patch) VALUES (?, ?, ?)`,
             [trimmedUsername, hashedPassword, 1],
-            (insertErr, insertResult) => {
-                console.log(insertErr)
+            function (insertErr) {
                 if (insertErr) return res.status(500).json({ ok: false, message: "Erreur lors de l'inscription." });
 
-                const newUser = insertResult.rows[0]; 
 
-                req.session.user = {
-                    id: newUser.id,
-                    username: newUser.username,
-                    patch: 1
-                };
+                db.get(`SELECT * FROM users WHERE id = ?`, [this.lastID], (selectErr, user) => {
+                    if (selectErr) return res.status(500).json({ ok: false, message: "Erreur lors de la récupération des données." });
 
-                req.session.save(() => {
-                    res.status(200).json({
-                        ok: true,
-                        message: "Inscription réussie.",
-                        user: req.session.user
+
+                    req.session.user = {
+                        id: user.id,
+                        username: user.username,
+                        patch : 1
+                    };
+
+                    req.session.save(() => {
+                        res.status(200).json({
+                            ok: true,
+                            message: "Inscription réussie.",
+                            user: req.session.user
+                        });
                     });
                 });
-            }
-        );
+            });
     });
 });
 
@@ -99,10 +98,7 @@ router.post('/login', async (req, res) => {
 
     const trimmedUsername = username.trim();
 
-    pool.query(`SELECT * FROM users WHERE username = $1`, [trimmedUsername], (err, result) => {
-
-        const user = result.rows[0]
-
+    db.get(`SELECT * FROM users WHERE username = ?`, [trimmedUsername], (err, user) => {
         if (err) return res.status(500).json({ message: "Erreur interne." });
         if (!user) {
             return res.status(401).json({ message: "Nom d'utilisateur ou mot de passe incorrect." });
@@ -120,11 +116,22 @@ router.post('/login', async (req, res) => {
             patch : Number(user.patch)
         }
 
-        if (user.role == 1) {
-            req.session.user.isAdmin = true
-        }
+        db.get(/* SQL */ `SELECT * FROM users_admin WHERE user_id = ?`, [user.id], (err, user) => {
+            if (err) {
+                res.json({
+                    msg : "Erreur serveur."
+                })
+                console.error(err)
+                return;
+            }
 
-        res.status(200).json({ ok: true, message: "Connexion réussie." });
+            if (user) {
+                req.session.user.isAdmin = true;
+                req.session.user.adminLevel = user.admin_level;
+            }
+
+            res.status(200).json({ ok: true, message: "Connexion réussie." });
+        })
     });
 })
 

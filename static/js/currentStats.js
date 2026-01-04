@@ -27,8 +27,14 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        if (!res.ok || !res.data) {
+            document.getElementById('error').innerHTML = '<h2>Erreur : Les statistiques ne sont pas disponibles.</h2><div class="center row"><button onclick="window.location.href = \'/\'" >Retour</button></div>'
+            document.getElementById('error').style.display = 'flex'
+            return;
+        }
+
         if (res.data[0].fin.vie === 0) {
-            document.getElementById('win').innerHTML = `Defaite - ${res.data[0].fin.score}pts`
+            document.getElementById('win').innerHTML = `Défaite - ${res.data[0].fin.score}pts`
         } else {
             document.getElementById('win').innerHTML = `Victoire - ${res.data[0].fin.score}pts`
         }
@@ -64,8 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <tr>
                     <td>
                         <p><strong>Date :</strong>
-                            Le ${dateDebut.getDate()}/0${dateDebut.getMonth() + 1}/${dateDebut.getFullYear()}
-                            à ${dateDebut.getHours()}h${dateDebut.getMinutes()}
+                            Le ${dateDebut.getDate()}/${String(dateDebut.getMonth() + 1).padStart(2, '0')}/${dateDebut.getFullYear()}
+                            à ${dateDebut.getHours()}h${String(dateDebut.getMinutes()).padStart(2, '0')}
                         </p>
                     </td>
                     <td>
@@ -78,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </td>
                     <td>
                         <p class='no-margin' ><strong class='no-marggin' >Nombre de vie(s) : </strong>${res.data[0].settings.lives}</p>
-                        <p class='no-margin' ><strong class='no-marggin' >Vies perdues : </strong>${res.data[0].settings.lives - res.data[0].fin.vie}</p>
+                        <p class='no-margin' ><strong class='no-marggin' >Vie perdus : </strong>${res.data[0].settings.lives - res.data[0].fin.vie}</p>
                     </td>
                 </tr>
             </table>
@@ -87,5 +93,10 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class='col' style="max-height: 30vh; overflow-y: auto;" >${questions}</div>
             <div class='center'><button onclick="window.location.href = '/'" >Continuer</button></div>
         `)
+    })
+    .catch(err => {
+        console.error("Erreur lors du chargement des stats :", err)
+        document.getElementById('error').innerHTML = '<h2>Erreur : Impossible de charger les statistiques.</h2><div class="center row"><button onclick="window.location.href = \'/\'" >Retour</button></div>'
+        document.getElementById('error').style.display = 'flex'
     })
 })

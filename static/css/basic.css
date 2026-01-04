@@ -55,8 +55,3 @@
     display: flex;
     justify-content: space-between;
 }
-
-.start {
-    justify-content: start;
-    align-items: start;
-}

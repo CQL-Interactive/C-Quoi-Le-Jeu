@@ -14,103 +14,112 @@ function reloadImage(id) {
         tempImg.src = `${baseUrl}?_=${Date.now()}`; 
     });
 }
-function loadJeu(e, res, pass) {
-    console.log("load jeu")
-    let timeout = setTimeout(() => {
-        document.getElementById('timeout_loading').style.display = 'flex'
-    }, 10000)
+function loadJeu(e, res) {
     fetch('/api/game/settings')
     .then(res => res.json())
     .then(settings => {
-        console.log("seettings")
         if (settings.ok) {
-            serchGames()
+            searchGames()
             fetch('/api/game/current')
             .then(res => res.json())
             .then(current => {
-                console.log("current1")
                 reloadImage('img_current')
                 .then(() => {
-                    console.log("current2")
-                    document.getElementById('game_name').value = ""
-                    serchGames()
-                    document.getElementById('game_name').readOnly  = false;
-                    document.getElementById('game_name').focus() 
-                    document.getElementById('vie').innerHTML = ""
-                    for (let index = 0; index < current.lives; index++) {
-                        document.getElementById('vie').innerHTML += `<img class='icon' src='/img/vie.png' >`
-                    }
-                    for (let index = 0; index < settings.data.lives - current.lives; index++) {
-                        document.getElementById('vie').innerHTML += `<img class='icon' src='/img/vieVide.png' >`
-                    }
-                    document.getElementById('nbQuestion').innerHTML = `Jeu ${current.question}/${settings.data.nbGames}`
-                    document.getElementById('nbScore').innerHTML = `Score ${current.score}`
-
-                    if (e && !pass) {
-                        e.submitter.classList.remove('loadingBtn')
-                        e.submitter.disabled = false;
-                    }
-
-                    if (e && pass) {
-                        e.target.classList.remove('loadingBtn')
-                        e.target.disabled = false;
-                    }
-
-                    if (res) {
-                        notify.info(res.message)
-                    }
-                    setTimeout(() => {
-                        document.getElementById('loader').style.display = 'none'
-                    }, 1000)
+                    updateGameUI(e, res, current, settings)
                 })
+                .catch(() => {
+                    updateGameUI(e, res, current, settings)
+                })
+            })
+            .catch(err => {
+                console.error("Erreur lors du chargement du jeu :", err)
+                if (e) {
+                    e.submitter.classList.remove('loadingBtn')
+                    e.submitter.disabled = false;
+                }
+                notify.error("Erreur lors du chargement du jeu")
             })
         } else {
             notify.error(settings.message)
+            if (e) {
+                e.submitter.classList.remove('loadingBtn')
+                e.submitter.disabled = false;
+            }
         }
     })
+    .catch(err => {
+        console.error("Erreur lors de la récupération des paramètres :", err)
+        if (e) {
+            e.submitter.classList.remove('loadingBtn')
+            e.submitter.disabled = false;
+        }
+        notify.error("Erreur serveur")
+    })
+}
+
+function updateGameUI(e, res, current, settings) {
+    const gameNameInput = document.getElementById('game_name')
+    const vieDiv = document.getElementById('vie')
+    const nbQuestionDiv = document.getElementById('nbQuestion')
+    const nbScoreDiv = document.getElementById('nbScore')
+    const loaderDiv = document.getElementById('loader')
+    const submitBtn = document.querySelector('#game_form button[type="submit"]')
+    const skipBtn = document.getElementById('skip_btn')
+
+    if (!gameNameInput || !vieDiv || !nbQuestionDiv || !nbScoreDiv) {
+        console.error("Éléments HTML manquants")
+        return;
+    }
+
+    gameNameInput.value = ""
+    searchGames()
+    gameNameInput.readOnly = false
+    gameNameInput.focus()
+    vieDiv.innerHTML = ""
+    
+    for (let index = 0; index < current.lives; index++) {
+        vieDiv.innerHTML += `<img class='icon' src='/img/vie.png'>`
+    }
+    for (let index = 0; index < settings.data.lives - current.lives; index++) {
+        vieDiv.innerHTML += `<img class='icon' src='/img/vieVide.png'>`
+    }
+    
+    nbQuestionDiv.innerHTML = `Jeu ${current.question}/${settings.data.nbGames}`
+    nbScoreDiv.innerHTML = `Score ${current.score}`
+    
+    // Réinitialiser le bouton valider
+    if (submitBtn) {
+        submitBtn.classList.remove('loadingBtn')
+        submitBtn.disabled = false;
+    }
+    
+    // Réinitialiser le bouton passer
+    if (skipBtn) {
+        skipBtn.classList.remove('loadingBtn')
+        skipBtn.disabled = false;
+    }
+    
+    if (res) {
+        notify.info(res.message)
+    }
+    if (loaderDiv) {
+        loaderDiv.style.display = 'none'
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     loadJeu()
 })
 
-document.getElementById('pass').addEventListener('click', (e) => {
-    e.preventDefault()
-    e.target.classList.add('loadingBtn')
-    e.target.disabled = true
-    document.getElementById('game_name').readOnly  = true
-
-    fetch('/api/game/verif', {
-        method : "POST",
-        headers : {
-            'Content-Type' : 'application/json'
-        },
-        body : JSON.stringify({
-            pass: true
-        })
-    })
-    .then(res => res.json())
-    .then(res => {
-        if (!res.ok) {
-            notify.error("Une erreur est survenue !")
-            window.location.reload()
-            return;
-        }
-
-        notify.info(res.message)
-
-        setTimeout(() => {
-            loadJeu(e, res, true)
-        }, 200)
-    })
-})
-
 document.getElementById('game_form').addEventListener('submit', (e) => {
     e.preventDefault()
-    let rep = document.getElementById('game_name').value
+    const rep = document.getElementById('game_name').value
+    
     if (rep.length === 0) {
+        notify.error("Veuillez entrer une réponse ou cliquez sur 'Passer'")
         return;
     }
+    
     e.submitter.classList.add('loadingBtn')
     e.submitter.disabled = true
     document.getElementById('game_name').readOnly  = true
@@ -121,18 +130,19 @@ document.getElementById('game_form').addEventListener('submit', (e) => {
             'Content-Type' : 'application/json'
         },
         body : JSON.stringify({
-            rep : rep
+            rep : rep,
+            pass : false
         })
     })
     .then(res => res.json())
     .then(res => {
         if (res.perdu) {
-            window.location.href = '/solo/game/stats'
+            window.location.href = '/solo/game/stats?notif=Fin de la partie. Vous avez perdu.'
             return;
         }
 
         if (res.win) {
-            window.location.href = '/solo/game/stats'
+            window.location.href = '/solo/game/stats?notif=Fin de la partie. Vous avez gagné.'
             return;
         }
         
@@ -146,11 +156,70 @@ document.getElementById('game_form').addEventListener('submit', (e) => {
             loadJeu(e, res)
         }, 200)
     })
+    .catch(err => {
+        console.error("Erreur lors de la vérification :", err)
+        notify.error("Erreur lors de la vérification")
+        e.submitter.classList.remove('loadingBtn')
+        e.submitter.disabled = false
+        document.getElementById('game_name').readOnly = false
+    })
 })
+
+document.getElementById('skip_btn').addEventListener('click', (e) => {
+    e.preventDefault()
+    const skipBtn = document.getElementById('skip_btn')
+    skipBtn.classList.add('loadingBtn')
+    skipBtn.disabled = true
+    document.getElementById('game_name').readOnly  = true
+
+    fetch('/api/game/verif', {
+        method : "POST",
+        headers : {
+            'Content-Type' : 'application/json'
+        },
+        body : JSON.stringify({
+            rep : "",
+            pass : true
+        })
+    })
+    .then(res => res.json())
+    .then(res => {
+        if (res.perdu) {
+            window.location.href = '/solo/game/stats?notif=Fin de la partie. Vous avez perdu.'
+            return;
+        }
+
+        if (res.win) {
+            window.location.href = '/solo/game/stats?notif=Fin de la partie. Vous avez gagné.'
+            return;
+        }
+        
+        if (!res.ok) {
+            notify.error("Une erreur est survenue !")
+            skipBtn.classList.remove('loadingBtn')
+            skipBtn.disabled = false
+            document.getElementById('game_name').readOnly = false
+            window.location.reload()
+            return;
+        }
+
+        setTimeout(() => {
+            loadJeu(null, res)
+        }, 200)
+    })
+    .catch(err => {
+        console.error("Erreur lors du passage :", err)
+        notify.error("Erreur lors du passage")
+        skipBtn.classList.remove('loadingBtn')
+        skipBtn.disabled = false
+        document.getElementById('game_name').readOnly = false
+    })
+})
+
 
 let prop = "" 
 
-function serchGames() {
+function searchGames() {
     const query = document.getElementById('game_name').value;
 
     if (query.length === 0) {
@@ -186,3 +255,5 @@ document.addEventListener('keydown', (e) => {
         rep(prop)
     }
 })
+
+document.getElementById('game_name').addEventListener('input', searchGames)

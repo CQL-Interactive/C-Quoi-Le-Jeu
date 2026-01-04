@@ -2,8 +2,7 @@ const navItems = [
     { name: "Panel", href: "/admin/" },
     { name: "Utilisateurs", href: "/admin/users" },
     { name: "Jeux", href: "/admin/games" },
-    { name: "Parties", href: "/admin/parties" },
-    { name: "Annonces", href: "/admin/infos" }
+    { name: "Annonces", href: "/admin/infos" },
 ];
 
 function createNav() {

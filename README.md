@@ -36,27 +36,43 @@ Date de sortie : 8 juin 2025
 
 ## **Execution en local :**
 
-Requis : `Node.js` et `npm`
-``` 
+**Requis :** `Node.js`, `npm` et `PostgreSQL`
+
+### Installation et configuration :
+
+**1. Cloner le projet et installer les dépendances :**
+```
 git clone https://github.com/CQL-Interactive/C-Quoi-Le-Jeu.git
 cd C-Quoi-Le-Jeu
 npm install
 ```
-créer un fichier `config.env` avec ces informations :
+
+**2. Configurer PostgreSQL :**
+- Créer une base de données PostgreSQL
+- Exécuter le script `schema.sql` pour initialiser la structure de la base de données
+
+**3. Créer un fichier `config.env` :**
 ```
 SECRET=your_secret_key
 HOST=localhost
 PORT=3000
 SECURE=false
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=cqlj_db
+DB_USER=your_db_user
+DB_PASSWORD=your_db_password
 ```
-créer un fichier `annonce.json` avec ces informations :
+
+**4. Créer un fichier `annonce.json` :**
 ```
 {
     "patch" :""
 }
 ```
+
+**5. Démarrer le site :**
 ```
-node init.js
 npm start
 ```
 

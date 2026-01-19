@@ -7,14 +7,28 @@
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/page.css">
     <link rel="icon" href="/img/logo.svg" >
+    <script>
+        function printPdf() {
+            const iframe = document.createElement('iframe')
+            iframe.src = '/pdf/politique'
+            iframe.style.display = 'none'
+
+            iframe.onload = () => {
+                iframe.contentWindow.print()
+            }
+
+            document.body.appendChild(iframe)
+        }
+    </script>
 </head>
 <body>
     <div class="header"></div>
     <header></header>
     <main>
         <div class="center"><h1>Politique de confidentialité</h1></div>
+        <div class="center row"><a href="/pdf/politique" target="_blank">Voir le PDF</a><a onclick="printPdf()">Imprimer</a></div>
         <p><strong>C Quoi Le Jeu</strong><br>
-        Date d’entrée en vigueur : 8 juin 2025</p>
+        Dernière date de modification : 13 décembre 2025</p>
 
         <h2>Préambule</h2>
         <p>

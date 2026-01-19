@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Statistiques - C Quoi Le Jeu</title>
+    <title>Inscription - C Quoi Le Jeu</title>
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="icon" href="/img/icone.png" type="image/png">
 </head>
@@ -24,7 +24,7 @@
                 <h2>Les statistiques ne sont pas disponibles pendant une partie.</h2>
                 <div class="row center">
                     <button onclick="window.location.href = '/solo/game'" >Continuer la partie</button>
-                    <button onclick="fetch('/api/game/fin').then(() => { window.location.href = '/?notif=La partie à pris fin' })" >Mettre fin à la partie</button>
+                    <button onclick="fetch('/api/game/fin').then(window.location.href = `/?notif=La partie à prit fin, les statistiquies ne sont pas disponiles`)" >Mettre fin à la partie</button>
                 </div>
             </div>
         </section>

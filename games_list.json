@@ -274,8 +274,7 @@
         "link": "https://splatoon.nintendo.com/fr/",
         "answers": [
             "splatoon 3",
-            "splatoon3",
-            "splatoon"
+            "splatoon3"
         ]
     },
     {
@@ -501,6 +500,89 @@
         "link": "https://www.omori-game.com/en/",
         "answers": [
             "omori"
+        ]
+    },
+    {
+        "name": "Splatoon 2",
+        "image": "games/IMG_50.webp",
+        "link": "https://www.nintendo.com/fr-fr/Jeux/Jeux-Nintendo-Switch/Splatoon-2-1173295.html",
+        "answers": [
+            "splatoon 2",
+            "splatoon2"
+        ]
+    },
+    {
+        "name": "Pokémon Ecarlate",
+        "image": "games/IMG_51.webp",
+        "link": "https://scarletviolet.pokemon.com/fr-fr/",
+        "answers": [
+            "pokemon ecarlate",
+            "pkmn ecarlate",
+            "pokémon ecarlate",
+            "pkmn écarlate",
+            "pokemon écarlate",
+            "pokémon écarlate"
+        ]
+    },
+    {
+        "name": "Doki Doki Literature Club!",
+        "image": "games/IMG_52.webp",
+        "link": "https://ddlc.moe/",
+        "answers": [
+            "doki doki literature club!",
+            "ddlc",
+            "doki doki literature club",
+            "doki doki"
+        ]
+    },
+    {
+        "name": "Friday Night Funkin",
+        "image": "games/IMG_53.webp",
+        "link": "https://www.snokido.com/game/friday-night-funkin",
+        "answers": [
+            "friday night funk",
+            "fnf",
+            "friday night funkin",
+            "friday night funk"
+        ]
+    },
+    {
+        "name": "Super Mario World",
+        "image": "games/IMG_54.webp",
+        "link": "https://mario.nintendo.com/fr/",
+        "answers": [
+            "super mario world",
+            "smw",
+            "mario world",
+            "mario super nes",
+            "mario snes"
+        ]
+    },
+    {
+        "name": "Snake",
+        "image": "games/IMG_55.webp",
+        "link": "https://www.snake.fr/",
+        "answers": [
+            "snake",
+            "serpent"
+        ]
+    },
+    {
+        "name": "Mario Kart 64",
+        "image": "games/IMG_56.webp",
+        "link": "https://www.nintendo.com/fr-fr/Jeux/Nintendo-64/Mario-Kart-64-269558.html",
+        "answers": [
+            "mario kart 64",
+            "mk 64",
+            "mario kart64"
+        ]
+    },
+    {
+        "name": "Super Kirby Clash",
+        "image": "games/IMG_57.webp",
+        "link": "https://www.nintendo.com/fr-fr/Jeux/Jeux-a-telecharger-sur-Nintendo-Switch/Super-Kirby-Clash-1630878.html",
+        "answers": [
+            "super kirby clash"
         ]
     }
 ]

@@ -1,6 +1,6 @@
 {
   "name": "cquoilejeu",
-  "version": "3.6.4",
+  "version": "3.7.1",
   "description": "Le site cquoilejeu.fr",
   "license": "GPL-2.0",
   "author": "Elie",
@@ -18,9 +18,9 @@
     "express-session": "^1.18.1",
     "formidable": "^3.5.4",
     "fs": "^0.0.1-security",
+    "marked": "^17.0.1",
     "nodemon": "^3.1.11",
     "pg": "^8.16.3",
-    "sharp": "^0.34.3",
-    "sqlite3": "^5.1.7"
+    "sharp": "^0.34.3"
   }
 }

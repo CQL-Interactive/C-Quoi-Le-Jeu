@@ -1,6 +1,8 @@
 const router = require('express').Router()
 const path = require('path')
 const fs = require('fs')
+const pool = require(path.join(process.cwd(), "db.js"));
+
 
 
 module.exports = (requireAuth) => {
@@ -18,9 +20,23 @@ module.exports = (requireAuth) => {
         }
     })
 
-    router.get('/contact', (req, res) => {
-        res.sendFile(path.join(__dirname, '..', 'pages', 'contact.html'))
+    router.get('/stats', requireAuth, (req, res) => {
+        res.sendFile(path.join(__dirname, '..', 'pages', 'dev.html'))
     })
+
+    router.get('/pdf/politique', (req, res) => {
+        res.sendFile(path.join(__dirname, '..', 'static', 'doc', 'privacy_policy.pdf'))
+    })
+
+    router.get('/page', requireAuth, (req, res) => {
+
+        res.render('profile/page', { user : req.session.user})
+    })  
+
+    router.get('/friends', requireAuth, (req, res) => {
+        res.sendFile(path.join(__dirname, '..', 'pages', 'profile', 'friends.html'))
+    })
+
     router.get('/historique', requireAuth, (req, res) => {
         res.sendFile(path.join(__dirname, '..', 'pages', 'profile', 'my_games.html'))
     })
@@ -112,11 +128,25 @@ module.exports = (requireAuth) => {
         res.render('admin/game', { jeu : jeux[index], index : indexImg })
     })
 
+    router.get('/admin/users/:id', (req, res) => {
+        const id = req.params.id;
+
+        pool.query(
+            `SELECT * from users WHERE id = $1`, [id], (err, result) => {
+                if (err || result.rows.length === 0) {
+                    res.status(404).sendFile(path.join(__dirname, 'pages', 'error.html'))
+                    return;
+                }
+                res.render('admin/user', { user : result.rows[0] })
+            }
+        )
+    })
+
     router.get('/admin/parties', requireAuth, (req, res) => {
         res.sendFile(path.join(process.cwd(), 'pages', 'admin', 'parties.html'))
     })
 
-    // En cours de dev :
+    //En cours de dev :
     router.get('/games/new', requireAuth, (req, res) => {
         //res.sendFile(path.join(__dirname, '..', 'pages', 'newGame.html'))
         res.sendFile(path.join(__dirname, '..', 'pages', 'dev.html'))

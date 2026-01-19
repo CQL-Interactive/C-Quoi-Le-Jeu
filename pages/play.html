@@ -14,6 +14,10 @@
         <div class="col center">
             <span class="loader"></span>
             <h3>Chargement du jeu</h3>
+            <div id="timeout_loading" class="col center" style="position: absolute; bottom : 100px; display: none">
+                <p>Le chargement du jeu semble prendre du temps...</p>
+                <div class="row"><button onclick="window.location.reload()" >Recharger la page</button></div>
+            </div>
         </div>
     </div>
 
@@ -23,13 +27,13 @@
     </video>
     <div class="game-container col" >
         <section class="space small-x" >
-            <h1 class="no-margin" id="nbQuestion" ></h1><h1 id="nbScore" style="cursor: pointer;" class="no-margin" onmouseleave="notify.remove(idSurvol)" onclick="notify.warn(`Cette page est encore en cours de développement.>`)" onmouseenter="idSurvol = notify.info('Comment est calculé le score ?', false)">Score 10</h1>
+            <h1 class="no-margin" id="nbQuestion" ></h1><h1 id="nbScore" style="cursor: pointer;" class="no-margin" onmouseleave="notify.remove(idSurvol)" onmouseenter="idSurvol = notify.info('Comment est calculé le score ?', false)">Score 10</h1>
         </section>
         <img src="/api/game/loadImgs" class="game_img" id="img_current">
         <section style="margin-bottom: 100px;" class="small" >
             <div  class="center col">
                 <div class="col">
-                    <form id="game_form" class="row center"><input type="text" autocomplete="off" id="game_name" oninput="searchGames()" placeholder="Nom du jeu"><button type="submit" >Valider</button><button type="button" id="skip_btn">Passer</button></form>
+                    <form id="game_form" class="row center"><input type="text" autocomplete="off" id="game_name" oninput="serchGames()" placeholder="Nom du jeu"><div class="no-gap"><button type="submit" >Valider</button><button type="button" id="pass" >Passer</button></div></form>
                     <div class="relative prop-co" >
                         <div id="propositions"></div>
                     </div>

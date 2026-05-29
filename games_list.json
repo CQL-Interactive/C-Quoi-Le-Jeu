@@ -315,7 +315,8 @@
             "call of duty modern warfare 2",
             "cod mw2",
             "cod : mw2",
-            "cod : mw2"
+            "cod : mw2",
+            "mw2"
         ]
     },
     {
@@ -565,12 +566,11 @@
         ]
     },
     {
-        "name": "Super Mario World",
+        "name": "Fortnite",
         "image": "games/IMG_62.webp",
         "answers": [
-            "super mario world",
-            "smw",
-            "mario world"
+            "fortnite",
+            "ftn"
         ]
     },
     {

@@ -519,23 +519,6 @@ footer {
     text-decoration: none;
 }
 
-/* Style spécifique pour le bouton Discord */
-.discord-button {
-    background: linear-gradient(90deg, #7289da, #5a69c6);
-}
-
-/* Style spécifique pour le bouton Email */
-.mail-button {
-    background: linear-gradient(90deg, #ff6b6b, #ff5252);
-}
-
-/* Effet de survol pour les boutons de contact */
-.contact-button:hover {
-    background: linear-gradient(90deg, #0072ff, #00c6ff);
-    transform: scale(1.05);
-}
-
-/* Style pour les logos dans les boutons */
 .contact-logo {
     width: 24px;
     height: 24px;

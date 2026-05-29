@@ -1,38 +1,36 @@
-## **Mais qu’est-ce que C Quoi Le Jeu🤔?**
+## **Mais qu’est-ce que C Quoi Le Jeu 🤔 ?**
 
-C Quoi Le Jeu est un site web créé par 2 élèves de 3ème, dont le principe est de deviner le nom d'un jeu vidéo à partir d'une image. CQLJ est disponible sur [cquoilejeu.fr](https://cquoilejeu.fr).
+C Quoi Le Jeu est un jeu en ligne gratuit appartenant à [CQL Interactive](https://cql-interactive.fr), dont le principe est de deviner le nom d'un jeu vidéo à partir d'une image. CQLJ est disponible sur [cquoilejeu.fr](https://cquoilejeu.fr).
 
-## **Les co-créateurs🤝:**
+## **Les co-créateurs 🤝 :**
 
-Nous sommes deux collégiens à avoir créé ce projet : Théo GRAZIANO et Elie SAIDANE LEMERCIER. "Nous voulons créer un jeu gratuit, sans publicités, accessible à tous et respectueux des données."
+Nous sommes deux adolescents à avoir créé ce projet : Théo GRAZIANO et Elie SAIDANE LEMERCIER. "Nous voulons créer un jeu gratuit, sans publicités, accessible à tous et respectueux des données."
 
-## **Un peu d'histoire📜...**
+## **Un peu d'histoire... 📜**
 
 Date de création : 8 avril 2025 : Le projet commence lors d’une discussion entre amis au collège, et abouti à une version minimaliste.
 
 Sortie de la version Beta : 4 mai 2025 : Au bout de trois semaines, le site sort en version Beta afin que les gens puissent tester.
 
-Mise à jour 1.2.1 : 18 mai 2025 : Grosse MAJ avec intégration de suggestions de jeux et fond d’écran animé
-
 Date de sortie : 8 juin 2025
 
-## **Nos liens🔗:**
+## **Nos liens 🔗 :**
 
-**Lien vers C Quoi Le Jeu :** [cquoilejeu.fr](https://cquoilejeu.fr)
+**C Quoi Le Jeu :** [cquoilejeu.fr](https://cquoilejeu.fr)
 
-**Lien vers le GitHub :** [github.com/CQL-Interactive/C-Quoi-Le-Jeu](https://github.com/CQL-Interactive/C-Quoi-Le-Jeu)
+**GitHub :** [github.com/CQL-Interactive/C-Quoi-Le-Jeu](https://github.com/CQL-Interactive/C-Quoi-Le-Jeu)
 
-**Lien vers le serveur Discord officiel :** [discord.gg/Evu8WXm27z](https://discord.gg/Evu8WXm27z)
+**Serveur Discord officiel :** [discord.gg/Evu8WXm27z](https://discord.gg/Evu8WXm27z)
 
-**Lien vers le Tipeee :** [tipeee.com/cql-interactive](https://fr.tipeee.com/cql-interactive)
+**Tipeee :** [tipeee.com/cql-interactive](https://fr.tipeee.com/cql-interactive)
 
-**Lien vers Instagram :** [instagram.com/cql_interactive](https://www.instagram.com/cql_interactive)
+**Instagram :** [instagram.com/cql_interactive](https://www.instagram.com/cql_interactive)
 
-**Lien vers le TikTok :** [tiktok.com/@cql_interactive](https://www.tiktok.com/@cql_interactive)
+**TikTok :** [tiktok.com/@cql_interactive](https://www.tiktok.com/@cql_interactive)
 
-**Lien vers la chaîne YouTube :** [youtube.com/@cql-interactive](https://www.youtube.com/@cql-interactive)
+**YouTube :** [youtube.com/@cql-interactive](https://www.youtube.com/@cql-interactive)
 
-**Email Contact :** contact@cql-interactive.fr
+**Email :** contact@cql-interactive.fr
 
 ## **Execution en local :**
 
@@ -48,8 +46,8 @@ npm install
 ```
 
 **2. Configurer PostgreSQL :**
-- Créer une base de données PostgreSQL
-- Exécuter le script `schema.sql` pour initialiser la structure de la base de données
+- Créer une base de données PostgreSQL nommée `cqlj_db`
+- Exécuter la commande `npm run db:init` pour l'initialiser
 
 **3. Créer un fichier `config.env` :**
 ```
@@ -78,4 +76,4 @@ npm start
 
 ## **LICENCE :**
 
-C Quoi Le Jeu est sous licence GNU General Public License v2.0. Consultez le fichier [LICENSE](https://github.com/CQL-Interactive/C-Quoi-Le-Jeu/blob/main/LICENSE) pour plus de détails.
+C Quoi Le Jeu est sous licence GNU General Public License v3.0. Consultez le fichier [LICENSE](https://github.com/CQL-Interactive/C-Quoi-Le-Jeu/blob/main/LICENSE) pour plus de détails.

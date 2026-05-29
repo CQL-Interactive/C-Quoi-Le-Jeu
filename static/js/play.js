@@ -56,7 +56,7 @@ function loadJeu(e, res, pass) {
                         e.target.disabled = false;
                     }
 
-                    if (res) {
+                    if (res && !pass) {
                         notify.info(res.message)
                     }
                     setTimeout(() => {

@@ -1,7 +1,3 @@
-/*
-    A faire :
-    - Systeme login
-*/
 console.log(`⚙️  Chargement...`)
 const express = require('express')
 const session = require('express-session')
@@ -26,17 +22,17 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     cookie: {
-        maxAge: 1000 * 60 * 60, // 1h
-        secure: false, // HTTPS ?
+        maxAge: 1000 * 60 * 60,
+        secure: false,
         httpOnly: true,
     }
 }))
 
 app.use(express.json())
-app.use('/css/', express.static(path.join(__dirname, 'static', 'css')))                 // Css
-app.use('/img/', express.static(path.join(__dirname, 'static', 'images')))   // Img
-app.use('/js/', express.static(path.join(__dirname, 'static', 'js')))                   // Js
-app.use('/videos/', express.static(path.join(__dirname, 'static', 'videos')))           // Videos
+app.use('/css/', express.static(path.join(__dirname, 'static', 'css')))
+app.use('/img/', express.static(path.join(__dirname, 'static', 'images')))
+app.use('/js/', express.static(path.join(__dirname, 'static', 'js')))
+app.use('/videos/', express.static(path.join(__dirname, 'static', 'videos')))
 
 function requireAuth(req, res, next) {
     if (req.session.user) {
@@ -74,4 +70,5 @@ app.use((req, res, next) => {
 app.listen(PORT, () => {
     console.log(`✅ Serveur en ligne sur : http://${HOST}:${PORT}`)
 })
+
 

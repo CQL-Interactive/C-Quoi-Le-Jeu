@@ -52,7 +52,6 @@ router.post('/register', (req, res) => {
             `INSERT INTO users (username, password, patch) VALUES ($1, $2, $3) RETURNING id, username`,
             [trimmedUsername, hashedPassword, 1],
             (insertErr, insertResult) => {
-                console.log(insertErr)
                 if (insertErr) return res.status(500).json({ ok: false, message: "Erreur lors de l'inscription." });
 
                 const newUser = insertResult.rows[0]; 

@@ -5,6 +5,7 @@ const fs = require('fs')
 const session = require('express-session')
 const bcrypt = require('bcrypt')
 const { marked } = require('marked')
+const DOMPurify = require('isomorphic-dompurify')
 
 
 
@@ -261,8 +262,9 @@ router.post('/bio/markdown', (req, res) => {
 
     try {
         const htmlContent = marked(bio);
+        const cleanHTML = DOMPurify.sanitize(htmlContent);
         res.json({
-            html: htmlContent
+            html: cleanHTML
         });
     } catch (err) {
         console.error(err);

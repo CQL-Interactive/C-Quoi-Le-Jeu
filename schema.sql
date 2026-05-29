@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS public.users
     password text COLLATE pg_catalog."default" NOT NULL,
     patch integer NOT NULL DEFAULT 0,
     id serial NOT NULL,
-    role bigint NOT NULL DEFAULT 1,
+    role bigint NOT NULL DEFAULT 0,
     bio text COLLATE pg_catalog."default",
     pins integer[],
     CONSTRAINT users_pkey PRIMARY KEY (id),

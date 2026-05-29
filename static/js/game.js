@@ -67,14 +67,30 @@ async function play() {
         window.location.href = '/login?notif=Merci de vous connecter pour jouer'
         return;
     }
+    
+    const nbGamesValue = Number(document.getElementById('seettings_nbGames').value)
+    const livesValue = Number(document.getElementById('settings_lives').value)
+    
+    if (nbGamesValue <= 0) {
+        notify.error('Le nombre de jeux doit être positif')
+        document.getElementById('play_btn').classList.remove('loadingBtn')
+        return;
+    }
+    
+    if (livesValue <= 0) {
+        notify.error('Le nombre de vies doit être positif')
+        document.getElementById('play_btn').classList.remove('loadingBtn')
+        return;
+    }
+    
     fetch('/api/game/settings', {
         method : "POST",
         headers : {
             'Content-Type' : 'application/json'
         },
         body : JSON.stringify({
-            nbGames : Number(document.getElementById('seettings_nbGames').value),
-            lives : Number(document.getElementById('settings_lives').value)
+            nbGames : nbGamesValue,
+            lives : livesValue
         })
     })
     .then(res => res.json())

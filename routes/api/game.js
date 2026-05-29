@@ -38,6 +38,20 @@ router.post('/settings', async (req, res) => {
         return;
     }
 
+    if (settings.nbGames <= 0) {
+        res.status(400).json({
+            message : "Le nombre de jeux doit être positif"
+        })
+        return;
+    }
+
+    if (settings.lives <= 0) {
+        res.status(400).json({
+            message : "Le nombre de vies doit être positif"
+        })
+        return;
+    }
+
     const jeux = await JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'games_list.json')))
 
     if (settings.nbGames > jeux.length) {
@@ -317,7 +331,7 @@ router.post('/verif', async (req, res) => {
         return;
     } else {
         req.session.user.play.current.lives --
-        req.session.user.play.current.question ++
+        const correctAnswer = jeux[currentQuestionIndex].name;
         req.session.user.stats.push({
             jeu : {
                 name : jeux[currentQuestionIndex].name,
@@ -328,7 +342,7 @@ router.post('/verif', async (req, res) => {
         })
         if (req.session.user.play.current.lives === 0) {
             req.session.user.stats[0].fin.score = req.session.user.play.score
-            const msg = `${jeux[req.session.user.play.ordre[req.session.user.play.current.question - 1] - 1].name} était la bonne réponse.<br>Vous perdez une vie.`
+            const msg = `${correctAnswer} était la bonne réponse.<br>Vous perdez une vie.`
             delete req.session.user.play
             delete req.session.user.settings
             req.session.user.stats[0].fin.vie = 0,
@@ -347,9 +361,10 @@ router.post('/verif', async (req, res) => {
             })
             return;
         }
+        req.session.user.play.current.question ++
         res.json({
             ok : true,
-            message : `${jeux[req.session.user.play.ordre[req.session.user.play.current.question - 1] - 1].name} était la bonne réponse.<br>Vous perdez une vie.`
+            message : `${correctAnswer} était la bonne réponse.<br>Vous perdez une vie.`
         })
         return;
     }

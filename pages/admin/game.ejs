@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CQLJ | Admin</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/page.css">
+    <link rel="stylesheet" href="/api/admin/css">
+    <link rel="icon" href="/img/icone.png" type="image/png">
+</head>
+<body>
+    <div class="header"></div>
+    <main>
+        <div id="games" class="col list-contaner">
+            <div class="col">
+                <div class="col" style="min-width: 300px;">
+                    <h2>Infos sur le jeu</h2>
+                    <p><strong>Nom : </strong><%= jeu.name %></p>
+                    <p><strong>Site : </strong><a href="<%= jeu.link %>"><%= jeu.link %></a></p>
+                </div>
+                <img class="game_img" src="/api/admin/img/IMG_<%= index %>.webp">
+            </div>
+        </div>
+    </main>
+    <script src="/js/main.js" ></script>
+    <script src="/api/admin/js/admin.js" ></script>
+    <script>
+        config = {
+            contact: false,
+            ".header": {
+                "logo-container" : true,
+                "menu" : true
+            },
+            "footer": false
+        }
+    </script>
+</body>
+</html>

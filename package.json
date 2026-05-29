@@ -1,0 +1,30 @@
+{
+  "name": "cquoilejeu",
+  "version": "3.8.0",
+  "description": "www.cquoilejeu.fr, appartenant à CQL Interactive (www.cql-interactive.fr)",
+  "license": "GPL-3.0",
+  "author": "Elie",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "db:init": "node initDB.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "dotenv": "^16.6.1",
+    "ejs": "^3.1.10",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "formidable": "^3.5.4",
+    "fs": "^0.0.1-security",
+    "isomorphic-dompurify": "^3.15.0",
+    "marked": "^17.0.6",
+    "pg": "^8.21.0",
+    "sharp": "^0.34.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

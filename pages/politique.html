@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politique de confidentialité - C Quoi Le Jeu</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/page.css">
+    <link rel="icon" href="/img/logo.svg" >
+    <script>
+        function printPdf() {
+            const iframe = document.createElement('iframe')
+            iframe.src = '/pdf/politique'
+            iframe.style.display = 'none'
+
+            iframe.onload = () => {
+                iframe.contentWindow.print()
+            }
+
+            document.body.appendChild(iframe)
+        }
+    </script>
+</head>
+<body>
+    <div class="header"></div>
+    <header></header>
+    <main>
+        <div class="center"><h1>Politique de confidentialité</h1></div>
+        <div class="center row"><a href="/pdf/politique" target="_blank">Voir le PDF</a><a onclick="printPdf()">Imprimer</a></div>
+        <p><strong>C Quoi Le Jeu</strong><br>
+        Dernière date de modification : 13 décembre 2025</p>
+
+        <h2>Préambule</h2>
+        <p>
+            La présente politique de confidentialité a pour objet d’informer les utilisateurs du jeu en ligne <strong>C Quoi Le Jeu</strong> sur les modalités de collecte, d’utilisation, de conservation et de protection de leurs données personnelles.<br>
+            Elle a été rédigée conformément au Règlement (UE) 2016/679 du 27 avril 2016 (RGPD) et à la loi n°78-17 du 6 janvier 1978 modifiée, relative à l’informatique, aux fichiers et aux libertés.<br>
+            En utilisant le jeu, l’utilisateur reconnaît avoir pris connaissance de cette politique et l’accepter sans réserve.<br>
+            C Quoi Le Jeu appartient au groupe <strong>CQL Interactive</strong>, co-créé par Elie SAIDANE LEMERCIER et Théo GRAZIANO.
+        </p>
+
+        <h2>1. Responsable du traitement</h2>
+        <p>
+            Le traitement des données personnelles est effectué sous la responsabilité de :<br>
+            <strong>Elie SAIDANE LEMERCIER</strong><br>
+            Créateur de C Quoi Le Jeu<br>
+            📧 <a href="mailto:elie@cql-interactive.fr">elie@cql-interactive.fr</a>
+        </p>
+
+        <h2>2. Données collectées et finalité</h2>
+        <p>
+            Lors de la création d’un compte utilisateur, les seules données collectées sont :<br>
+            • Un pseudonyme (visible dans le jeu)<br>
+            • Un mot de passe, enregistré sous forme cryptée<br><br>
+            Ces données sont indispensables à la création du compte et à l’accès aux fonctionnalités du jeu. Elles permettent l’identification sécurisée de l’utilisateur et la sauvegarde de ses préférences et de sa progression.<br>
+            Aucune donnée complémentaire (adresse IP, e-mail, cookies, données de navigation) n’est collectée.
+        </p>
+
+        <h2>3. Base légale du traitement</h2>
+        <p>
+            Conformément à l’article 6.1.b du RGPD, le traitement repose sur la nécessité contractuelle : l’inscription au jeu constitue un contrat entre l’utilisateur et le service.
+        </p>
+
+        <h2>4. Durée de conservation</h2>
+        <p>
+            Les données sont conservées tant que le compte de l’utilisateur est actif.<br>
+            L’utilisateur peut à tout moment, depuis les paramètres du jeu :<br>
+            • Modifier son mot de passe<br>
+            • Supprimer définitivement son compte (effacement immédiat des données)
+        </p>
+
+        <h2>5. Sécurité des données</h2>
+        <p>
+            Les mots de passe sont stockés sous forme chiffrée et ne peuvent être lus ni utilisés par une tierce personne.<br>
+            L’accès aux fichiers contenant les données est strictement limité aux co-créateurs du jeu.<br>
+            Aucune donnée n’est conservée sur des serveurs publics ou accessibles par des tiers non autorisés.
+        </p>
+
+        <h2>6. Partage et transfert des données</h2>
+        <p>
+            Aucune donnée personnelle n’est vendue, louée ou transmise à des tiers.<br>
+            Le code source du jeu peut être partagé publiquement (ex : GitHub) pour la transparence ou le développement collaboratif, mais jamais avec les données personnelles des utilisateurs.
+        </p>
+
+        <h2>7. Cookies et traceurs</h2>
+        <p>
+            Le site et le jeu n’utilisent aucun cookie ni traceur.<br>
+            Aucune mesure de navigation ou profilage utilisateur n’est effectuée.
+        </p>
+
+        <h2>8. Utilisation par les mineurs</h2>
+        <p>
+            Le jeu est accessible à tout âge.<br>
+            Les contenus sont garantis sans images violentes ni choquantes.
+        </p>
+
+        <h2>9. Droits des utilisateurs</h2>
+        <p>
+            Chaque utilisateur dispose des droits suivants :<br>
+            • Accès à ses données<br>
+            • Rectification de son mot de passe<br>
+            • Suppression de son compte et des données associées<br>
+            • Limitation ou opposition au traitement (si applicable)<br><br>
+            Ces droits peuvent être exercés via l’espace personnel ou par e-mail :<br>
+            📧 <a href="mailto:contact@cql-interactive.fr">contact@cql-interactive.fr</a>
+        </p>
+
+        <h2>10. Hébergement</h2>
+        <p>
+            Le jeu est hébergé par :<br>
+            <strong>Contabo</strong><br>
+            🌐 <a href="https://www.contabo.com">www.contabo.com</a><br>
+            📍 Europe
+        </p>
+
+        <h2>11. Droit applicable et juridiction compétente</h2>
+        <p>
+            La présente politique est régie par le droit français.<br>
+            En cas de litige, une tentative de règlement amiable sera privilégiée. À défaut, seuls les tribunaux français seront compétents.
+        </p>
+    </main>
+    <script src="/js/main.js" ></script>
+    <script>
+        config = {
+            contact: false,
+            ".header": {
+                "logo-container" : true
+            },
+            "footer": true
+        }
+    </script>
+</body>
+</html>

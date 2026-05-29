@@ -77,3 +77,4 @@ npm start
 ## **LICENCE :**
 
 C Quoi Le Jeu est sous licence GNU General Public License v3.0. Consultez le fichier [LICENSE](https://github.com/CQL-Interactive/C-Quoi-Le-Jeu/blob/main/LICENSE) pour plus de détails.
+test

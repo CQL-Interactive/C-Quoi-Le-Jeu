@@ -1,5 +1,5 @@
 node_modules/
-.venv/
+.env
 config.env
 package-lock.json
 annonce.json

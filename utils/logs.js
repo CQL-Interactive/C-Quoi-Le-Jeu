@@ -1,7 +1,7 @@
 const path = require('path')
-const pool = require(path.join(process.cwd(), 'db.js'))
+const prisma = require(path.join(process.cwd(), 'db.js'))
 
-module.exports = (title, {
+module.exports = async (title, {
     desc = null,
     userId,
     public = false,
@@ -12,21 +12,27 @@ module.exports = (title, {
     }
     if (typeof public !== 'boolean') return console.error(`[LOGS] Le type doit être booléen pour ${title}`)
 
-    pool.query(
-        `INSERT INTO logs (title, description, public, user_id, link) VALUES ($1, $2, $3, $4, $5)`,
-        [title, desc, public, userId, link],
-        (err) => {
-            if (err) return console.error(`[LOGS] Erreur bdd : ${err}`)
-
-            console.log(
-                `[LOGS] \x1b[1m${title}${public ? ' - Public' : ''}\x1b[0m\n` +
-                `${desc ?? ''}\n` +
-                `${userId ? 'Utilisateur id : ' + userId : ''}`
-            )
-
-            return {
-                ok  : true
+    try {
+        await prisma.logs.create({
+            data: {
+                title,
+                description: desc,
+                public,
+                user_id: userId,
+                link
             }
+        });
+
+        console.log(
+            `[LOGS] \x1b[1m${title}${public ? ' - Public' : ''}\x1b[0m\n` +
+            `${desc ?? ''}\n` +
+            `${userId ? 'Utilisateur id : ' + userId : ''}`
+        )
+
+        return {
+            ok  : true
         }
-    )
+    } catch (err) {
+        console.error(`[LOGS] Erreur bdd : ${err}`)
+    }
 }

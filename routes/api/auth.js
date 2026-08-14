@@ -2,9 +2,9 @@ const router = require('express').Router()
 const path = require('path')
 const fs = require('fs')
 const bcrypt = require('bcrypt')
-const pool = require(path.join(process.cwd(), "db.js"));
+const prisma = require(path.join(process.cwd(), "db.js"));
 
-router.post('/register', (req, res) => {
+router.post('/register', async (req, res) => {
     const { username, password } = req.body;
     const erreurs = [];
 
@@ -36,9 +36,12 @@ router.post('/register', (req, res) => {
     if (erreurs.length > 0) {
         return res.status(400).json({ message: erreurs.join('<br>') });
     }
-    pool.query(`SELECT * FROM users WHERE username = $1`, [trimmedUsername], (err, result) => {
-        if (err) return res.status(500).json({ ok: false, message: "Erreur interne" });
-        const existingUser = result.rows[0];
+    
+    try {
+        const existingUser = await prisma.users.findUnique({
+            where: { username: trimmedUsername }
+        });
+        
         if (existingUser) {
             return res.status(409).json({
                 ok: false,
@@ -48,30 +51,32 @@ router.post('/register', (req, res) => {
 
         const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync());
         
-        pool.query(
-            `INSERT INTO users (username, password, patch) VALUES ($1, $2, $3) RETURNING id, username`,
-            [trimmedUsername, hashedPassword, 1],
-            (insertErr, insertResult) => {
-                if (insertErr) return res.status(500).json({ ok: false, message: "Erreur lors de l'inscription." });
+        const newUser = await prisma.users.create({
+            data: {
+                username: trimmedUsername,
+                password: hashedPassword,
+                patch: 1
+            },
+            select: { id: true, username: true }
+        });
 
-                const newUser = insertResult.rows[0]; 
+        req.session.user = {
+            id: newUser.id,
+            username: newUser.username,
+            patch: 1
+        };
 
-                req.session.user = {
-                    id: newUser.id,
-                    username: newUser.username,
-                    patch: 1
-                };
-
-                req.session.save(() => {
-                    res.status(200).json({
-                        ok: true,
-                        message: "Inscription réussie.",
-                        user: req.session.user
-                    });
-                });
-            }
-        );
-    });
+        req.session.save(() => {
+            res.status(200).json({
+                ok: true,
+                message: "Inscription réussie.",
+                user: req.session.user
+            });
+        });
+    } catch (err) {
+        console.error("Erreur lors de l'inscription:", err);
+        return res.status(500).json({ ok: false, message: "Erreur interne" });
+    }
 });
 
 router.get('/logout', (req, res) => {
@@ -96,11 +101,11 @@ router.post('/login', async (req, res) => {
 
     const trimmedUsername = username.trim();
 
-    pool.query(`SELECT * FROM users WHERE username = $1`, [trimmedUsername], (err, result) => {
+    try {
+        const user = await prisma.users.findUnique({
+            where: { username: trimmedUsername }
+        });
 
-        const user = result.rows[0]
-
-        if (err) return res.status(500).json({ message: "Erreur interne." });
         if (!user) {
             return res.status(401).json({ message: "Nom d'utilisateur ou mot de passe incorrect." });
         }
@@ -118,12 +123,14 @@ router.post('/login', async (req, res) => {
             bio: user.bio // Add bio to the session
         }
 
-        if (user.role == 1) {
+        if (Number(user.role) == 1) {
             req.session.user.isAdmin = true
         }
 
         res.status(200).json({ ok: true, message: "Connexion réussie." });
-    });
+    } catch (err) {
+        return res.status(500).json({ message: "Erreur interne." });
+    }
 })
 
 module.exports = router

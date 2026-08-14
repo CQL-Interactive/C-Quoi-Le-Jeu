@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model games_history {
+  id          Int       @id @default(autoincrement())
+  user_id     Int?
+  score       Int?
+  end_lives   Int?
+  begin_lives Int?
+  nbgames     Int?
+  played_at   DateTime? @default(now()) @db.Timestamptz(6)
+  end_date    BigInt?
+  user        users?    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model logs {
+  id          Int      @id @default(autoincrement())
+  created_at  DateTime @default(now()) @db.Timestamp(6)
+  title       String   @db.VarChar(255)
+  description String?  @db.VarChar(255)
+  public      Boolean  @default(true)
+  user_id     Int?
+  link        String?  @db.VarChar(255)
+  user        users?   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model relation {
+  id         Int      @id @default(autoincrement())
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  user_id    Int
+  user2_id   Int
+  state      Int      @default(0)
+}
+
+model users {
+  username      String          @unique
+  password      String
+  patch         Int             @default(0)
+  id            Int             @id @default(autoincrement())
+  role          BigInt          @default(0)
+  bio           String?
+  pins          Int[]
+  games_history games_history[]
+  logs          logs[]
+}

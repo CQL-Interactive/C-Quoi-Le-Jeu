@@ -1,13 +1,11 @@
 const router = require('express').Router()
 const path = require('path')
-const pool = require(path.join(process.cwd(), 'db.js'))
+const prisma = require(path.join(process.cwd(), 'db.js'))
 const fs = require('fs')
 const session = require('express-session')
 const bcrypt = require('bcrypt')
 const { marked } = require('marked')
 const DOMPurify = require('isomorphic-dompurify')
-
-
 
 router.get('/', (req, res) => {
     if (req.session.user) {
@@ -17,11 +15,11 @@ router.get('/', (req, res) => {
     }
 })
 
-router.patch('/change/username',async (req, res) => {
+router.patch('/change/username', async (req, res) => {
     if(!req.session.user) {
         res.status(401).json({
             message : 'Il faut être connecté !'
-    })
+        })
         return;
     }
     const { username } = req.body
@@ -47,34 +45,38 @@ router.patch('/change/username',async (req, res) => {
         return res.status(400).json({ message: erreurs.join('<br>') });
     }
 
-    pool.query(`SELECT * FROM users WHERE username = $1`, [trimmedUsername], (err, existingUser) => {
-        if (err) return res.status(500).json({ ok: false, message: "Erreur interne" });
-        if (existingUser.rows[0]) {
+    try {
+        const existingUser = await prisma.users.findUnique({
+            where: { username: trimmedUsername }
+        });
+        
+        if (existingUser) {
             return res.status(409).json({
                 ok: false,
                 message: "Ce nom d'utilisateur est déjà utilisé"
             });
         }
-        pool.query("UPDATE users SET username = $1 WHERE id = $2",[trimmedUsername, req.session.user.id], (err) => {
-            if (err) {
-                console.log(err)
-                res.status(500).json({
-                    message : "Erreur interne"
-                })
-                return;
-            }
+        
+        await prisma.users.update({
+            where: { id: req.session.user.id },
+            data: { username: trimmedUsername }
+        });
 
-            req.session.user.username = trimmedUsername
+        req.session.user.username = trimmedUsername
 
-            res.status(200).json({
-                ok : true,
-                before: nameBefore
-            })
+        res.status(200).json({
+            ok : true,
+            before: nameBefore
         })
-    })
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({
+            message : "Erreur interne"
+        })
+    }
 })
 
-router.patch('/change/password', (req,res) => {
+router.patch('/change/password', async (req,res) => {
     const { password } = req.body
 
     const erreurs = [];
@@ -91,32 +93,36 @@ router.patch('/change/password', (req,res) => {
     }
 
     const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync());
-    pool.query("UPDATE users SET password = $1 WHERE id = $2",[hashedPassword, req.session.user.id], (err) => {
-            if (err) {
-                console.log(err)
-                res.status(500).json({
-                    message : "Erreur interne"
-                })
-                return;
-            }
+    
+    try {
+        await prisma.users.update({
+            where: { id: req.session.user.id },
+            data: { password: hashedPassword }
+        });
 
-            res.status(200).json({
-                ok : true
-            })
+        res.status(200).json({
+            ok : true
         })
-
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({
+            message : "Erreur interne"
+        })
+    }
 })
 
-router.delete('/', (req, res) => {
+router.delete('/', async (req, res) => {
     if (!req.session.user || !req.body.password) {
         return res.status(401).json({ message: "Impossible de supprimer le compte pour le moment, rechargez la page et réessayez." })
     }
 
     const { password } = req.body
 
-    pool.query(`SELECT * FROM users WHERE id = $1`, [req.session.user.id], (err, result) => {
-        if (err) return res.status(500).json({ message: "Erreur interne." });
-        const user = result.rows[0]
+    try {
+        const user = await prisma.users.findUnique({
+            where: { id: req.session.user.id }
+        });
+        
         if (!user) {
             return res.status(401).json({ message: "Impossible de supprimer le compte pour le moment, rechargez la page et réessayez." });
         }
@@ -127,37 +133,45 @@ router.delete('/', (req, res) => {
             return res.status(401).json({ message: "Mot de passe incorrect." });
         }
     
-        pool.query('DELETE FROM users WHERE id = $1', [req.session.user.id], (err) => {
-            if (err) {
-                 return res.status(500).json({ message: "Impossible de supprimer le compte pour le moment, rechargez la page et réessayez." });
-            }
+        await prisma.users.delete({
+            where: { id: req.session.user.id }
+        });
 
-            req.session.destroy()
+        req.session.destroy()
 
-            res.status(200).json({ ok: true, message: "Suppression réussie. Vous allez être redirigé." });
-        })
-    });
+        res.status(200).json({ ok: true, message: "Suppression réussie. Vous allez être redirigé." });
+    } catch (err) {
+        return res.status(500).json({ message: "Erreur interne." });
+    }
 })
 
-router.get('/games', (req, res) => {
-    pool.query('SELECT * FROM games_history WHERE user_id = $1 ORDER BY id DESC', [req.session.user.id], (err, games) => {
-        if (err) {
-            console.error(err)
-            res.json({
-                msg : "Erreur serveur",
-                error : err
-            })
-            return;
-        }
+router.get('/games', async (req, res) => {
+    try {
+        const games = await prisma.games_history.findMany({
+            where: { user_id: req.session.user.id },
+            orderBy: { id: 'desc' }
+        });
+        
+        // Serialize bigints to string/numbers so it can be sent via JSON
+        const data = games.map(g => ({
+            ...g,
+            end_date: g.end_date ? Number(g.end_date) : null
+        }));
 
         res.json({
             ok : true,
-            data : games.rows
+            data : data
         })
-    })
+    } catch (err) {
+        console.error(err)
+        res.json({
+            msg : "Erreur serveur",
+            error : err
+        })
+    }
 })
 
-router.get('/patch', (req, res) => {
+router.get('/patch', async (req, res) => {
     if (!req.session.user) {
         res.json(false)
         return;
@@ -165,51 +179,48 @@ router.get('/patch', (req, res) => {
     if (req.session.user.patch === 1) {
         res.json(false)
     } else {
-        pool.query(/* SQL */ `SELECT * FROM users WHERE id = $1`, [req.session.user.id], (err, result) => {
-            if (err) {
-                console.log(err)
-                res.json(false)
-                return;
-            }
-
-            const user = result.rows[0]
+        try {
+            const user = await prisma.users.findUnique({
+                where: { id: req.session.user.id }
+            });
             
             if (Number(user.patch) === 0) {
-                pool.query(/* SQL */`UPDATE users SET patch=1 WHERE "id"=$1`, [req.session.user.id], (err) => {
-                    if (err) {
-                        console.error(err)
-                        res.json(true)
-                    } else {
-                        res.json(true)
-                    }
-                })
-                return;
+                await prisma.users.update({
+                    where: { id: req.session.user.id },
+                    data: { patch: 1 }
+                });
+                res.json(true)
             } else {
                 res.json(false)
             }
-        })
+        } catch (err) {
+            console.log(err)
+            res.json(false)
+        }
     }
 })
 
-router.patch('/patch', (req, res) => {
+router.patch('/patch', async (req, res) => {
     if (!req.session.user) {
         res.json(false)
         return;
     }
     
-    pool.query(/* SQL */ `UPDATE users SET patch=1 WHERE id=$1`, [req.session.user.id], (err) => {
-        if (err) {
-            console.error(err)
-            res.json({ ok: false })
-            return;
-        }
+    try {
+        await prisma.users.update({
+            where: { id: req.session.user.id },
+            data: { patch: 1 }
+        });
         
         req.session.user.patch = 1
         res.json({ ok: true })
-    })
+    } catch (err) {
+        console.error(err)
+        res.json({ ok: false })
+    }
 })
 
-router.patch('/bio', (req, res) => {
+router.patch('/bio', async (req, res) => {
     const { bio } = req.body;
 
     if (!req.session.user) {
@@ -233,22 +244,23 @@ router.patch('/bio', (req, res) => {
         });
     }
 
-    pool.query(`UPDATE users SET bio = $1 WHERE id=$2`, [bioTrimmed, req.session.user.id], (err) => {
-        if (err) {
-            console.error(err);
-            res.json({
-                msg : "Erreur serveur"
-            })
-            return;
-        }
+    try {
+        await prisma.users.update({
+            where: { id: req.session.user.id },
+            data: { bio: bioTrimmed }
+        });
 
         req.session.user.bio = bioTrimmed
         res.json({
             ok : true,
             msg:  "Bio modifiée"
         })
-
-    })
+    } catch (err) {
+        console.error(err);
+        res.json({
+            msg : "Erreur serveur"
+        })
+    }
 })
 
 router.post('/bio/markdown', (req, res) => {
@@ -274,7 +286,7 @@ router.post('/bio/markdown', (req, res) => {
     }
 })
 
-router.get('/notifs/', (req, res) => {
+router.get('/notifs/', async (req, res) => {
 
     if (!req.session.user) {
         res.json({
@@ -285,17 +297,19 @@ router.get('/notifs/', (req, res) => {
 
     const userId = req.session.user.id
 
-    pool.query(
-        `SELECT * FROM logs WHERE user_id = $1 AND public = TRUE ORDER BY id DESC`,
-        [userId],
-        (err, result) => {
-            if (err) return res.status(500).json({ error: 'Erreur serveur.' })
-            res.json({
-                ok : true,
-                data : result.rows
-            })
-        }
-    )
+    try {
+        const data = await prisma.logs.findMany({
+            where: { user_id: userId, public: true },
+            orderBy: { id: 'desc' }
+        });
+
+        res.json({
+            ok : true,
+            data : data
+        })
+    } catch (err) {
+        return res.status(500).json({ error: 'Erreur serveur.' })
+    }
 })
 
 router.patch('/notif/:notifId', async (req, res) => {
@@ -309,15 +323,12 @@ router.patch('/notif/:notifId', async (req, res) => {
     const userId = req.session.user.id
 
     try {
-        const result = await pool.query(`
-                UPDATE logs 
-            SET public = $3 
-            WHERE id = $1 AND user_id = $2 
-            RETURNING *`,
-            [notifId, userId, false]
-        )
+        const result = await prisma.logs.updateMany({
+            where: { id: parseInt(notifId), user_id: userId },
+            data: { public: false }
+        });
 
-        if (result.rowCount === 0) {
+        if (result.count === 0) {
             return res.status(404).json({ ok: false, message: "Notification introuvable." })
         }
 
@@ -336,64 +347,23 @@ router.get('/stats', async (req, res) => {
         return;
     }
 
-    const result = await pool.query(`
-        SELECT 
-            COUNT(*) AS total_games,
-            MAX(score) AS best_score
-        FROM games_history
-        WHERE user_id = $1
-    `, [req.session.user.id])
-
-    const playedGames = result.rows[0].total_games
-    const greatScore = result.rows[0].best_score ?? 0
-
-    res.json({
-        ok : true,
-        data : { playedGames, greatScore }
-    })
-})
-
-/*router.post('/pins', async (req, res) => {
-    if (!req.session.user) {
-        return res.json({ msg: "Connectez-vous" });
-    }
-
-    const { pinId } = req.body;
-    if (!pinId) {
-        return res.json({ msg: "Champs manquants" });
-    }
-
     try {
-        await pool.query(`
-            UPDATE users
-            SET pins = 
-                CASE
-                    WHEN $2 = ANY(pins) THEN pins
-                    ELSE array_append(pins, $2)
-                END
-            WHERE id = $1
-        `, [req.session.user.id, pinId]);
+        const aggr = await prisma.games_history.aggregate({
+            where: { user_id: req.session.user.id },
+            _count: { _all: true },
+            _max: { score: true }
+        });
 
-        res.json({ msg: "Pin ajouté" });
+        const playedGames = aggr._count._all
+        const greatScore = aggr._max.score ?? 0
+
+        res.json({
+            ok : true,
+            data : { playedGames, greatScore }
+        })
     } catch (err) {
-        console.error(err);
-        res.json({ msg: "Erreur serveur" });
+        res.json({ msg: "Erreur serveur" })
     }
-});
-
-router.get('/pins', (req, res) => {
-    if (!req.session.user) {
-        return res.json({ msg: "Connectez-vous" });
-    }
-
-    pool.query(`SELECT pins FROM users WHERE id = $1`, [req.session.user.id], (err, result) => {
-        if (err) {
-            console.log(err)
-            return;
-        }
-
-
-    })
-})*/
+})
 
 module.exports = router

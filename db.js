@@ -1,18 +1,11 @@
-const { Pool } = require('pg');
+const { PrismaClient } = require('@prisma/client');
+const { PrismaPg } = require('@prisma/adapter-pg');
 const fs = require('fs');
 const path = require('path');
-require('dotenv').config({ path: "./config.env" })
+require('dotenv').config({ path: "./.env" });
 
-const pool = new Pool({
-    user: process.env.user_db,
-    host: process.env.host_db,
-    database: process.env.database,
-    password: process.env.password,
-    port: process.env.port_db,
-    max: process.env.max,
-    idleTimeoutMillis: process.env.idleTimeoutMillis,
-    connectionTimeoutMillis: process.env.connectionTimeoutMillis
-});
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
+const prisma = new PrismaClient({ adapter });
 
 async function initializeDatabase() {
     try {
@@ -26,7 +19,7 @@ async function initializeDatabase() {
         
         for (const command of commands) {
             try {
-                await pool.query(command);
+                await prisma.$executeRawUnsafe(command);
             } catch (error) {
                 if (error.code === '42710' || error.code === '42P07') {
                     console.log(`⚠️  ${error.message}`);
@@ -43,5 +36,5 @@ async function initializeDatabase() {
     }
 }
 
-pool.initializeDatabase = initializeDatabase;
-module.exports = pool
+prisma.initializeDatabase = initializeDatabase;
+module.exports = prisma;

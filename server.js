@@ -10,7 +10,7 @@ const formidable = require('formidable')
 
 
 const app = express()
-dotenv.config({ path: "./config.env" })
+dotenv.config({ path: "./.env" })
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/pages');
 const PORT = process.env.PORT

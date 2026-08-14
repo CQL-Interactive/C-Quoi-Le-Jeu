@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const path = require('path')
 const fs = require('fs');
-const pool = require(path.join(process.cwd(), 'db.js'))
+const prisma = require(path.join(process.cwd(), 'db.js'))
 const { ok } = require('assert');
 function ordone(n) {
   const liste = Array.from({ length: n }, (_, i) => i + 1)
@@ -210,19 +210,19 @@ function saveGame(req, stats) {
     // Marquer comme sauvegardé pour éviter les doublons
     req.gameSaved = true
 
-    return new Promise((resolve, reject) => {
-        pool.query(/*SQL*/ `
-            INSERT INTO games_history (user_id, score, end_date, end_lives, begin_lives, nbgames)
-            VALUES ($1, $2, $3, $4, $5, $6)
-        `, [req.session.user.id, infos.fin.score, infos.fin.date, infos.fin.vie, infos.settings.lives, infos.settings.nbGames], (err, result) => {
-            if (err) {
-                console.error('Erreur lors de la sauvegarde de la partie:', err)
-                reject(err)
-            } else {
-                resolve(result)
-            }
-        })
-    })
+    return prisma.games_history.create({
+        data: {
+            user_id: req.session.user.id,
+            score: infos.fin.score,
+            end_date: BigInt(infos.fin.date),
+            end_lives: infos.fin.vie,
+            begin_lives: infos.settings.lives,
+            nbgames: infos.settings.nbGames
+        }
+    }).catch(err => {
+        console.error('Erreur lors de la sauvegarde de la partie:', err);
+        throw err;
+    });
 }
 
 router.post('/verif', async (req, res) => {

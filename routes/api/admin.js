@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const path = require('path')
 const fs = require('fs')
-const pool = require(path.join(process.cwd(), 'db.js'))
+const prisma = require(path.join(process.cwd(), 'db.js'))
 const bcrypt = require('bcrypt')
 const logs = require(path.join(process.cwd(), 'utils', 'logs.js'))
 
@@ -15,15 +15,13 @@ router.get('/css', (req, res) => {
 router.use('/img/', express.static(path.join(process.cwd(), 'static', 'games')))
 
 router.get('/stats', async (req, res) => {
- const usersResult = await pool.query("SELECT COUNT(*) FROM users");
-    const usersCount = parseInt(usersResult.rows[0].count);
+    const usersCount = await prisma.users.count();
 
     const gamesListPath = path.join(__dirname, "..", "..", "games_list.json");
     const gamesList = JSON.parse(fs.readFileSync(gamesListPath));
     const gamesCount = gamesList.length;
 
-    const historyResult = await pool.query("SELECT COUNT(*) FROM games_history");
-    const historyCount = parseInt(historyResult.rows[0].count);
+    const historyCount = await prisma.games_history.count();
 
     res.json({
       data: {
@@ -35,17 +33,9 @@ router.get('/stats', async (req, res) => {
     });
 })
 
-router.get('/users', (req, res) => {
-    pool.query(`SELECT * FROM users`, (err, result) => {
-        if (err) {
-            console.error(err)
-            res.json({
-                msg: "Erreur serveur."
-            })
-            return;
-        }
-
-        const players = result.rows
+router.get('/users', async (req, res) => {
+    try {
+        const players = await prisma.users.findMany();
 
         const PlayersList = players.map(player => {
             if (player.id === req.session.user.id) {
@@ -65,33 +55,40 @@ router.get('/users', (req, res) => {
             ok : true,
             data : PlayersList
         })
-    })
+    } catch (err) {
+        console.error(err)
+        res.json({
+            msg: "Erreur serveur."
+        })
+    }
 })
 
 router.get('/parties', async (req, res) => {
-  const query = `
-    SELECT 
-      games_history.id,
-      users.username AS user,
-      users.id AS user_id,
-      games_history.score,
-      games_history.end_date,
-      games_history.end_lives,
-      games_history.begin_lives,
-      games_history.nbGames,
-      games_history.played_at
-    FROM games_history
-    JOIN users ON games_history.user_id = users.id
-    ORDER BY games_history.score DESC;
-  `;
-
   try {
+    const history = await prisma.games_history.findMany({
+      include: {
+        user: {
+          select: { username: true, id: true }
+        }
+      },
+      orderBy: { score: 'desc' }
+    });
 
-    const result = await pool.query(query);
+    const formattedData = history.map(h => ({
+      id: h.id,
+      user: h.user ? h.user.username : null,
+      user_id: h.user_id,
+      score: h.score,
+      end_date: h.end_date ? Number(h.end_date) : null,
+      end_lives: h.end_lives,
+      begin_lives: h.begin_lives,
+      nbGames: h.nbgames,
+      played_at: h.played_at
+    }));
 
     res.json({
       ok: true,
-      data: result.rows
+      data: formattedData
     });
 
   } catch (err) {
@@ -102,7 +99,7 @@ router.get('/parties', async (req, res) => {
   }
 })
 
-router.post('/annonce', (req, res) => {
+router.post('/annonce', async (req, res) => {
     const { patch, display } = req.body
 
     const chem = path.join(process.cwd(), 'annonce.json');
@@ -115,18 +112,17 @@ router.post('/annonce', (req, res) => {
     }
 
     if (display) {
-        pool.query(/*SQL */ `
-            UPDATE users
-            SET patch = 0;
-        `, (err) => {
-            if (err) {
-                console.error(err);
-                res.json({
-                    msg: 'Erreur serveur'
-                });
-                return;
-            }
-        })
+        try {
+            await prisma.users.updateMany({
+                data: { patch: 0 }
+            });
+        } catch (err) {
+            console.error(err);
+            res.json({
+                msg: 'Erreur serveur'
+            });
+            return;
+        }
     }
 
     fs.readFile(chem, 'utf8', (err, data) => {
@@ -166,7 +162,7 @@ router.post('/annonce', (req, res) => {
 })
 
 router.post('/delete/user', (req, res) => {
-    setTimeout(() => {
+    setTimeout(async () => {
         const { id } = req.body
 
         if (!id) {
@@ -180,18 +176,14 @@ router.post('/delete/user', (req, res) => {
                 msg : "Vous ne pouvez pas supprimer votre propre compte."
             })
         }
-        pool.query(`DELETE FROM users WHERE id = $1`, [id], (err, result) => {
-            if (err) {
-                console.error(err)
-                return res.json({
-                    msg : "Erreur interne"
-                })
-            }
-
-            res.json({
-                ok : true
-            })
-        })
+        
+        try {
+            await prisma.users.delete({ where: { id: parseInt(id) } });
+            res.json({ ok : true });
+        } catch (err) {
+            console.error(err)
+            return res.json({ msg : "Erreur interne" })
+        }
     }, 1500)
 })
 

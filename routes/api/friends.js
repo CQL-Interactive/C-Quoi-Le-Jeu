@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const path = require('path')
-const pool = require(path.join(process.cwd(), 'db.js'))
+const prisma = require(path.join(process.cwd(), 'db.js'))
 const fs = require('fs')
 const session = require('express-session')
 const bcrypt = require('bcrypt')
@@ -11,16 +11,16 @@ router.post('/request/friend', async (req, res) => {
     const { user2Name } = req.body
 
     try {
-        const userExists = await pool.query(
-            `SELECT id FROM users WHERE username = $1`,
-            [user2Name]
-        )
+        const userExists = await prisma.users.findUnique({
+            where: { username: user2Name },
+            select: { id: true }
+        });
 
-        if (userExists.rows.length === 0) {
+        if (!userExists) {
             return res.json({ msg: "Utilisateur inexistant." })
         }
 
-        const user2Id = userExists.rows[0].id
+        const user2Id = userExists.id
 
         if (me == user2Id) {
             return res.json({
@@ -28,33 +28,34 @@ router.post('/request/friend', async (req, res) => {
             })
         }
 
-        const rel = await pool.query(
-            `SELECT * FROM relation 
-             WHERE (user_id = $1 AND user2_id = $2)
-             OR (user_id = $2 AND user2_id = $1)`,
-            [me, user2Id]
-        )
+        const rel = await prisma.relation.findFirst({
+            where: {
+                OR: [
+                    { user_id: me, user2_id: user2Id },
+                    { user_id: user2Id, user2_id: me }
+                ]
+            }
+        });
 
-
-        if (rel.rows.length > 0) {
-            const r = rel.rows[0]
-
-            if (r.state === 0) {
+        if (rel) {
+            if (rel.state === 0) {
                 return res.json({ msg: "Une demande d'ami est déjà en attente." })
             }
 
-            if (r.state === 1) {
+            if (rel.state === 1) {
                 return res.json({ msg: "Vous êtes déjà amis." })
             }
 
             return res.json({ msg: "Une relation existe déjà." })
         }
 
-        await pool.query(
-            `INSERT INTO relation (user_id, user2_id, state)
-             VALUES ($1, $2, 0)`,
-            [me, user2Id]
-        )
+        await prisma.relation.create({
+            data: {
+                user_id: me,
+                user2_id: user2Id,
+                state: 0
+            }
+        });
 
         logs("Nouvelle demande d'ami", {
             desc : `${req.session.user.username} vous demande en ami sur CQLJ.`, 
@@ -74,18 +75,26 @@ router.get('/request/received', async (req, res) => {
     const me = req.session.user.id
 
     try {
-        const received = await pool.query(
-            `SELECT r.id, r.created_at, r.user_id, u.username 
-             FROM relation r
-             JOIN users u ON u.id = r.user_id
-             WHERE r.user2_id = $1
-             AND r.state = 0
-             ORDER BY r.created_at DESC`,
-            [me]
-        )
+        const receivedRaw = await prisma.relation.findMany({
+            where: {
+                user2_id: me,
+                state: 0
+            },
+            orderBy: { created_at: 'desc' }
+        });
+        
+        const received = await Promise.all(receivedRaw.map(async r => {
+            const u = await prisma.users.findUnique({ where: { id: r.user_id }, select: { username: true } });
+            return {
+                id: r.id,
+                created_at: r.created_at,
+                user_id: r.user_id,
+                username: u ? u.username : null
+            };
+        }));
 
         return res.json({
-            data: received.rows,
+            data: received,
             ok : true
         })
 
@@ -99,18 +108,26 @@ router.get('/request/sent', async (req, res) => {
     const me = req.session.user.id
 
     try {
-        const sent = await pool.query(
-            `SELECT r.id, r.created_at, r.user2_id, u.username
-             FROM relation r
-             JOIN users u ON u.id = r.user2_id
-             WHERE r.user_id = $1
-             AND r.state = 0
-             ORDER BY r.created_at DESC`,
-            [me]
-        )
+        const sentRaw = await prisma.relation.findMany({
+            where: {
+                user_id: me,
+                state: 0
+            },
+            orderBy: { created_at: 'desc' }
+        });
+
+        const sent = await Promise.all(sentRaw.map(async r => {
+            const u = await prisma.users.findUnique({ where: { id: r.user2_id }, select: { username: true } });
+            return {
+                id: r.id,
+                created_at: r.created_at,
+                user2_id: r.user2_id,
+                username: u ? u.username : null
+            };
+        }));
 
         return res.json({
-            data: sent.rows,
+            data: sent,
             ok: true
         })
 
@@ -125,29 +142,26 @@ router.post('/request/accept', async (req, res) => {
     const { requestId } = req.body
 
     try {
-        const rel = await pool.query(
-            `SELECT * FROM relation
-             WHERE id = $1
-             AND user2_id = $2
-             AND state = 0
-             `,
-            [requestId, me]
-        )
+        const rel = await prisma.relation.findFirst({
+            where: {
+                id: parseInt(requestId),
+                user2_id: me,
+                state: 0
+            }
+        });
 
-        if (rel.rows.length === 0) {
+        if (!rel) {
             return res.json({ msg: "Impossible d'accepter cette demande." })
         }
 
-        await pool.query(
-            `UPDATE relation
-             SET state = 1
-             WHERE id = $1`,
-            [requestId]
-        )
+        await prisma.relation.update({
+            where: { id: parseInt(requestId) },
+            data: { state: 1 }
+        });
 
         logs("Demande d'ami acceptée !", {
             desc : `${req.session.user.username} a accepté votre demande d'amis`, 
-            userId:  rel.rows[0].user_id,
+            userId:  rel.user_id,
             public : true,
             link : "/friends"
         }) 
@@ -164,36 +178,30 @@ router.get('/list', async (req, res) => {
     const me = req.session.user.id
 
     try {
-        const friends = await pool.query(
-            `
-            SELECT 
-                r.id,
-                r.created_at,
-                
-                CASE 
-                    WHEN r.user_id = $1 THEN r.user2_id
-                    ELSE r.user_id
-                END AS friend_id,
-                
-                u.username
-
-            FROM relation r
-            JOIN users u ON u.id = 
-                CASE 
-                    WHEN r.user_id = $1 THEN r.user2_id
-                    ELSE r.user_id
-                END
-
-            WHERE (r.user_id = $1 OR r.user2_id = $1)
-            AND r.state = 1
-
-            ORDER BY r.created_at DESC
-            `,
-            [me]
-        )
+        const friendsRaw = await prisma.relation.findMany({
+            where: {
+                OR: [
+                    { user_id: me },
+                    { user2_id: me }
+                ],
+                state: 1
+            },
+            orderBy: { created_at: 'desc' }
+        });
+        
+        const friends = await Promise.all(friendsRaw.map(async r => {
+            const friend_id = r.user_id === me ? r.user2_id : r.user_id;
+            const u = await prisma.users.findUnique({ where: { id: friend_id }, select: { username: true } });
+            return {
+                id: r.id,
+                created_at: r.created_at,
+                friend_id: friend_id,
+                username: u ? u.username : null
+            };
+        }));
 
         return res.json({
-            data: friends.rows, 
+            data: friends, 
             ok : true
         })
 
@@ -213,25 +221,23 @@ router.post('/remove', async (req, res) => {
     const { friendId } = req.body
 
     try {
-        const rel = await pool.query(
-            `SELECT id FROM relation
-             WHERE state = 1
-             AND (
-                 (user_id = $1 AND user2_id = $2)
-                 OR
-                 (user_id = $2 AND user2_id = $1)
-             )`,
-            [me, friendId]
-        )
+        const rel = await prisma.relation.findFirst({
+            where: {
+                state: 1,
+                OR: [
+                    { user_id: me, user2_id: parseInt(friendId) },
+                    { user_id: parseInt(friendId), user2_id: me }
+                ]
+            }
+        });
 
-        if (rel.rows.length === 0) {
+        if (!rel) {
             return res.json({ msg: "Vous n'êtes pas amis avec cet utilisateur." })
         }
 
-        await pool.query(
-            `DELETE FROM relation WHERE id = $1`,
-            [rel.rows[0].id]
-        )
+        await prisma.relation.delete({
+            where: { id: rel.id }
+        });
 
         return res.json({ msg: "Ami retiré avec succès.", ok : true })
 
@@ -251,23 +257,21 @@ router.post('/decline', async (req, res) => {
     const { requestId } = req.body
 
     try {
-        const rel = await pool.query(
-            `SELECT id FROM relation
-             WHERE id = $1
-             AND user2_id = $2
-             AND state = 0`,
-            [requestId, me]
-        )
+        const rel = await prisma.relation.findFirst({
+            where: {
+                id: parseInt(requestId),
+                user2_id: me,
+                state: 0
+            }
+        });
 
-        if (rel.rows.length === 0) {
+        if (!rel) {
             return res.json({ msg: "Impossible de refuser cette demande." })
         }
 
-        await pool.query(
-            `DELETE FROM relation
-             WHERE id = $1`,
-            [requestId]
-        )
+        await prisma.relation.delete({
+            where: { id: parseInt(requestId) }
+        });
 
         return res.json({ msg: "Demande d'ami refusée.", ok : true })
 
@@ -276,11 +280,5 @@ router.post('/decline', async (req, res) => {
         return res.json({ msg: "Erreur interne." })
     }
 })
-
-
-
-
-
-
 
 module.exports = router

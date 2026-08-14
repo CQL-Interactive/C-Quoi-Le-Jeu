@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const path = require('path')
 const fs = require('fs')
-const pool = require(path.join(process.cwd(), "db.js"));
+const prisma = require(path.join(process.cwd(), "db.js"));
 
 
 
@@ -128,18 +128,20 @@ module.exports = (requireAuth) => {
         res.render('admin/game', { jeu : jeux[index], index : indexImg })
     })
 
-    router.get('/admin/users/:id', (req, res) => {
+    router.get('/admin/users/:id', async (req, res) => {
         const id = req.params.id;
 
-        pool.query(
-            `SELECT * from users WHERE id = $1`, [id], (err, result) => {
-                if (err || result.rows.length === 0) {
-                    res.status(404).sendFile(path.join(__dirname, 'pages', 'error.html'))
-                    return;
-                }
-                res.render('admin/user', { user : result.rows[0] })
+        try {
+            const user = await prisma.users.findUnique({ where: { id: parseInt(id) } });
+            
+            if (!user) {
+                res.status(404).sendFile(path.join(__dirname, 'pages', 'error.html'))
+                return;
             }
-        )
+            res.render('admin/user', { user : user })
+        } catch (err) {
+            res.status(404).sendFile(path.join(__dirname, 'pages', 'error.html'))
+        }
     })
 
     router.get('/admin/parties', requireAuth, (req, res) => {
